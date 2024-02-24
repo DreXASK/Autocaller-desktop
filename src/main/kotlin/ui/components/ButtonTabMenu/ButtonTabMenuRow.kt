@@ -1,4 +1,4 @@
-package ui.components
+package ui.components.ButtonTabMenu
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.lazy.LazyRow

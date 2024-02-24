@@ -2,8 +2,6 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,8 +14,8 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import ui.components.ButtonTab
 import ui.components.CallScreen
+import ui.components.ConnectionScreen
 import ui.components.NavigationRail
 import ui.components.ServerScreen
 import ui.screenModes.MainScreenModes
@@ -37,10 +35,14 @@ fun App() {
             {
                 NavigationRail(mode)
 
-                if (mode.value == MainScreenModes.Calls)
-                    CallScreen()
-                else
-                    ServerScreen()
+                when (mode.value) {
+                    MainScreenModes.Calls ->
+                        CallScreen()
+                    MainScreenModes.Connection ->
+                        ConnectionScreen()
+                    MainScreenModes.Server ->
+                        ServerScreen()
+                }
             }
         }
     }

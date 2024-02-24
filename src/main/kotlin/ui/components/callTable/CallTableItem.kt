@@ -1,22 +1,20 @@
-package ui.components
+package ui.components.callTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.AbsoluteCutCornerShape
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.LocalSystemTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ui.theme.AutocallerClientTheme
+import CallTable
+import androidx.compose.ui.Alignment
+import ui.components.VerticalDivider
 
 @Preview
 @Composable
@@ -34,8 +32,9 @@ fun CallTableItem(callTableItemData: CallTable.CallTableItemData) {
         )
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            modifier = Modifier.fillMaxWidth().height(30.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(callTableItemData.surname, Modifier.weight(1f), textAlign = TextAlign.Center)
             VerticalDivider()

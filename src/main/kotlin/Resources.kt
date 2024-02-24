@@ -18,6 +18,7 @@ object Res {
 
         interface StringInterface {
             val call_manager_label: MutableState<String>
+            val connection_to_server_Label: MutableState<String>
             val server_label: MutableState<String>
         }
 
@@ -27,11 +28,13 @@ object Res {
 
         object English: StringInterface, Common() {
             override val call_manager_label = mutableStateOf("Calls")
+            override val connection_to_server_Label: MutableState<String> = mutableStateOf("Connection")
             override val server_label = mutableStateOf("Server")
         }
 
         object Russian: StringInterface, Common() {
             override val call_manager_label = mutableStateOf("Обзвон")
+            override val connection_to_server_Label: MutableState<String> = mutableStateOf("Подключение")
             override val server_label = mutableStateOf("Сервер")
         }
 
