@@ -1,4 +1,4 @@
-package ui.components
+package ui.screens
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.Text

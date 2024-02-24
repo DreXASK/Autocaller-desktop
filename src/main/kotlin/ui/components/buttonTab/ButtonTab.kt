@@ -1,4 +1,4 @@
-package ui.components.ButtonTabMenu
+package ui.components.buttonTab
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
@@ -69,11 +69,3 @@ private fun ButtonTabPreview() {
         text = "Text2222222222222222 33333333333".useNonBreakingSpace(),
     )
 }
-
-data class ButtonTabData(
-    val onClick: () -> Unit,
-    val icon: ImageVector,
-    val modifier: Modifier = Modifier,
-    val iconDescription: String = "",
-    val text: String? = null
-)

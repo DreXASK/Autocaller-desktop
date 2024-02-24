@@ -1,4 +1,4 @@
-package ui.components.ButtonTabMenu
+package ui.components.buttonTab
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.lazy.grid.GridCells

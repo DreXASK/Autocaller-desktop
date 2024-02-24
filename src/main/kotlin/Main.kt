@@ -14,10 +14,10 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import ui.components.CallScreen
-import ui.components.ConnectionScreen
+import ui.screens.CallScreen
+import ui.screens.ConnectionScreen
 import ui.components.NavigationRail
-import ui.components.ServerScreen
+import ui.screens.ServerScreen
 import ui.screenModes.MainScreenModes
 import ui.theme.AutocallerClientTheme
 
@@ -35,14 +35,17 @@ fun App() {
             {
                 NavigationRail(mode)
 
-                when (mode.value) {
+/*                when (mode.value) {
                     MainScreenModes.Calls ->
                         CallScreen()
                     MainScreenModes.Connection ->
                         ConnectionScreen()
                     MainScreenModes.Server ->
                         ServerScreen()
-                }
+                }*/
+
+                testing()
+
             }
         }
     }

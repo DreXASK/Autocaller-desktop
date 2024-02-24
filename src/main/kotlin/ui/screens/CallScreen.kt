@@ -1,4 +1,4 @@
-package ui.components
+package ui.screens
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
@@ -8,16 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ui.components.ButtonTabMenu.ButtonTabData
-import ui.components.ButtonTabMenu.ButtonTabMenuRow
 import CallTable
-import androidx.compose.foundation.background
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.rounded.*
-import androidx.compose.ui.graphics.Color
-import ui.components.ButtonTabMenu.ButtonTab
-import ui.components.callTable.CallTableFilter
+import ui.components.buttonTab.ButtonTabData
+import ui.components.buttonTab.ButtonTabMenuRow
 import ui.components.callTable.CallTableUI
 import utils.useNonBreakingSpace
 
@@ -69,12 +63,6 @@ fun CallScreen() {
         ButtonTabMenuRow(
                 buttonsDataList
             )
-/*            ButtonTab(
-                { },
-                Icons.Rounded.Settings,
-                Modifier.width(IntrinsicSize.Min).height(IntrinsicSize.Min).padding(10.dp),
-                text = "Подключение к серверу".useNonBreakingSpace()
-            )*/
 
     }
 }
