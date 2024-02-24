@@ -1,27 +1,33 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPlacement
+import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import ui.NavigationRailSample
+import ui.components.ButtonTab
+import ui.components.CallScreen
+import ui.components.NavigationRail
+import ui.components.ServerScreen
+import ui.screenModes.MainScreenModes
 import ui.theme.AutocallerClientTheme
 
 @Composable
 @Preview
 fun App() {
     var text by remember { mutableStateOf("Hello, World!") }
+    val mode = mutableStateOf(MainScreenModes.Calls)
 
     AutocallerClientTheme(isSystemInDarkTheme()) {
         Surface(
@@ -29,32 +35,26 @@ fun App() {
         ) {
             Row()
             {
-                NavigationRailSample()
+                NavigationRail(mode)
 
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Button(
-                        onClick = {
-                            text = "Hello, Desktop!"
-                            Res.str.call_manager_label.value = "444"
-                        }) {
-                        Text(
-                            text = text
-                        )
-                    }
-                    Text("Yes")
-                }
-
+                if (mode.value == MainScreenModes.Calls)
+                    CallScreen()
+                else
+                    ServerScreen()
             }
         }
     }
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(
+        state = WindowState(
+            WindowPlacement.Floating,
+            size = DpSize(1600.dp,1000.dp)
+        ),
+        title = "Autocaller Client",
+        onCloseRequest = ::exitApplication
+    ) {
         App()
     }
 }

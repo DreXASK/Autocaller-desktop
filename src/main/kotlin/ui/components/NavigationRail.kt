@@ -1,13 +1,12 @@
-package ui
+package ui.components
 
-
+import ui.screenModes.MainScreenModes
 import Res
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 
 enum class Page(val title: MutableState<String>) {
@@ -17,10 +16,10 @@ enum class Page(val title: MutableState<String>) {
 
 @Preview
 @Composable
-fun NavigationRailSample() {
+fun NavigationRail(mode: MutableState<MainScreenModes>) {
     var selectedItem by remember { mutableStateOf(0) }
     val pages = Page.entries.toTypedArray()
-    val icons = listOf(Icons.Filled.Home, Icons.Filled.Search, Icons.Filled.Settings)
+    val icons = listOf(Icons.Filled.Home, Icons.Filled.Search)
     NavigationRail {
         pages.forEachIndexed { index, item ->
             when (item) {
@@ -29,7 +28,10 @@ fun NavigationRailSample() {
                         label = { Text(item.title.value)  },
                         icon = { Icon(icons[index], contentDescription = "") },
                         selected = selectedItem == index,
-                        onClick = { selectedItem = index },
+                        onClick = {
+                            selectedItem = index
+                            mode.value = MainScreenModes.Calls
+                        },
                         alwaysShowLabel = false
                     )
                 }
@@ -39,7 +41,10 @@ fun NavigationRailSample() {
                         label = { Text(item.title.value) },
                         icon = { Icon(icons[index], contentDescription = "") },
                         selected = selectedItem == index,
-                        onClick = { selectedItem = index },
+                        onClick = {
+                            selectedItem = index
+                            mode.value = MainScreenModes.Server
+                        },
                         alwaysShowLabel = false
                     )
                 }

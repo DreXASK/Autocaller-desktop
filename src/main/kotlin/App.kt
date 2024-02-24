@@ -1,5 +1,5 @@
 object App {
-    val language = Languages.Russian
+    var language = Languages.Russian
 
     enum class Languages(name: String) {
         Russian("Русский"),

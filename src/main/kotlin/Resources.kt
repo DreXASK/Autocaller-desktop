@@ -1,8 +1,9 @@
+
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
 object Res {
-    val str : StringsResourcesByLanguages.StringInterface
+    val str: StringsResourcesByLanguages.StringInterface
         get() {
             return if (App.language == App.Languages.Russian)
                 StringsResourcesByLanguages.Russian
@@ -10,8 +11,11 @@ object Res {
                 StringsResourcesByLanguages.English
         }
 
+
     object StringsResourcesByLanguages {
+
         // %1$s %2$s etc. for string parameters
+
         interface StringInterface {
             val call_manager_label: MutableState<String>
             val server_label: MutableState<String>
@@ -34,13 +38,14 @@ object Res {
     }
 }
 
+
+
 fun getStringResourceWithParameter(stringResource: MutableState<String>, vararg parameters: String): MutableState<String> {
     var currentParameterCount = 1
     while(true) {
         if(!stringResource.value.contains("%${currentParameterCount}\$s")) {
             break
         }
-
         if (parameters.count() < currentParameterCount)
             throw Exception("Insufficient parameters given, given parameters count = ${parameters.count()}, stringResource = $stringResource")
 
