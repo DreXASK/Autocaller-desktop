@@ -10,6 +10,8 @@ group = "com.drexask.autocaller.client"
 version = "1.0-SNAPSHOT"
 val ktor_version: String by project
 val kotlinx_serialization_version: String by project
+val koin_version: String by project
+val koin_compose_version: String by project
 
 repositories {
     mavenCentral()
@@ -24,10 +26,15 @@ dependencies {
     // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version")
+
     implementation("io.ktor:ktor-client-core:$ktor_version")
     implementation("io.ktor:ktor-client-cio:$ktor_version")
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+
+    implementation("io.insert-koin:koin-core:$koin_version")
+    implementation("io.insert-koin:koin-ktor:$koin_version")
+
 }
 
 compose.desktop {

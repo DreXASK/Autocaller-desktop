@@ -20,12 +20,17 @@ import ui.components.NavigationRail
 import ui.screens.ServerScreen
 import ui.screenModes.MainScreenModes
 import ui.theme.AutocallerClientTheme
+import viewModels.CallScreenViewModel
+import viewModels.ConnectionScreenViewModel
 
 @Composable
 @Preview
 fun App() {
     var text by remember { mutableStateOf("Hello, World!") }
     val mode = mutableStateOf(MainScreenModes.Calls)
+
+    val callScreenViewModel = CallScreenViewModel()
+    val connectionScreenViewModel = ConnectionScreenViewModel()
 
     AutocallerClientTheme(isSystemInDarkTheme()) {
         Surface(
@@ -37,9 +42,9 @@ fun App() {
 
                 when (mode.value) {
                     MainScreenModes.Calls ->
-                        CallScreen()
+                        CallScreen(callScreenViewModel)
                     MainScreenModes.Connection ->
-                        ConnectionScreen()
+                        ConnectionScreen(connectionScreenViewModel)
                     MainScreenModes.Server ->
                         ServerScreen()
                 }
@@ -53,7 +58,7 @@ fun main() = application {
     Window(
         state = WindowState(
             WindowPlacement.Floating,
-            size = DpSize(1600.dp,1000.dp)
+            size = DpSize(1280.dp,720.dp)
         ),
         title = "Autocaller Client",
         onCloseRequest = ::exitApplication

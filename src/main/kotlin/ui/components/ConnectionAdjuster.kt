@@ -13,8 +13,9 @@ import network.Connection
 
 @Preview
 @Composable
-fun ConnectionAdjuster() {
-    var ipTextValue by remember { mutableStateOf("") }
+fun ConnectionAdjuster(ipTextMutableState: MutableState<String>) {
+
+    var ipTextValue by remember { ipTextMutableState }
 
     Column(
         modifier = Modifier.width(IntrinsicSize.Min),
@@ -27,7 +28,7 @@ fun ConnectionAdjuster() {
         )
         Button(
             onClick = {
-
+                println(ipTextMutableState.value)
             },
             modifier = Modifier.fillMaxWidth()
         ) {

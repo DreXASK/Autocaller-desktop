@@ -3,57 +3,25 @@ package ui.screens
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
-import androidx.compose.material.icons.Icons
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import CallTable
 import CallTableItemData
-import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import kotlinx.serialization.json.Json
 import readFileDirectlyAsText
+import ui.components.ContactAdderDialog
 import ui.components.FileDialog
-import ui.components.buttonTab.ButtonTabData
 import ui.components.buttonTab.ButtonTabMenuLazyRow
 import ui.components.callTable.CallTableUI
-import utils.useNonBreakingSpace
+import viewModels.CallScreenViewModel
 
 @Preview
 @Composable
-fun CallScreen() {
-    var isFilePickerOpen by remember { mutableStateOf(false) }
-    val buttonsDataList = listOf(
-        ButtonTabData(
-            onClick = {
-                CallTable.addContactToTable(
-                    CallTableItemData(
-                        "Крючков",
-                        "Илья",
-                        "Николаевич",
-                        "88005553535",
-                        "М",
-                        50
-                    )
-                )
-            },
-            icon = Icons.Rounded.Add,
-            modifier = Modifier.width(IntrinsicSize.Min).height(IntrinsicSize.Min).padding(10.dp),
-            text = "Добавить контакт".useNonBreakingSpace(),
-        ),
-        ButtonTabData(
-            onClick = { isFilePickerOpen = !isFilePickerOpen },
-            icon = Icons.Rounded.List,
-            modifier = Modifier.width(IntrinsicSize.Min).height(IntrinsicSize.Min).padding(10.dp),
-            text = "Загрузить базу (Json)".useNonBreakingSpace(),
-        ),
-        ButtonTabData(
-            onClick = { println(789) },
-            icon = Icons.Rounded.Send,
-            modifier = Modifier.width(IntrinsicSize.Min).height(IntrinsicSize.Min).padding(10.dp),
-            text = "Отправить контакты на сервер".useNonBreakingSpace(),
-        )
-    )
+fun CallScreen(viewModel: CallScreenViewModel) {
+
+    var isFilePickerOpen by remember { viewModel.isFilePickerOpen  }
+    var isContactAdderDialogOpen by remember { viewModel.isContactAdderDialogOpen }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -65,7 +33,7 @@ fun CallScreen() {
             CallTable.CallTableUI()
         }
         Divider()
-        ButtonTabMenuLazyRow(buttonsDataList)
+        ButtonTabMenuLazyRow(viewModel.buttonsDataList)
     }
 
     if(isFilePickerOpen) {
@@ -84,8 +52,14 @@ fun CallScreen() {
                     println(e.message)
                 }
 
-
             }
         )
+    }
+
+    if(isContactAdderDialogOpen) {
+        ContactAdderDialog() {
+            isContactAdderDialogOpen = false
+            println("123")
+        }
     }
 }
