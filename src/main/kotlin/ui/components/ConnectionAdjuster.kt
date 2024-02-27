@@ -5,11 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import network.Connection
@@ -17,23 +14,24 @@ import network.Connection
 @Preview
 @Composable
 fun ConnectionAdjuster() {
-
-    val ipTextValue = mutableStateOf("")
+    var ipTextValue by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier.width(IntrinsicSize.Min),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedTextField(
-            value = ipTextValue.value,
-            onValueChange = { ipTextValue.value = it },
+            value = ipTextValue,
+            onValueChange = { ipTextValue = it },
             label = { Text("IP:Port") }
         )
-        OutlinedButton(
-            { },
+        Button(
+            onClick = {
+
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Кнопка")
+            Text("Подключиться")
         }
         Text(Connection.connectionStatus.value.text)
     }

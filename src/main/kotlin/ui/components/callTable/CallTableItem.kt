@@ -13,12 +13,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import CallTable
+import CallTableItemData
 import androidx.compose.ui.Alignment
 import ui.components.VerticalDivider
 
 @Preview
 @Composable
-fun CallTableItem(callTableItemData: CallTable.CallTableItemData) {
+fun CallTableItem(callTableItemData: CallTableItemData) {
     Card(
         shape = RoundedCornerShape(2.dp),
         elevation = 10.dp,

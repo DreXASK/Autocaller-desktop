@@ -10,7 +10,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,7 +26,7 @@ enum class Page(val title: MutableState<String>) {
 fun NavigationRail(mode: MutableState<MainScreenModes>) {
     var selectedItem by remember { mutableStateOf(0) }
     val pages = Page.entries.toTypedArray()
-    val icons = listOf(Icons.Filled.Home, Icons.Rounded.Settings, Icons.Filled.Search)
+    val icons = listOf(Icons.Rounded.Call, Icons.Rounded.Settings, Icons.Rounded.Menu)
     NavigationRail(
         modifier = Modifier.width(IntrinsicSize.Min)
     ) {

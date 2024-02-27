@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 
 @Preview
 @Composable
-fun ButtonTabMenuRow(
+fun ButtonTabMenuLazyRow(
     buttonsDataList: List<ButtonTabData>,
     modifier: Modifier = Modifier
 ) {

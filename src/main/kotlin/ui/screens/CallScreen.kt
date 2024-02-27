@@ -4,25 +4,30 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.icons.Icons
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import CallTable
+import CallTableItemData
 import androidx.compose.material.icons.rounded.*
+import androidx.compose.runtime.*
+import kotlinx.serialization.json.Json
+import readFileDirectlyAsText
+import ui.components.FileDialog
 import ui.components.buttonTab.ButtonTabData
-import ui.components.buttonTab.ButtonTabMenuRow
+import ui.components.buttonTab.ButtonTabMenuLazyRow
 import ui.components.callTable.CallTableUI
 import utils.useNonBreakingSpace
 
 @Preview
 @Composable
 fun CallScreen() {
+    var isFilePickerOpen by remember { mutableStateOf(false) }
     val buttonsDataList = listOf(
         ButtonTabData(
             onClick = {
                 CallTable.addContactToTable(
-                    CallTable.CallTableItemData(
+                    CallTableItemData(
                         "Крючков",
                         "Илья",
                         "Николаевич",
@@ -37,7 +42,7 @@ fun CallScreen() {
             text = "Добавить контакт".useNonBreakingSpace(),
         ),
         ButtonTabData(
-            onClick = { println(456) },
+            onClick = { isFilePickerOpen = !isFilePickerOpen },
             icon = Icons.Rounded.List,
             modifier = Modifier.width(IntrinsicSize.Min).height(IntrinsicSize.Min).padding(10.dp),
             text = "Загрузить базу (Json)".useNonBreakingSpace(),
@@ -47,7 +52,7 @@ fun CallScreen() {
             icon = Icons.Rounded.Send,
             modifier = Modifier.width(IntrinsicSize.Min).height(IntrinsicSize.Min).padding(10.dp),
             text = "Отправить контакты на сервер".useNonBreakingSpace(),
-        ),
+        )
     )
 
     Column(
@@ -60,9 +65,27 @@ fun CallScreen() {
             CallTable.CallTableUI()
         }
         Divider()
-        ButtonTabMenuRow(
-                buttonsDataList
-            )
+        ButtonTabMenuLazyRow(buttonsDataList)
+    }
 
+    if(isFilePickerOpen) {
+        FileDialog(
+            onCloseRequest = {
+                println("Result $it")
+
+                if (it == null)
+                    return@FileDialog
+
+                try {
+                    val callTableItemDataList =
+                        Json.decodeFromString<List<CallTableItemData>>(readFileDirectlyAsText(it))
+                    CallTable.addListToTable(callTableItemDataList)
+                } catch (e: Exception) {
+                    println(e.message)
+                }
+
+
+            }
+        )
     }
 }

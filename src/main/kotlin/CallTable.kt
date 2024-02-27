@@ -16,17 +16,13 @@ object CallTable {
     val ageMinFilterText = mutableStateOf("")
     val ageMaxFilterText = mutableStateOf("")
 
-    data class CallTableItemData(
-        val surname: String,
-        val name: String,
-        val patronymic: String,
-        val number: String,
-        val gender: String,
-        val age: Int
-    )
-
     fun addContactToTable(callTableItemData: CallTableItemData) {
         callTableContacts.add(callTableItemData)
+        updateFilter()
+    }
+
+    fun addListToTable(callTableItemDataList: List<CallTableItemData>) {
+        callTableContacts.addAll(callTableItemDataList)
         updateFilter()
     }
 

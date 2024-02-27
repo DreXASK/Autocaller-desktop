@@ -35,16 +35,14 @@ fun App() {
             {
                 NavigationRail(mode)
 
-/*                when (mode.value) {
+                when (mode.value) {
                     MainScreenModes.Calls ->
                         CallScreen()
                     MainScreenModes.Connection ->
                         ConnectionScreen()
                     MainScreenModes.Server ->
                         ServerScreen()
-                }*/
-
-                testing()
+                }
 
             }
         }

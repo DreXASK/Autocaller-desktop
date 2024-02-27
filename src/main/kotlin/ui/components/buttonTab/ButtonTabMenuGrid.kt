@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 
 @Preview
 @Composable
-fun ButtonTabMenu(
+fun ButtonTabMenuGrid(
     buttonsDataList: List<ButtonTabData>,
     gridCells: GridCells,
     modifier: Modifier = Modifier
