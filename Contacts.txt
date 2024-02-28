@@ -1,0 +1,282 @@
+[
+  {
+    "surname": "Крючков",
+    "name": "Илья",
+    "patronymic": "Николаевич",
+    "number": "88005553535",
+    "gender": "М",
+    "age": 21
+  },
+  {
+    "surname": "Галиулин",
+    "name": "Данила",
+    "patronymic": "Русланович",
+    "number": "88005553536",
+    "gender": "М",
+    "age": 22
+  },
+  {
+    "surname": "Умирбеков",
+    "name": "Дамир",
+    "patronymic": "Сакенович",
+    "number": "88005553537",
+    "gender": "М",
+    "age": 21
+  },
+  {
+    "surname": "Новикова",
+    "name": "Елизавета",
+    "patronymic": "Ивановна",
+    "number": "74952759503",
+    "gender": "Ж",
+    "age": 32
+  },
+{
+    "surname": "Сидоров",
+    "name": "Алексей",
+    "patronymic": "Петрович",
+    "number": "79871234567",
+    "gender": "М",
+    "age": 45
+  },
+  {
+    "surname": "Иванов",
+    "name": "Мария",
+    "patronymic": "Сергеевна",
+    "number": "74951234567",
+    "gender": "Ж",
+    "age": 28
+  },
+  {
+    "surname": "Петров",
+    "name": "Дмитрий",
+    "patronymic": "Александрович",
+    "number": "79105673219",
+    "gender": "М",
+    "age": 37
+  },
+  {
+    "surname": "Козлова",
+    "name": "Екатерина",
+    "patronymic": "Владимировна",
+    "number": "74957654321",
+    "gender": "Ж",
+    "age": 30
+  },
+  {
+    "surname": "Васильев",
+    "name": "Андрей",
+    "patronymic": "Игоревич",
+    "number": "79871239876",
+    "gender": "М",
+    "age": 34
+  },
+  {
+    "surname": "Смирнова",
+    "name": "Ольга",
+    "patronymic": "Александровна",
+    "number": "74951239876",
+    "gender": "Ж",
+    "age": 29
+  },
+  {
+    "surname": "Кузнецов",
+    "name": "Иван",
+    "patronymic": "Павлович",
+    "number": "79105676432",
+    "gender": "М",
+    "age": 41
+  },
+  {
+    "surname": "Морозова",
+    "name": "Татьяна",
+    "patronymic": "Николаевна",
+    "number": "74957659876",
+    "gender": "Ж",
+    "age": 25
+  },
+  {
+    "surname": "Никитин",
+    "name": "Сергей",
+    "patronymic": "Дмитриевич",
+    "number": "79871238901",
+    "gender": "М",
+    "age": 39
+  },
+  {
+    "surname": "Павлова",
+    "name": "Анастасия",
+    "patronymic": "Юрьевна",
+    "number": "74951239801",
+    "gender": "Ж",
+    "age": 31
+  },
+  {
+    "surname": "Ильин",
+    "name": "Артем",
+    "patronymic": "Олегович",
+    "number": "79871239999",
+    "gender": "М",
+    "age": 36
+  },
+  {
+    "surname": "Козлов",
+    "name": "Александр",
+    "patronymic": "Игоревич",
+    "number": "74951230000",
+    "gender": "М",
+    "age": 27
+  },
+  {
+    "surname": "Медведева",
+    "name": "Елена",
+    "patronymic": "Андреевна",
+    "number": "79105670000",
+    "gender": "Ж",
+    "age": 40
+  },
+  {
+    "surname": "Сергеев",
+    "name": "Владимир",
+    "patronymic": "Алексеевич",
+    "number": "74957650000",
+    "gender": "М",
+    "age": 33
+  },
+  {
+    "surname": "Полякова",
+    "name": "Наталья",
+    "patronymic": "Дмитриевна",
+    "number": "79871231111",
+    "gender": "Ж",
+    "age": 38
+  },
+  {
+    "surname": "Антонов",
+    "name": "Павел",
+    "patronymic": "Иванович",
+    "number": "74951231111",
+    "gender": "М",
+    "age": 26
+  },
+  {
+    "surname": "Григорьева",
+    "name": "София",
+    "patronymic": "Сергеевна",
+    "number": "79105670001",
+    "gender": "Ж",
+    "age": 29
+  },
+  {
+    "surname": "Борисов",
+    "name": "Григорий",
+    "patronymic": "Петрович",
+    "number": "74957650001",
+    "gender": "М",
+    "age": 42
+  },
+  {
+    "surname": "Щербакова",
+    "name": "Ирина",
+    "patronymic": "Александровна",
+    "number": "79871232222",
+    "gender": "Ж",
+    "age": 32
+  },
+  {
+    "surname": "Тимофеев",
+    "name": "Антон",
+    "patronymic": "Николаевич",
+    "number": "74951232222",
+    "gender": "М",
+    "age": 31
+  },
+  {
+    "surname": "Федорова",
+    "name": "Вера",
+    "patronymic": "Ивановна",
+    "number": "79105670002",
+    "gender": "Ж",
+    "age": 35
+  },
+  {
+    "surname": "Семенов",
+    "name": "Михаил",
+    "patronymic": "Андреевич",
+    "number": "74957650002",
+    "gender": "М",
+    "age": 30
+  },
+  {
+    "surname": "Волкова",
+    "name": "Алена",
+    "patronymic": "Петровна",
+    "number": "79871233333",
+    "gender": "Ж",
+    "age": 28
+  },
+  {
+    "surname": "Горбунов",
+    "name": "Виктор",
+    "patronymic": "Владимирович",
+    "number": "74951233333",
+    "gender": "М",
+    "age": 39
+  },
+  {
+    "surname": "Комарова",
+    "name": "Евгения",
+    "patronymic": "Алексеевна",
+    "number": "79105670003",
+    "gender": "Ж",
+    "age": 27
+  },
+  {
+    "surname": "Денисов",
+    "name": "Артемий",
+    "patronymic": "Дмитриевич",
+    "number": "74957650003",
+    "gender": "М",
+    "age": 37
+  },
+  {
+    "surname": "Максимова",
+    "name": "Людмила",
+    "patronymic": "Анатольевна",
+    "number": "79871234444",
+    "gender": "Ж",
+    "age": 26
+  },
+  {
+    "surname": "Романов",
+    "name": "Василий",
+    "patronymic": "Павлович",
+    "number": "74951234444",
+    "gender": "М",
+    "age": 41
+  },
+  {
+    "surname": "Беляева",
+    "name": "Светлана",
+    "patronymic": "Михайловна",
+    "number": "79105670004",
+    "gender": "Ж",
+    "age": 34
+  },
+  {
+    "surname": "Кудрявцев",
+    "name": "Аркадий",
+    "patronymic": "Николаевич",
+    "number": "74957650004",
+    "gender": "М",
+    "age": 33
+  },
+  {
+    "surname": "Афанасьева",
+    "name": "Елена",
+    "patronymic": "Аркадьевна",
+    "number": "79871235555",
+    "gender": "Ж",
+    "age": 30
+  }
+]
