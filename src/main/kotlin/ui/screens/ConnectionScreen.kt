@@ -9,14 +9,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.koin.java.KoinJavaComponent.inject
 import ui.components.ConnectionAdjuster
 import ui.screenModes.ConnectionScreenModes
 import viewModels.ConnectionScreenViewModel
 
 @Preview
 @Composable
-fun ConnectionScreen(viewModel: ConnectionScreenViewModel) {
-
+fun ConnectionScreen() {
+    val viewModel by inject<ConnectionScreenViewModel>(ConnectionScreenViewModel::class.java)
     val screenMode by remember { viewModel.screenMode }
 
     Box(

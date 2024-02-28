@@ -14,6 +14,10 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import di.modules.testModule
+import org.koin.core.context.startKoin
+import org.koin.dsl.koinApplication
+import org.koin.java.KoinJavaComponent.inject
 import ui.screens.CallScreen
 import ui.screens.ConnectionScreen
 import ui.components.NavigationRail
@@ -26,11 +30,7 @@ import viewModels.ConnectionScreenViewModel
 @Composable
 @Preview
 fun App() {
-    var text by remember { mutableStateOf("Hello, World!") }
     val mode = mutableStateOf(MainScreenModes.Calls)
-
-    val callScreenViewModel = CallScreenViewModel()
-    val connectionScreenViewModel = ConnectionScreenViewModel()
 
     AutocallerClientTheme(isSystemInDarkTheme()) {
         Surface(
@@ -42,9 +42,9 @@ fun App() {
 
                 when (mode.value) {
                     MainScreenModes.Calls ->
-                        CallScreen(callScreenViewModel)
+                        CallScreen()
                     MainScreenModes.Connection ->
-                        ConnectionScreen(connectionScreenViewModel)
+                        ConnectionScreen()
                     MainScreenModes.Server ->
                         ServerScreen()
                 }
@@ -63,6 +63,13 @@ fun main() = application {
         title = "Autocaller Client",
         onCloseRequest = ::exitApplication
     ) {
+        initKoin()
         App()
+    }
+}
+
+fun initKoin() {
+    startKoin {
+        modules(testModule)
     }
 }

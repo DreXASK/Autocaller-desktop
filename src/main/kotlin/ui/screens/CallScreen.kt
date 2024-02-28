@@ -9,6 +9,8 @@ import CallTable
 import CallTableItemData
 import androidx.compose.runtime.*
 import kotlinx.serialization.json.Json
+import org.koin.java.KoinJavaComponent
+import org.koin.java.KoinJavaComponent.inject
 import readFileDirectlyAsText
 import ui.components.ContactAdderDialog
 import ui.components.FileDialog
@@ -18,7 +20,9 @@ import viewModels.CallScreenViewModel
 
 @Preview
 @Composable
-fun CallScreen(viewModel: CallScreenViewModel) {
+fun CallScreen() {
+
+    val viewModel by inject<CallScreenViewModel>(CallScreenViewModel::class.java)
 
     var isFilePickerOpen by remember { viewModel.isFilePickerOpen  }
     var isContactAdderDialogOpen by remember { viewModel.isContactAdderDialogOpen }
