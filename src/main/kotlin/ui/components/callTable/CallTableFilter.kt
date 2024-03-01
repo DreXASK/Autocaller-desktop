@@ -1,6 +1,6 @@
 package ui.components.callTable
 
-import CallTable
+import callScreen.domain.CallTable
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.OutlinedTextField

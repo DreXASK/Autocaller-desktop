@@ -5,23 +5,22 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import CallTable
-import CallTableItemData
+import callScreen.domain.CallTable
+import callScreen.domain.CallTableItemData
 import androidx.compose.runtime.*
 import kotlinx.serialization.json.Json
-import org.koin.java.KoinJavaComponent
+import org.koin.core.context.KoinContext
 import org.koin.java.KoinJavaComponent.inject
 import readFileDirectlyAsText
 import ui.components.ContactAdderDialog
 import ui.components.FileDialog
 import ui.components.buttonTab.ButtonTabMenuLazyRow
 import ui.components.callTable.CallTableUI
-import viewModels.CallScreenViewModel
+import callScreen.presentation.CallScreenViewModel
 
 @Preview
 @Composable
 fun CallScreen() {
-
     val viewModel by inject<CallScreenViewModel>(CallScreenViewModel::class.java)
 
     var isFilePickerOpen by remember { viewModel.isFilePickerOpen  }

@@ -3,10 +3,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -14,18 +11,14 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import di.modules.testModule
+import di.modules.viewModelsModule
 import org.koin.core.context.startKoin
-import org.koin.dsl.koinApplication
-import org.koin.java.KoinJavaComponent.inject
 import ui.screens.CallScreen
 import ui.screens.ConnectionScreen
 import ui.components.NavigationRail
 import ui.screens.ServerScreen
 import ui.screenModes.MainScreenModes
 import ui.theme.AutocallerClientTheme
-import viewModels.CallScreenViewModel
-import viewModels.ConnectionScreenViewModel
 
 @Composable
 @Preview
@@ -70,6 +63,6 @@ fun main() = application {
 
 fun initKoin() {
     startKoin {
-        modules(testModule)
+        modules(viewModelsModule)
     }
 }
