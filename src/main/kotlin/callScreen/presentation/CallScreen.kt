@@ -1,22 +1,16 @@
-package ui.screens
+package callScreen.presentation
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import callScreen.domain.CallTable
-import callScreen.domain.CallTableItemData
 import androidx.compose.runtime.*
-import kotlinx.serialization.json.Json
-import org.koin.core.context.KoinContext
 import org.koin.java.KoinJavaComponent.inject
-import readFileDirectlyAsText
-import ui.components.ContactAdderDialog
-import ui.components.FileDialog
+import callScreen.presentation.components.ContactAdderDialog
+import core.presentation.components.MyFileDialog
 import ui.components.buttonTab.ButtonTabMenuLazyRow
-import ui.components.callTable.CallTableUI
-import callScreen.presentation.CallScreenViewModel
+import callScreen.presentation.components.callTable.CallTableUI
 
 @Preview
 @Composable
@@ -33,34 +27,26 @@ fun CallScreen() {
             Modifier.weight(1f),
             contentAlignment = Alignment.TopCenter
         ) {
-            CallTable.CallTableUI()
+            CallTableUI(
+                viewModel.callTableStore,
+                viewModel.filterStore,
+                viewModel::updateContactListFiltered
+            )
         }
         Divider()
         ButtonTabMenuLazyRow(viewModel.buttonsDataList)
     }
 
     if(isFilePickerOpen) {
-        FileDialog(
+        MyFileDialog(
             onCloseRequest = {
-                println("Result $it")
-
-                if (it == null)
-                    return@FileDialog
-
-                try {
-                    val callTableItemDataList =
-                        Json.decodeFromString<List<CallTableItemData>>(readFileDirectlyAsText(it))
-                    CallTable.addListToTable(callTableItemDataList)
-                } catch (e: Exception) {
-                    println(e.message)
-                }
-
+                it?.let { viewModel.addContactsToListFromJsonFileViaURL(it) }
             }
         )
     }
 
     if(isContactAdderDialogOpen) {
-        ContactAdderDialog() {
+        ContactAdderDialog {
             isContactAdderDialogOpen = false
             println("123")
         }

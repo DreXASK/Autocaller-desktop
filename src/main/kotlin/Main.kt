@@ -11,9 +11,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import di.modules.viewModelsModule
+import callScreen.di.callScreenModule
 import org.koin.core.context.startKoin
-import ui.screens.CallScreen
+import callScreen.presentation.CallScreen
 import ui.screens.ConnectionScreen
 import ui.components.NavigationRail
 import ui.screens.ServerScreen
@@ -63,6 +63,6 @@ fun main() = application {
 
 fun initKoin() {
     startKoin {
-        modules(viewModelsModule)
+        modules(callScreenModule)
     }
 }

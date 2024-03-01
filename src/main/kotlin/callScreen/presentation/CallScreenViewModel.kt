@@ -12,9 +12,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import callScreen.domain.*
+import kotlinx.serialization.json.Json
 import org.koin.java.KoinJavaComponent.inject
 import ui.components.buttonTab.ButtonTabData
 import utils.useNonBreakingSpace
+import java.io.File
 
 class CallScreenViewModel {
 
@@ -22,7 +24,6 @@ class CallScreenViewModel {
 	val callTableUpdateFilterUseCase by inject<CallTableUpdateFilterUseCase>(CallTableUpdateFilterUseCase::class.java)
 	val callTableStore by inject<CallTableStore>(CallTableStore::class.java)
 	val filterStore by inject<CallTableFilterStore>(CallTableFilterStore::class.java)
-
 
 	var isFilePickerOpen = mutableStateOf(false)
 	var isContactAdderDialogOpen = mutableStateOf(false)
@@ -60,12 +61,12 @@ class CallScreenViewModel {
 		)
 	)
 
-	fun addContactToTable(itemData: CallTableItemData) {
+	private fun addContactToTable(itemData: CallTableItemData) {
 		callTableAddContactsUseCase.addContactToTable(callTableStore.contactList, itemData)
 		updateContactListFiltered()
 	}
 
-	fun addContactListToTable(itemDataList: List<CallTableItemData>) {
+	private fun addContactListToTable(itemDataList: List<CallTableItemData>) {
 		callTableAddContactsUseCase.addListToTable(callTableStore.contactList, itemDataList)
 		updateContactListFiltered()
 	}
@@ -80,5 +81,26 @@ class CallScreenViewModel {
 		)
 	}
 
+	fun addContactsToListFromJsonFileViaURL(
+		url: String
+	) {
+		callTableAddContactsUseCase.addListToTable(
+			callTableStore.contactList,
+			readFileAndDeserializeList<CallTableItemData>(url).toMutableList()
+		)
+		updateContactListFiltered()
+	}
+
+	private inline fun <reified T> readFileAndDeserializeList(
+		url: String
+	): List<T> {
+		val callTableItemDataList = try {
+			println(File(url).readText())
+			Json.decodeFromString<List<T>>(File(url).readText())
+		} catch (e: Exception) {
+			throw Exception(e.message)
+		}
+		return callTableItemDataList
+	}
 
 }

@@ -18,8 +18,8 @@ class CallTableUpdateFilterUseCase {
 						&& it.gender.contains(genderFilterText.value, ignoreCase = true)
 						&& (isAgeFieldAreEmpty(this)
 						|| isAgeBiggerThanMinAgeAndSmallerThanMaxAge(it, this)
-						|| isAgeBiggerThanMinAge(it, this)
-						|| isAgeSmallerThanMaxAge(it, this)
+						|| (isOnlyMinAgeIsExists(filterStore) && isAgeBiggerThanMinAge(it, this))
+						|| (isOnlyMaxAgeIsExists(filterStore) && isAgeSmallerThanMaxAge(it, this))
 						)
 			})
 		}
@@ -35,18 +35,27 @@ private fun isAgeFieldAreEmpty(filterStore: CallTableFilterStore): Boolean =
 private fun isAgeBiggerThanMinAgeAndSmallerThanMaxAge(
 	itemData: CallTableItemData,
 	filterStore: CallTableFilterStore
-): Boolean = isAgeBiggerThanMinAge(itemData, filterStore) && isAgeSmallerThanMaxAge(itemData, filterStore)
+): Boolean =
+
+	isAgeBiggerThanMinAge(itemData, filterStore) && isAgeSmallerThanMaxAge(itemData, filterStore)
 
 private fun isAgeBiggerThanMinAge(
 	itemData: CallTableItemData,
 	filterStore: CallTableFilterStore
-) = filterStore.ageMinFilterText.value.isNotEmpty()
-		&& filterStore.ageMaxFilterText.value.isEmpty()
-		&& itemData.age > (filterStore.ageMinFilterText.value.toIntOrNull() ?: 0)
+) = itemData.age > (filterStore.ageMinFilterText.value.toIntOrNull() ?: 0)
 
 private fun isAgeSmallerThanMaxAge(
 	itemData: CallTableItemData,
 	filterStore: CallTableFilterStore
-) = filterStore.ageMaxFilterText.value.isNotEmpty() &&
-		filterStore.ageMinFilterText.value.isEmpty() &&
-		itemData.age < (filterStore.ageMaxFilterText.value.toIntOrNull() ?: Int.MAX_VALUE)
+) = itemData.age < (filterStore.ageMaxFilterText.value.toIntOrNull() ?: Int.MAX_VALUE)
+
+private fun isOnlyMaxAgeIsExists(filterStore: CallTableFilterStore): Boolean {
+	return filterStore.ageMinFilterText.value.isEmpty() &&
+			filterStore.ageMaxFilterText.value.isNotEmpty()
+}
+
+private fun isOnlyMinAgeIsExists(filterStore: CallTableFilterStore): Boolean {
+	return filterStore.ageMinFilterText.value.isNotEmpty() &&
+			filterStore.ageMaxFilterText.value.isEmpty()
+}
+

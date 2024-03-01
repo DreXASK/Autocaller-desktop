@@ -1,4 +1,4 @@
-package ui.components
+package core.presentation.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.AwtWindow
@@ -6,7 +6,7 @@ import java.awt.FileDialog
 import java.awt.Frame
 
 @Composable
-fun FileDialog(
+fun MyFileDialog(
     title: String = "Выберите файл",
     parent: Frame? = null,
     onCloseRequest: (result: String?) -> Unit
