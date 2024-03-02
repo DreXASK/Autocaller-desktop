@@ -21,7 +21,7 @@ fun ButtonTab(
     iconDescription: String = "",
     text: String? = null
 ) {
-    Button(
+    OutlinedButton(
         onClick = onClick,
         modifier = modifier
     ) {
@@ -43,7 +43,9 @@ fun ButtonTab(
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Divider()
+                        Divider(
+                            color = MaterialTheme.colors.surface
+                        )
                         Text(
                             text,
                             textAlign = TextAlign.Center,
