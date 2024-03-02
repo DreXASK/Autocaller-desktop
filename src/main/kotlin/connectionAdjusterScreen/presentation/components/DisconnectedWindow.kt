@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import connectionAdjusterScreen.presentation.ConnectionAdjusterScreenViewModel
+import core.domain.ServerConnectionStatus
 import org.koin.java.KoinJavaComponent.inject
 
 @Preview
@@ -17,7 +18,7 @@ import org.koin.java.KoinJavaComponent.inject
 fun DisconnectedWindow() {
     val viewModel by inject<ConnectionAdjusterScreenViewModel>(ConnectionAdjusterScreenViewModel::class.java)
     var ipTextValue by remember { viewModel.ipTextValue }
-    val connectionStatus by remember { viewModel.serverConnection.connectionStatus }
+    var connectionStatus by remember { viewModel.serverConnection.connectionStatus }
 
     Column(
         modifier = Modifier.width(IntrinsicSize.Min),
@@ -30,7 +31,7 @@ fun DisconnectedWindow() {
         )
         Button(
             onClick = {
-                println(ipTextValue)
+                connectionStatus = ServerConnectionStatus.Connecting
             },
             modifier = Modifier.fillMaxWidth()
         ) {

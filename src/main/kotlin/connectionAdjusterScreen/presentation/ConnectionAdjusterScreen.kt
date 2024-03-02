@@ -21,16 +21,15 @@ fun ConnectionAdjusterScreen() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-/*        when (viewModel.serverConnection.connectionStatus.value) {
+        when (viewModel.serverConnection.connectionStatus.value) {
             ServerConnectionStatus.Disconnected ->
                 DisconnectedWindow()
             ServerConnectionStatus.Connecting ->
-                TODO()
+                ConnectingWindow()
             ServerConnectionStatus.PendingToken ->
                 TODO()
             ServerConnectionStatus.Connected ->
                 Text("Подключение успешно")
-        }*/
-        ConnectingWindow()
+        }
     }
 }
