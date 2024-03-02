@@ -1,4 +1,4 @@
-package callScreen.presentation.components.callTable
+package callScreen.presentation.components.contactTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
@@ -12,13 +12,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import callScreen.domain.models.CallTableItemData
+import callScreen.domain.models.ContactTableItemData
 import androidx.compose.ui.Alignment
 import core.presentation.components.VerticalDivider
 
 @Preview
 @Composable
-fun CallTableItem(callTableItemData: CallTableItemData) {
+fun CallTableItem(contactTableItemData: ContactTableItemData) {
     Card(
         shape = RoundedCornerShape(2.dp),
         elevation = 10.dp,
@@ -36,17 +36,17 @@ fun CallTableItem(callTableItemData: CallTableItemData) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(callTableItemData.surname, Modifier.weight(1f), textAlign = TextAlign.Center)
+            Text(contactTableItemData.surname, Modifier.weight(1f), textAlign = TextAlign.Center)
             VerticalDivider()
-            Text(callTableItemData.name, Modifier.weight(1f), textAlign = TextAlign.Center)
+            Text(contactTableItemData.name, Modifier.weight(1f), textAlign = TextAlign.Center)
             VerticalDivider()
-            Text(callTableItemData.patronymic, Modifier.weight(1f), textAlign = TextAlign.Center)
+            Text(contactTableItemData.patronymic, Modifier.weight(1f), textAlign = TextAlign.Center)
             VerticalDivider()
-            Text(callTableItemData.number, Modifier.weight(1f), textAlign = TextAlign.Center)
+            Text(contactTableItemData.number, Modifier.weight(1f), textAlign = TextAlign.Center)
             VerticalDivider()
-            Text(callTableItemData.gender, Modifier.weight(1f), textAlign = TextAlign.Center)
+            Text(contactTableItemData.gender, Modifier.weight(1f), textAlign = TextAlign.Center)
             VerticalDivider()
-            Text(callTableItemData.age.toString(), Modifier.weight(1f), textAlign = TextAlign.Center)
+            Text(contactTableItemData.age.toString(), Modifier.weight(1f), textAlign = TextAlign.Center)
         }
     }
 

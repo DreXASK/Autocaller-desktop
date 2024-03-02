@@ -8,6 +8,7 @@ class ServerConnection {
 
 enum class ServerConnectionStatus(val text: String) {
     Connected("Подключено"),
-    PendingConnection("Ожидание подключения"),
+    Connecting("Подключение к серверу..."),
+    PendingToken("Ожидание разрешения от сервера"),
     Disconnected("Не подключено")
 }

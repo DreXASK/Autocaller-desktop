@@ -2,7 +2,7 @@ package callScreen.domain
 
 import androidx.compose.runtime.mutableStateOf
 
-class CallTableFilterStore {
+class ContactTableFilterStore {
 	val surnameFilterText = mutableStateOf("")
 	val nameFilterText = mutableStateOf("")
 	val patronymicFilterText = mutableStateOf("")

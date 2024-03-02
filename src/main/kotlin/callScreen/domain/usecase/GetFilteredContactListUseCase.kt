@@ -2,16 +2,17 @@ package callScreen.domain.usecase
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import callScreen.domain.*
-import callScreen.domain.models.CallTableItemData
+import callScreen.domain.models.ContactTableItemData
 
 class GetFilteredContactListUseCase {
 	fun execute(
-		contactList: SnapshotStateList<CallTableItemData>,
-		filterStore: CallTableFilterStore
-	): List<CallTableItemData> {
-		val callTableContactListFiltered = mutableListOf<CallTableItemData>()
+		contactList: SnapshotStateList<ContactTableItemData>,
+		filterStore: ContactTableFilterStore
+	): List<ContactTableItemData> {
 
-		filterStore.apply {
+		val callTableContactListFiltered = mutableListOf<ContactTableItemData>()
+
+		filterStore.run {
 			callTableContactListFiltered.addAll(contactList.filter {
 				it.surname.contains(surnameFilterText.value, ignoreCase = true)
 						&& it.name.contains(nameFilterText.value, ignoreCase = true)
@@ -30,30 +31,30 @@ class GetFilteredContactListUseCase {
 	}
 }
 
-private fun isAgeFieldsAreEmpty(filterStore: CallTableFilterStore): Boolean =
+private fun isAgeFieldsAreEmpty(filterStore: ContactTableFilterStore): Boolean =
 	filterStore.ageMinFilterText.value.isEmpty() && filterStore.ageMaxFilterText.value.isEmpty()
 
 private fun isAgeBiggerThanMinAgeAndSmallerThanMaxAge(
-	itemData: CallTableItemData,
-	filterStore: CallTableFilterStore
+	itemData: ContactTableItemData,
+	filterStore: ContactTableFilterStore
 ): Boolean = isAgeBiggerThanMinAge(itemData, filterStore) && isAgeSmallerThanMaxAge(itemData, filterStore)
 
 private fun isAgeBiggerThanMinAge(
-	itemData: CallTableItemData,
-	filterStore: CallTableFilterStore
+	itemData: ContactTableItemData,
+	filterStore: ContactTableFilterStore
 ) = itemData.age > (filterStore.ageMinFilterText.value.toIntOrNull() ?: 0)
 
 private fun isAgeSmallerThanMaxAge(
-	itemData: CallTableItemData,
-	filterStore: CallTableFilterStore
+	itemData: ContactTableItemData,
+	filterStore: ContactTableFilterStore
 ) = itemData.age < (filterStore.ageMaxFilterText.value.toIntOrNull() ?: Int.MAX_VALUE)
 
-private fun isOnlyMaxAgeIsExists(filterStore: CallTableFilterStore): Boolean {
+private fun isOnlyMaxAgeIsExists(filterStore: ContactTableFilterStore): Boolean {
 	return filterStore.ageMinFilterText.value.isEmpty() &&
 			filterStore.ageMaxFilterText.value.isNotEmpty()
 }
 
-private fun isOnlyMinAgeIsExists(filterStore: CallTableFilterStore): Boolean {
+private fun isOnlyMinAgeIsExists(filterStore: ContactTableFilterStore): Boolean {
 	return filterStore.ageMinFilterText.value.isNotEmpty() &&
 			filterStore.ageMaxFilterText.value.isEmpty()
 }

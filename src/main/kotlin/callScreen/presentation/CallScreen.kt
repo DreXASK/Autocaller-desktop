@@ -10,13 +10,13 @@ import org.koin.java.KoinJavaComponent.inject
 import callScreen.presentation.components.ContactAdderDialog
 import core.presentation.components.MyFileDialog
 import core.presentation.components.buttonTab.ButtonTabMenuLazyRow
-import callScreen.presentation.components.callTable.CallTableUI
+import callScreen.presentation.components.contactTable.CallTableUI
 
 @Preview
 @Composable
 fun CallScreen() {
     val viewModel by inject<CallScreenViewModel>(CallScreenViewModel::class.java)
-    var isFilePickerOpen by remember { viewModel.isFilePickerOpen  }
+    val isFilePickerOpen by remember { viewModel.isFilePickerOpen  }
     var isContactAdderDialogOpen by remember { viewModel.isContactAdderDialogOpen }
 
     Column(
@@ -27,9 +27,9 @@ fun CallScreen() {
             contentAlignment = Alignment.TopCenter
         ) {
             CallTableUI(
-                viewModel.callTableStore,
-                viewModel.filterStore,
-                viewModel::updateContactListFiltered
+                viewModel.contactTable.contactTableStore,
+                viewModel.contactTable.filterStore,
+                viewModel.contactTable::updateContactListFiltered
             )
         }
         Divider()
@@ -39,7 +39,7 @@ fun CallScreen() {
     if(isFilePickerOpen) {
         MyFileDialog(
             onCloseRequest = {
-                it?.let { viewModel.addContactsToListFromJsonFileViaURL(it) }
+                it?.let { viewModel.contactTable.addContactListToTableViaUrl(it) }
             }
         )
     }

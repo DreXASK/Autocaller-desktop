@@ -1,4 +1,4 @@
-package callScreen.presentation.components.callTable
+package callScreen.presentation.components.contactTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
@@ -9,13 +9,13 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import callScreen.domain.CallTableFilterStore
+import callScreen.domain.ContactTableFilterStore
 import core.presentation.components.VerticalDivider
 
 @Preview
 @Composable
 fun CallTableFilter(
-    filterStore: CallTableFilterStore,
+    filterStore: ContactTableFilterStore,
     onFilterValueChange: () -> Unit
 ) {
     Row(

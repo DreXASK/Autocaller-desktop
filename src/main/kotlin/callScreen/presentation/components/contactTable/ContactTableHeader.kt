@@ -1,4 +1,4 @@
-package callScreen.presentation.components.callTable
+package callScreen.presentation.components.contactTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke

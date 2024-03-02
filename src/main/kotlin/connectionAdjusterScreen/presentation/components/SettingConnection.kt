@@ -9,16 +9,15 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import core.domain.ServerConnection
+import connectionAdjusterScreen.presentation.ConnectionAdjusterScreenViewModel
 import org.koin.java.KoinJavaComponent.inject
 
 @Preview
 @Composable
-fun ConnectionAdjusterWindow(
-    ipTextMutableState: MutableState<String>
-) {
-    val serverConnection by inject<ServerConnection>(ServerConnection::class.java)
-    var ipTextValue by remember { ipTextMutableState }
+fun SettingConnection() {
+    val viewModel by inject<ConnectionAdjusterScreenViewModel>(ConnectionAdjusterScreenViewModel::class.java)
+    var ipTextValue by remember { viewModel.ipTextValue }
+    val connectionStatus by remember { viewModel.serverConnection.connectionStatus }
 
     Column(
         modifier = Modifier.width(IntrinsicSize.Min),
@@ -31,12 +30,12 @@ fun ConnectionAdjusterWindow(
         )
         Button(
             onClick = {
-                println(ipTextMutableState.value)
+                println(ipTextValue)
             },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Подключиться")
         }
-        Text(serverConnection.connectionStatus.value.text)
+        Text(connectionStatus.text)
     }
 }
