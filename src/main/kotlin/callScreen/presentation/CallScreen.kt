@@ -9,14 +9,13 @@ import androidx.compose.runtime.*
 import org.koin.java.KoinJavaComponent.inject
 import callScreen.presentation.components.ContactAdderDialog
 import core.presentation.components.MyFileDialog
-import ui.components.buttonTab.ButtonTabMenuLazyRow
+import core.presentation.components.buttonTab.ButtonTabMenuLazyRow
 import callScreen.presentation.components.callTable.CallTableUI
 
 @Preview
 @Composable
 fun CallScreen() {
     val viewModel by inject<CallScreenViewModel>(CallScreenViewModel::class.java)
-
     var isFilePickerOpen by remember { viewModel.isFilePickerOpen  }
     var isContactAdderDialogOpen by remember { viewModel.isContactAdderDialogOpen }
 

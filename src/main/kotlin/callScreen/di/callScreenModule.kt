@@ -1,9 +1,9 @@
 package callScreen.di
 
-import callScreen.domain.CallTableAddContactsUseCase
+import callScreen.domain.usecase.AddContactsToTableUseCase
 import callScreen.domain.CallTableFilterStore
 import callScreen.domain.CallTableStore
-import callScreen.domain.CallTableUpdateFilterUseCase
+import callScreen.domain.usecase.GetFilteredContactListUseCase
 import org.koin.dsl.module
 import callScreen.presentation.CallScreenViewModel
 
@@ -12,10 +12,10 @@ val callScreenModule = module {
         CallScreenViewModel()
     }
     single {
-        CallTableAddContactsUseCase()
+        AddContactsToTableUseCase()
     }
     single {
-        CallTableUpdateFilterUseCase()
+        GetFilteredContactListUseCase()
     }
     factory {
         CallTableStore()

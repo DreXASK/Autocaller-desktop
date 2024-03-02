@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import callScreen.domain.CallTableItemData
+import callScreen.domain.models.CallTableItemData
 import androidx.compose.ui.Alignment
-import ui.components.VerticalDivider
+import core.presentation.components.VerticalDivider
 
 @Preview
 @Composable

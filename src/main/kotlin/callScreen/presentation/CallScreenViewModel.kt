@@ -12,16 +12,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import callScreen.domain.*
+import callScreen.domain.models.CallTableItemData
+import callScreen.domain.usecase.AddContactsToTableUseCase
+import callScreen.domain.usecase.GetFilteredContactListUseCase
 import kotlinx.serialization.json.Json
 import org.koin.java.KoinJavaComponent.inject
-import ui.components.buttonTab.ButtonTabData
-import utils.useNonBreakingSpace
+import core.presentation.components.buttonTab.ButtonTabData
+import core.utils.useNonBreakingSpace
 import java.io.File
 
 class CallScreenViewModel {
 
-	val callTableAddContactsUseCase by inject<CallTableAddContactsUseCase>(CallTableAddContactsUseCase::class.java)
-	val callTableUpdateFilterUseCase by inject<CallTableUpdateFilterUseCase>(CallTableUpdateFilterUseCase::class.java)
+	private val addContactsToTableUseCase by inject<AddContactsToTableUseCase>(AddContactsToTableUseCase::class.java)
+	private val getFilteredContactListUseCase by inject<GetFilteredContactListUseCase>(GetFilteredContactListUseCase::class.java)
 	val callTableStore by inject<CallTableStore>(CallTableStore::class.java)
 	val filterStore by inject<CallTableFilterStore>(CallTableFilterStore::class.java)
 
@@ -33,7 +36,7 @@ class CallScreenViewModel {
 			onClick = {
 				isContactAdderDialogOpen.value = true
 				/*                callScreen.domain.CallTable.addContactToTable(
-									callScreen.domain.CallTableItemData(
+									callScreen.domain.models.CallTableItemData(
 										"Крючков",
 										"Илья",
 										"Николаевич",
@@ -62,19 +65,19 @@ class CallScreenViewModel {
 	)
 
 	private fun addContactToTable(itemData: CallTableItemData) {
-		callTableAddContactsUseCase.addContactToTable(callTableStore.contactList, itemData)
+		addContactsToTableUseCase.execute(callTableStore.contactList, itemData)
 		updateContactListFiltered()
 	}
 
 	private fun addContactListToTable(itemDataList: List<CallTableItemData>) {
-		callTableAddContactsUseCase.addListToTable(callTableStore.contactList, itemDataList)
+		addContactsToTableUseCase.execute(callTableStore.contactList, itemDataList)
 		updateContactListFiltered()
 	}
 
 	fun updateContactListFiltered() {
 		callTableStore.contactListFiltered.clear()
 		callTableStore.contactListFiltered.addAll(
-			callTableUpdateFilterUseCase.getFilteredContactList(
+			getFilteredContactListUseCase.execute(
 				callTableStore.contactList,
 				filterStore
 			)
@@ -84,9 +87,9 @@ class CallScreenViewModel {
 	fun addContactsToListFromJsonFileViaURL(
 		url: String
 	) {
-		callTableAddContactsUseCase.addListToTable(
+		addContactsToTableUseCase.execute(
 			callTableStore.contactList,
-			readFileAndDeserializeList<CallTableItemData>(url).toMutableList()
+			Json.decodeFromString<List<CallTableItemData>>(File(url).readText())
 		)
 		updateContactListFiltered()
 	}
@@ -95,7 +98,6 @@ class CallScreenViewModel {
 		url: String
 	): List<T> {
 		val callTableItemDataList = try {
-			println(File(url).readText())
 			Json.decodeFromString<List<T>>(File(url).readText())
 		} catch (e: Exception) {
 			throw Exception(e.message)

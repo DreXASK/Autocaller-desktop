@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import callScreen.domain.CallTableFilterStore
-import ui.components.VerticalDivider
+import core.presentation.components.VerticalDivider
 
 @Preview
 @Composable
