@@ -15,7 +15,8 @@ import connectionAdjusterScreen.presentation.ConnectionAdjusterScreenViewModel
 import core.domain.ServerConnectionStatus
 import kotlinx.coroutines.*
 import org.koin.java.KoinJavaComponent
-import kotlin.coroutines.CoroutineContext
+
+
 
 @Preview
 @Composable
@@ -27,6 +28,7 @@ fun ConnectingWindow() {
         delay(3000)
         connectionStatus = ServerConnectionStatus.Connected
     }
+
 
     Box(
         contentAlignment = Alignment.Center
