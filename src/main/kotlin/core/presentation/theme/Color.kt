@@ -17,10 +17,17 @@ val Black = Color(0xFF000000)
 val White = Color(0xFFFFFFFF)
 
 val DarkColorPalette = darkColors(
-    primary = Color(0xFF283353),
-    background = Gray800,
-    surface = Color(0xFF2F3340),
-    onPrimary = Color.White
+    primary = Color(0xFF4fc7ff),
+    onPrimary = Color(0xFF2F3340),
+    secondary = Color(0xFF03DAC6),
+
+    primaryVariant = Color.Black,
+    secondaryVariant = Color.Black,
+
+
+    surface = Color(0xFF1A1C23),
+    //onSurface = Color.White
+    onSurface = Color.White
 )
 val LightColorPalette = lightColors(
     primary = White

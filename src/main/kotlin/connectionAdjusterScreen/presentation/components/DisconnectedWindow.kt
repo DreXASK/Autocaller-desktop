@@ -14,7 +14,7 @@ import org.koin.java.KoinJavaComponent.inject
 
 @Preview
 @Composable
-fun SettingConnection() {
+fun DisconnectedWindow() {
     val viewModel by inject<ConnectionAdjusterScreenViewModel>(ConnectionAdjusterScreenViewModel::class.java)
     var ipTextValue by remember { viewModel.ipTextValue }
     val connectionStatus by remember { viewModel.serverConnection.connectionStatus }
