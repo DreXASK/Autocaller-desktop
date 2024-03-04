@@ -8,11 +8,11 @@ class AddContactsToTableFromFileUseCase {
 	private val contactRepository by inject<ContactRepository>(ContactRepository::class.java)
 
 	fun execute(
-		callTableContacts: MutableList<ContactTableItemData>,
+		contactTableContacts: MutableList<ContactTableItemData>,
 		url: String
 	) {
 		val contactList = contactRepository.getContactList(url)
-		callTableContacts.addAll(contactList)
+		contactTableContacts.addAll(contactList)
 	}
 
 }

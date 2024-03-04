@@ -1,10 +1,15 @@
 package callScreen.domain
 
+import callScreen.domain.models.ContactTableItemData
+import callScreen.domain.usecase.AddContactToTableUseCase
 import callScreen.domain.usecase.AddContactsToTableFromFileUseCase
 import callScreen.domain.usecase.GetFilteredContactListUseCase
 import org.koin.java.KoinJavaComponent.inject
 
 class ContactTable {
+    private val addContactToTableUseCase by inject<AddContactToTableUseCase>(
+        AddContactToTableUseCase::class.java
+    )
     private val addContactsToTableViaUrlUseCase by inject<AddContactsToTableFromFileUseCase>(
         AddContactsToTableFromFileUseCase::class.java
     )
@@ -29,13 +34,8 @@ class ContactTable {
         updateContactListFiltered()
     }
 
-    /*fun addContactListToTableViaUrl(
-        itemDataList: List<ContactTableItemData>
-    ) {
-        addContactsToTableUseCase.execute(
-            contactTableStore.contactList,
-            itemDataList
-        )
+    fun addContactToTable(itemData: ContactTableItemData) {
+        addContactToTableUseCase.execute(contactTableStore.contactList, itemData)
         updateContactListFiltered()
-    }*/
+    }
 }

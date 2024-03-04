@@ -6,6 +6,7 @@ import callScreen.domain.usecase.AddContactsToTableFromFileUseCase
 import callScreen.domain.ContactTableFilterStore
 import callScreen.domain.ContactTableStore
 import callScreen.domain.repository.ContactRepository
+import callScreen.domain.usecase.AddContactToTableUseCase
 import callScreen.domain.usecase.GetFilteredContactListUseCase
 import org.koin.dsl.module
 import callScreen.presentation.CallScreenViewModel
@@ -16,6 +17,9 @@ val callScreenModule = module {
     }
     single {
         AddContactsToTableFromFileUseCase()
+    }
+    single{
+        AddContactToTableUseCase()
     }
     single {
         GetFilteredContactListUseCase()
