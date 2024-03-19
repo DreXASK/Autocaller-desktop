@@ -7,19 +7,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import connectionAdjusterScreen.data.remote.PostsService
+import connectionAdjusterScreen.domain.repository.TokensRepository
+import connectionAdjusterScreen.data.remote.dto.TokenRequest
 import connectionAdjusterScreen.presentation.components.ConnectingWindow
 import connectionAdjusterScreen.presentation.components.DisconnectedWindow
 import org.koin.java.KoinJavaComponent.inject
 import core.domain.ServerConnectionStatus
 import io.ktor.client.call.*
-import io.ktor.client.statement.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
-
-private val service = PostsService.create()
 
 @Preview
 @Composable
@@ -40,9 +37,8 @@ fun ConnectionAdjusterScreen() {
             ServerConnectionStatus.Connected ->
                 Text("Подключение успешно")
         }
-
-        CoroutineScope(Dispatchers.Default).launch {
-            println(service.getPosts().body<String>())
-        }
     }
+
+    viewModel.getToken()
+    viewModel.checkTokenStatus()
 }

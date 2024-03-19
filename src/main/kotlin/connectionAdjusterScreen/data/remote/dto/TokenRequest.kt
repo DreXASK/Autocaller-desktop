@@ -1,10 +1,9 @@
 package connectionAdjusterScreen.data.remote.dto
 
+import core.domain.ServerConnectionStatus
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostRequest(
-    val body: String,
-    val title: String,
-    val userId: String
+data class TokenRequest(
+    val token: String
 )
