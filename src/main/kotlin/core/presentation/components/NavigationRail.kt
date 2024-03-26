@@ -9,13 +9,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import core.utils.Res
 
 
 enum class Page(val title: MutableState<String>) {
     CALL_MANAGER(Res.str.call_manager_label),
     CONNECTION_TO_SERVER(Res.str.connection_to_server_Label),
-    SERVER_ADMIN_MENU(Res.str.server_label),
+    SERVER_ADMIN_MENU(Res.str.server_label)
 }
 
 @Preview

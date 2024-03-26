@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 import connectionAdjusterScreen.presentation.ConnectionAdjusterScreenViewModel
 import core.domain.ServerConnectionStatus
+import core.presentation.components.OutLinedButtonWithProgress
 import kotlinx.coroutines.*
 import org.koin.java.KoinJavaComponent
 
@@ -29,22 +30,11 @@ fun ConnectingWindow() {
         connectionStatus = ServerConnectionStatus.Connected
     }
 
-
-    Box(
-        contentAlignment = Alignment.Center
-    ) {
-        OutlinedButton(
-            onClick = {
-                connectionStatus = ServerConnectionStatus.Disconnected
-                abc.cancel()
-            }
-        ) {
-            Text("Отмена подключения")
-        }
-        CircularProgressIndicator(
-            modifier = Modifier.width(256.dp).aspectRatio(1f),
-            color = MaterialTheme.colors.secondary,
-            strokeCap = StrokeCap.Round
-        )
-    }
+    OutLinedButtonWithProgress(
+        onClick = {
+            connectionStatus = ServerConnectionStatus.Disconnected
+            abc.cancel()
+        },
+        buttonText = { Text("Отмена подключения") }
+    )
 }

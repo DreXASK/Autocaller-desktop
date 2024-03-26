@@ -7,16 +7,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import connectionAdjusterScreen.domain.repository.TokensRepository
-import connectionAdjusterScreen.data.remote.dto.TokenRequest
 import connectionAdjusterScreen.presentation.components.ConnectingWindow
 import connectionAdjusterScreen.presentation.components.DisconnectedWindow
 import org.koin.java.KoinJavaComponent.inject
 import core.domain.ServerConnectionStatus
-import io.ktor.client.call.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @Preview
 @Composable
@@ -38,7 +32,4 @@ fun ConnectionAdjusterScreen() {
                 Text("Подключение успешно")
         }
     }
-
-    viewModel.getToken()
-    viewModel.checkTokenStatus()
 }

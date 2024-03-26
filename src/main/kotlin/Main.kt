@@ -21,6 +21,7 @@ import core.presentation.components.NavigationRail
 import serverScreen.presentation.ServerScreen
 import core.presentation.MainScreenModes
 import core.presentation.theme.AutocallerClientTheme
+import serverScreen.di.ServerScreenModule
 
 @Composable
 @Preview
@@ -68,7 +69,8 @@ fun initKoin() {
         modules(
             callScreenModule,
             connectionAdjusterScreenModule,
-            coreModule
+            coreModule,
+            ServerScreenModule
         )
     }
 }

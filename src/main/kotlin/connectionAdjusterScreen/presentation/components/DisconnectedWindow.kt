@@ -32,6 +32,8 @@ fun DisconnectedWindow() {
         Button(
             onClick = {
                 connectionStatus = ServerConnectionStatus.Connecting
+                viewModel.getToken()
+                viewModel.checkTokenStatus()
             },
             modifier = Modifier.fillMaxWidth()
         ) {

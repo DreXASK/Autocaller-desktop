@@ -27,19 +27,16 @@ class CallScreenViewModel {
 		ButtonTabData(
 			onClick = { isContactAdderDialogOpen.value = true },
 			icon = Icons.Rounded.Add,
-			modifier = Modifier.width(IntrinsicSize.Min).height(IntrinsicSize.Min).padding(10.dp),
 			text = "Добавить контакт".useNonBreakingSpace(),
 		),
 		ButtonTabData(
 			onClick = { isFilePickerOpen.value = !isFilePickerOpen.value },
 			icon = Icons.Rounded.List,
-			modifier = Modifier.width(IntrinsicSize.Min).height(IntrinsicSize.Min).padding(10.dp),
 			text = "Загрузить базу (Json)".useNonBreakingSpace(),
 		),
 		ButtonTabData(
 			onClick = { println(789) },
 			icon = Icons.Rounded.Send,
-			modifier = Modifier.width(IntrinsicSize.Min).height(IntrinsicSize.Min).padding(10.dp),
 			text = "Отправить контакты на сервер".useNonBreakingSpace(),
 		)
 	)

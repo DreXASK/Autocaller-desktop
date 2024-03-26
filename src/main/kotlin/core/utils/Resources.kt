@@ -35,7 +35,7 @@ object Res {
 
         object Russian: StringInterface, Common() {
             override val call_manager_label = mutableStateOf("Обзвон")
-            override val connection_to_server_Label: MutableState<String> = mutableStateOf("Подключение")
+            override val connection_to_server_Label: MutableState<String> = mutableStateOf("Соединение")
             override val server_label = mutableStateOf("Сервер")
         }
 
