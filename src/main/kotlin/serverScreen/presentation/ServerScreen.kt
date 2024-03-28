@@ -7,7 +7,7 @@ import core.domain.AuthStatus
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.components.AuthorizationAttemptWindow
 import serverScreen.presentation.components.AuthorizationWindow
-import serverScreen.presentation.components.ServerControlPanelWindow
+import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindow
 
 
 @Preview
