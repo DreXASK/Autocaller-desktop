@@ -1,11 +1,11 @@
-package callScreen.data.repository
+package callScreen.data.repository.local
 
 import callScreen.domain.models.ContactTableItemData
 import callScreen.domain.repository.ContactRepository
 import kotlinx.serialization.json.Json
 import java.io.File
 
-class ContactRepositoryJson : ContactRepository {
+class ContactRepositoryLocal : ContactRepository {
     override fun getContactList(url: String): List<ContactTableItemData> {
         return try {
             Json.decodeFromString<List<ContactTableItemData>>(File(url).readText())
@@ -14,7 +14,7 @@ class ContactRepositoryJson : ContactRepository {
         }
     }
 
-    override fun sendContactListAsJsonToServer() {
+    override fun sendContactListAsJson() {
         TODO("Not yet implemented")
     }
 

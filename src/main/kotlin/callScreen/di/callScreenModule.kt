@@ -1,6 +1,6 @@
 package callScreen.di
 
-import callScreen.data.repository.ContactRepositoryJson
+import callScreen.data.repository.local.ContactRepositoryLocal
 import callScreen.domain.ContactTable
 import callScreen.domain.usecase.AddContactsToTableFromFileUseCase
 import callScreen.domain.ContactTableFilterStore
@@ -25,7 +25,7 @@ val callScreenModule = module {
         GetFilteredContactListUseCase()
     }
     single<ContactRepository>  {
-        ContactRepositoryJson()
+        ContactRepositoryLocal()
     }
     factory {
         ContactTableStore()
