@@ -9,6 +9,7 @@ import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import core.presentation.components.buttonTab.ButtonTabData
@@ -55,7 +56,7 @@ fun TabsWindow() {
             )
             OutlinedButton(
                 {
-                viewModel.serverControlPanelSettings.windowToDisplay.value = ServerControlPanelWindows.TabsWindow
+                viewModel.serverControlPanelSettings.windowToDisplay.value = ServerControlPanelWindows.ConnectionInfoWindow
                 },
                 modifier = Modifier.align(Alignment.CenterEnd).padding(10.dp)
             ) {

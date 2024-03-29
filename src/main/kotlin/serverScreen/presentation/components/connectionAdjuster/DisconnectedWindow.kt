@@ -17,7 +17,7 @@ import serverScreen.presentation.ServerScreenViewModel
 @Composable
 fun DisconnectedWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
-    var ipTextValue by remember { mutableStateOf("") }
+    var ipTextValue by remember { mutableStateOf("localhost:8080") }
     var connectionStatus by remember { viewModel.serverConnection.connectionStatus }
 
     Column(
@@ -37,8 +37,7 @@ fun DisconnectedWindow() {
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Подключиться")
+            Text("Подключиться к серверу")
         }
-        Text(connectionStatus.name)
     }
 }

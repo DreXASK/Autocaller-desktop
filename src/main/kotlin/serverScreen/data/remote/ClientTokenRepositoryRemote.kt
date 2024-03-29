@@ -4,6 +4,7 @@ import serverScreen.data.remote.dto.ClientTokenStatusRequest
 import serverScreen.domain.repository.ClientTokenRepository
 import io.ktor.client.*
 import io.ktor.client.plugins.*
+import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import org.koin.java.KoinJavaComponent.inject
