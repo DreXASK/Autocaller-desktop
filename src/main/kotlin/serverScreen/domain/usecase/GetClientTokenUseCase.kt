@@ -1,8 +1,7 @@
-package connectionAdjusterScreen.domain.usecase
+package serverScreen.domain.usecase
 
-import connectionAdjusterScreen.data.remote.dto.ClientTokenRequest
-import connectionAdjusterScreen.data.remote.dto.ClientTokenResponse
-import connectionAdjusterScreen.domain.repository.ClientTokenRepository
+import serverScreen.data.remote.dto.ClientTokenResponse
+import serverScreen.domain.repository.ClientTokenRepository
 import io.ktor.client.call.*
 import org.koin.java.KoinJavaComponent.inject
 

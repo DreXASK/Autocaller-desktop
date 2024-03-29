@@ -1,4 +1,4 @@
-package connectionAdjusterScreen.presentation
+package serverScreen.presentation.components
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
@@ -7,15 +7,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import connectionAdjusterScreen.presentation.components.ConnectingWindow
-import connectionAdjusterScreen.presentation.components.DisconnectedWindow
 import org.koin.java.KoinJavaComponent.inject
 import core.domain.ServerConnectionStatus
+import serverScreen.presentation.ServerScreenViewModel
+import serverScreen.presentation.components.connectionAdjuster.ConnectingWindow
+import serverScreen.presentation.components.connectionAdjuster.DisconnectedWindow
 
 @Preview
 @Composable
 fun ConnectionAdjusterScreen() {
-    val viewModel by inject<ConnectionAdjusterScreenViewModel>(ConnectionAdjusterScreenViewModel::class.java)
+    val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
     Box(
         modifier = Modifier.fillMaxSize(),

@@ -3,13 +3,9 @@ package serverScreen.presentation.components.serverControlPanel
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.AccountCircle
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.Edit
-import androidx.compose.material.icons.rounded.List
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +14,6 @@ import androidx.compose.ui.unit.sp
 import core.presentation.components.buttonTab.ButtonTabData
 import core.presentation.components.buttonTab.ButtonTabMenuGrid
 import core.utils.useNonBreakingSpace
-import org.koin.java.KoinJavaComponent
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 
@@ -60,19 +55,19 @@ fun TabsWindow() {
             )
             OutlinedButton(
                 {
-                viewModel.serverControlPanelSettings.windowToDisplay.value = ServerControlPanelWindows.UserProfileWindow
+                viewModel.serverControlPanelSettings.windowToDisplay.value = ServerControlPanelWindows.TabsWindow
                 },
-                modifier = Modifier.align(Alignment.CenterEnd)
+                modifier = Modifier.align(Alignment.CenterEnd).padding(10.dp)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        Icons.Rounded.AccountCircle,
+                        Icons.Rounded.Info,
                         null,
-                        modifier = Modifier.padding(10.dp)
+                        modifier = Modifier.padding(end = 5.dp)
                     )
-                    Text("Администратор")
+                    Text("Соединение")
                 }
             }
         }

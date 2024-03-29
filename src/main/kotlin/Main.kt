@@ -14,8 +14,7 @@ import androidx.compose.ui.window.application
 import callScreen.di.callScreenModule
 import org.koin.core.context.startKoin
 import callScreen.presentation.CallScreen
-import connectionAdjusterScreen.di.connectionAdjusterScreenModule
-import connectionAdjusterScreen.presentation.ConnectionAdjusterScreen
+import serverScreen.presentation.components.ConnectionAdjusterScreen
 import core.di.coreModule
 import core.presentation.components.NavigationRail
 import serverScreen.presentation.ServerScreen
@@ -39,8 +38,6 @@ fun App() {
                 when (mode.value) {
                     MainScreenModes.Calls ->
                         CallScreen()
-                    MainScreenModes.Connection ->
-                        ConnectionAdjusterScreen()
                     MainScreenModes.Server ->
                         ServerScreen()
                 }
@@ -68,7 +65,6 @@ fun initKoin() {
     startKoin {
         modules(
             callScreenModule,
-            connectionAdjusterScreenModule,
             coreModule,
             ServerScreenModule
         )

@@ -1,4 +1,4 @@
-package connectionAdjusterScreen.data.remote.dto
+package serverScreen.data.remote.dto
 
 import core.domain.ServerConnectionStatus
 import kotlinx.serialization.Serializable

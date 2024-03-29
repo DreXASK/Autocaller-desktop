@@ -1,6 +1,5 @@
 package core.di
 
-import core.domain.AdminAuthorization
 import core.domain.ServerConnection
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -11,9 +10,6 @@ import org.koin.dsl.module
 val coreModule = module {
     single {
         ServerConnection()
-    }
-    single {
-        AdminAuthorization()
     }
     single {
         HttpClient(CIO) {

@@ -1,15 +1,11 @@
-package connectionAdjusterScreen.data.remote
+package serverScreen.data.remote
 
-import connectionAdjusterScreen.data.remote.dto.ClientTokenRequest
-import connectionAdjusterScreen.data.remote.dto.ClientTokenResponse
-import connectionAdjusterScreen.data.remote.dto.ClientTokenStatusRequest
-import connectionAdjusterScreen.domain.repository.ClientTokenRepository
+import serverScreen.data.remote.dto.ClientTokenStatusRequest
+import serverScreen.domain.repository.ClientTokenRepository
 import io.ktor.client.*
-import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import org.koin.java.KoinJavaComponent
 import org.koin.java.KoinJavaComponent.inject
 
 
@@ -19,7 +15,7 @@ class ClientTokenRepositoryRemote(): ClientTokenRepository {
 	override suspend fun getToken(): HttpResponse {
 		return try {
 			client.get {
-				url(ConnectionAdjusterHttpRoutes.getToken)
+				url(ServerScreenHttpRoutes.getToken)
 			}
 		} catch (e: ResponseException) {
 			println(e.response.status.description)
@@ -30,7 +26,7 @@ class ClientTokenRepositoryRemote(): ClientTokenRepository {
 	override suspend fun getTokenStatus(tokenDTO: ClientTokenStatusRequest): HttpResponse {
 		return try {
 			client.get {
-				url(ConnectionAdjusterHttpRoutes.checkTokenStatus)
+				url(ServerScreenHttpRoutes.checkTokenStatus)
 				setBody(tokenDTO.token)
 			}
 		} catch (e: ResponseException) {

@@ -2,22 +2,20 @@ package serverScreen.presentation
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
-import core.domain.AdminAuthorization
-import core.domain.AuthStatus
+import core.domain.ServerConnection
+import core.domain.ServerConnectionStatus
 import org.koin.java.KoinJavaComponent.inject
-import serverScreen.presentation.components.AuthorizationAttemptWindow
-import serverScreen.presentation.components.AuthorizationWindow
-import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindow
+import serverScreen.presentation.components.ConnectionAdjusterScreen
+import serverScreen.presentation.components.ServerControlPanelWindow
 
 
 @Preview
 @Composable
 fun ServerScreen() {
-	val auth by inject<AdminAuthorization>(AdminAuthorization::class.java)
+	val connection by inject<ServerConnection>(ServerConnection::class.java)
 
-	when(auth.authStatus.value) {
-		AuthStatus.Authorized -> ServerControlPanelWindow()
-		AuthStatus.Authorization -> AuthorizationAttemptWindow()
-		AuthStatus.Unauthorized -> AuthorizationWindow()
+	when(connection.connectionStatus.value) {
+		ServerConnectionStatus.Connected -> ServerControlPanelWindow()
+		else -> ConnectionAdjusterScreen()
 	}
 }

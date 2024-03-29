@@ -15,7 +15,6 @@ import core.utils.Res
 
 enum class Page(val title: MutableState<String>) {
     CALL_MANAGER(Res.str.call_manager_label),
-    CONNECTION_TO_SERVER(Res.str.connection_to_server_Label),
     SERVER_ADMIN_MENU(Res.str.server_label)
 }
 
@@ -38,18 +37,6 @@ fun NavigationRail(mode: MutableState<MainScreenModes>) {
                         onClick = {
                             selectedItem = index
                             mode.value = MainScreenModes.Calls
-                        },
-                        alwaysShowLabel = false
-                    )
-                }
-                Page.CONNECTION_TO_SERVER -> {
-                    NavigationRailItem(
-                        label = { Text(item.title.value, maxLines = 1) },
-                        icon = { Icon(icons[index], contentDescription = "") },
-                        selected = selectedItem == index,
-                        onClick = {
-                            selectedItem = index
-                            mode.value = MainScreenModes.Connection
                         },
                         alwaysShowLabel = false
                     )
