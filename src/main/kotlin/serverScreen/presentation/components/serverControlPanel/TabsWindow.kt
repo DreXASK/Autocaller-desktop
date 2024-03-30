@@ -25,20 +25,25 @@ fun TabsWindow() {
 
     val buttonData = listOf(
         ButtonTabData(
-            { },
+            onClick = { },
             Icons.Rounded.List,
-            text = "Кнопка 1".useNonBreakingSpace(),
+            text = "Текущие задания на сервере",
         ),
         ButtonTabData(
-            { },
+            onClick = { },
             Icons.Rounded.Add,
-            text = "Кнопка 2".useNonBreakingSpace()
+            text = "Шаблоны сообщений"
         ),
         ButtonTabData(
-            { },
+            onClick = { },
             Icons.Rounded.Edit,
-            text = "Кнопка 3".useNonBreakingSpace()
+            text = "Список подключенных клиентов"
         ),
+        ButtonTabData(
+            onClick = { },
+            Icons.Rounded.Edit,
+            text = "Запросы на подключение"
+        )
     )
 
 
@@ -55,8 +60,9 @@ fun TabsWindow() {
                 fontSize = 25.sp
             )
             OutlinedButton(
-                {
-                viewModel.serverControlPanelSettings.windowToDisplay.value = ServerControlPanelWindows.ConnectionInfoWindow
+                onClick = {
+                    viewModel.serverControlPanelSettings.windowToDisplay.value =
+                        ServerControlPanelWindows.ConnectionInfoWindow
                 },
                 modifier = Modifier.align(Alignment.CenterEnd).padding(10.dp)
             ) {

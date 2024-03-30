@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import core.utils.useNonBreakingSpace
@@ -18,7 +19,7 @@ fun ButtonTab(
     onClick: () -> Unit,
     icon: ImageVector,
     modifier: Modifier = Modifier,
-    iconDescription: String = "",
+    iconDescription: String? = null,
     text: String? = null
 ) {
     OutlinedButton(
@@ -26,31 +27,27 @@ fun ButtonTab(
         modifier = modifier
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
                 icon,
                 iconDescription,
                 Modifier.weight(0.8f).fillMaxSize()
+                //Modifier.fillMaxSize()
             )
 
             if (text != null) {
                 Box(
                     modifier = Modifier.weight(0.2f),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.BottomCenter
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Divider(
-                            color = MaterialTheme.colors.surface
-                        )
+                        Divider()
                         Text(
                             text,
-                            textAlign = TextAlign.Center,
-                            maxLines = 1,
-
+                            textAlign = TextAlign.Center
                         )
                     }
 
@@ -67,7 +64,7 @@ private fun ButtonTabPreview() {
     ButtonTab(
         onClick = { },
         icon = Icons.Filled.Edit,
-        modifier = Modifier.width(IntrinsicSize.Min).height(IntrinsicSize.Min),
+        modifier = Modifier.width(IntrinsicSize.Max).height(IntrinsicSize.Max),
         text = "Text2222222222222222 33333333333".useNonBreakingSpace(),
     )
 }

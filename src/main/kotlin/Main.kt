@@ -21,6 +21,7 @@ import serverScreen.presentation.ServerScreen
 import core.presentation.MainScreenModes
 import core.presentation.theme.AutocallerClientTheme
 import serverScreen.di.ServerScreenModule
+import java.awt.Dimension
 
 @Composable
 @Preview
@@ -56,6 +57,7 @@ fun main() = application {
         title = "Autocaller Client",
         onCloseRequest = ::exitApplication
     ) {
+        window.minimumSize = Dimension(1000,400)
         initKoin()
         App()
     }

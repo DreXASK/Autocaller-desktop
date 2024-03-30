@@ -51,7 +51,7 @@ fun ConnectionInfoWindow() {
                         modifier = Modifier.fillMaxWidth().padding(10.dp),
                         colors = ButtonDefaults.outlinedButtonColors(Color.Red)
                     ) {
-                        Text("Отвязать клиент от системы".useNonBreakingSpace())
+                        Text("Отвязать клиент от сервера".useNonBreakingSpace())
                     }
                 }
             }
