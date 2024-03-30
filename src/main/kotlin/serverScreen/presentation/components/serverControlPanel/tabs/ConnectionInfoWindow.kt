@@ -1,4 +1,4 @@
-package serverScreen.presentation.components.serverControlPanel
+package serverScreen.presentation.components.serverControlPanel.tabs
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
@@ -7,13 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import core.utils.useNonBreakingSpace
-import org.koin.java.KoinJavaComponent
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
+import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
 
 @Preview
 @Composable

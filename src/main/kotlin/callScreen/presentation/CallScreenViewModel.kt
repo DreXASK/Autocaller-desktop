@@ -17,7 +17,6 @@ import core.presentation.components.buttonTab.ButtonTabData
 import core.utils.useNonBreakingSpace
 
 class CallScreenViewModel {
-
 	val contactTable by inject<ContactTable>(ContactTable::class.java)
 
 	var isFilePickerOpen = mutableStateOf(false)

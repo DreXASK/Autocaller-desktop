@@ -1,17 +1,17 @@
-package callScreen.presentation.components.contactTable
+package serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.material.*
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import callScreen.domain.models.ContactTableItemData
 import core.presentation.components.VerticalDivider
 import core.presentation.components.table.TableItem
+import serverScreen.domain.models.TasksTableItemData
 
 @Preview
 @Composable
-fun ContactTableItem(itemData: ContactTableItemData) {
+fun TasksTableItem(itemData: TasksTableItemData) {
     TableItem {
         Text(itemData.surname, Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
@@ -21,9 +21,6 @@ fun ContactTableItem(itemData: ContactTableItemData) {
         VerticalDivider()
         Text(itemData.phoneNumber, Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Text(itemData.gender, Modifier.weight(1f), textAlign = TextAlign.Center)
-        VerticalDivider()
-        Text(itemData.age.toString(), Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text(itemData.messageTemplate, Modifier.weight(1f), textAlign = TextAlign.Center)
     }
 }
-

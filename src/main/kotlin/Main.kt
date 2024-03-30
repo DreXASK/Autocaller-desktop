@@ -5,6 +5,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toAwtImage
+import androidx.compose.ui.res.loadImageBitmap
+import androidx.compose.ui.res.useResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
@@ -14,7 +17,6 @@ import androidx.compose.ui.window.application
 import callScreen.di.callScreenModule
 import org.koin.core.context.startKoin
 import callScreen.presentation.CallScreen
-import serverScreen.presentation.components.ConnectionAdjusterScreen
 import core.di.coreModule
 import core.presentation.components.NavigationRail
 import serverScreen.presentation.ServerScreen
@@ -58,6 +60,7 @@ fun main() = application {
         onCloseRequest = ::exitApplication
     ) {
         window.minimumSize = Dimension(1000,400)
+        window.iconImage = useResource("drawable/Icon.png", ::loadImageBitmap).toAwtImage()
         initKoin()
         App()
     }

@@ -1,4 +1,4 @@
-package core.presentation.components
+package core.presentation.components.table
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.material.Card

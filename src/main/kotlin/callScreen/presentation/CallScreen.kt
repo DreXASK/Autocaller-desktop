@@ -10,7 +10,7 @@ import org.koin.java.KoinJavaComponent.inject
 import callScreen.presentation.components.ContactAdderDialog
 import core.presentation.components.MyFileDialog
 import core.presentation.components.buttonTab.ButtonTabMenuLazyRow
-import callScreen.presentation.components.contactTable.CallTableUI
+import callScreen.presentation.components.contactTable.ContactTableUI
 
 @Preview
 @Composable
@@ -26,7 +26,7 @@ fun CallScreen() {
             Modifier.weight(1f),
             contentAlignment = Alignment.TopCenter
         ) {
-            CallTableUI(
+            ContactTableUI(
                 viewModel.contactTable.contactTableStore,
                 viewModel.contactTable.filterStore,
                 viewModel.contactTable::updateContactListFiltered

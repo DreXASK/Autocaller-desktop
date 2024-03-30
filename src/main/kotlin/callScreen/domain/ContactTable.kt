@@ -4,6 +4,8 @@ import callScreen.domain.models.ContactTableItemData
 import callScreen.domain.usecase.AddContactToTableUseCase
 import callScreen.domain.usecase.AddContactsToTableFromFileUseCase
 import callScreen.domain.usecase.GetFilteredContactListUseCase
+import callScreen.presentation.components.contactTable.ContactTableFilterStore
+import callScreen.presentation.components.contactTable.ContactTableStore
 import org.koin.java.KoinJavaComponent.inject
 
 class ContactTable {

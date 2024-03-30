@@ -3,8 +3,8 @@ package callScreen.di
 import callScreen.data.repository.local.ContactRepositoryLocal
 import callScreen.domain.ContactTable
 import callScreen.domain.usecase.AddContactsToTableFromFileUseCase
-import callScreen.domain.ContactTableFilterStore
-import callScreen.domain.ContactTableStore
+import callScreen.presentation.components.contactTable.ContactTableFilterStore
+import callScreen.presentation.components.contactTable.ContactTableStore
 import callScreen.domain.repository.ContactRepository
 import callScreen.domain.usecase.AddContactToTableUseCase
 import callScreen.domain.usecase.GetFilteredContactListUseCase

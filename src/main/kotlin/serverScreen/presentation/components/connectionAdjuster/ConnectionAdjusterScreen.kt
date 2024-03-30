@@ -1,4 +1,4 @@
-package serverScreen.presentation.components
+package serverScreen.presentation.components.connectionAdjuster
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
@@ -10,8 +10,6 @@ import androidx.compose.ui.Modifier
 import org.koin.java.KoinJavaComponent.inject
 import core.domain.ServerConnectionStatus
 import serverScreen.presentation.ServerScreenViewModel
-import serverScreen.presentation.components.connectionAdjuster.ConnectingWindow
-import serverScreen.presentation.components.connectionAdjuster.DisconnectedWindow
 
 @Preview
 @Composable

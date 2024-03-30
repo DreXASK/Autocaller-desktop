@@ -1,61 +1,62 @@
 package callScreen.domain.usecase
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import callScreen.domain.*
 import callScreen.domain.models.ContactTableItemData
+import callScreen.presentation.components.contactTable.ContactTableFilterStore
 
 class GetFilteredContactListUseCase {
-	fun execute(
-		contactList: SnapshotStateList<ContactTableItemData>,
-		filterStore: ContactTableFilterStore
-	): List<ContactTableItemData> {
+    fun execute(
+        contactList: SnapshotStateList<ContactTableItemData>,
+        filterStore: ContactTableFilterStore
+    ): List<ContactTableItemData> {
 
-		val callTableContactListFiltered = mutableListOf<ContactTableItemData>()
+        val callTableContactListFiltered = mutableListOf<ContactTableItemData>()
 
-		filterStore.run {
-			callTableContactListFiltered.addAll(contactList.filter {
-				it.surname.contains(surnameFilterText.value, ignoreCase = true)
-						&& it.name.contains(nameFilterText.value, ignoreCase = true)
-						&& it.patronymic.contains(patronymicFilterText.value, ignoreCase = true)
-						&& it.number.contains(numberFilterText.value, ignoreCase = true)
-						&& it.gender.contains(genderFilterText.value, ignoreCase = true)
-						&& (isAgeFieldsAreEmpty(this)
-						|| isAgeBiggerThanMinAgeAndSmallerThanMaxAge(it, this)
-						|| (isOnlyMinAgeIsExists(this) && isAgeBiggerThanMinAge(it, this))
-						|| (isOnlyMaxAgeIsExists(this) && isAgeSmallerThanMaxAge(it, this))
-						)
-			})
-		}
+        callTableContactListFiltered.addAll(
+            contactList.filter {
+                it.surname.contains(filterStore.surnameFilterText.value, ignoreCase = true)
+                        && it.name.contains(filterStore.nameFilterText.value, ignoreCase = true)
+                        && it.patronymic.contains(filterStore.patronymicFilterText.value, ignoreCase = true)
+                        && it.phoneNumber.contains(filterStore.numberFilterText.value, ignoreCase = true)
+                        && it.gender.contains(filterStore.genderFilterText.value, ignoreCase = true)
+                        && (isAgeFieldsAreEmpty(filterStore)
+                        || isAgeBiggerThanMinAgeAndSmallerThanMaxAge(it, filterStore)
+                        || (isOnlyMinAgeIsExists(filterStore) && isAgeBiggerThanMinAge(it, filterStore))
+                        || (isOnlyMaxAgeIsExists(filterStore) && isAgeSmallerThanMaxAge(it, filterStore))
+                        )
+            }
+        )
 
-		return callTableContactListFiltered
-	}
+
+        return callTableContactListFiltered
+    }
 }
 
 private fun isAgeFieldsAreEmpty(filterStore: ContactTableFilterStore): Boolean =
-	filterStore.ageMinFilterText.value.isEmpty() && filterStore.ageMaxFilterText.value.isEmpty()
+    filterStore.ageMinFilterText.value.isEmpty() && filterStore.ageMaxFilterText.value.isEmpty()
 
 private fun isAgeBiggerThanMinAgeAndSmallerThanMaxAge(
-	itemData: ContactTableItemData,
-	filterStore: ContactTableFilterStore
+    itemData: ContactTableItemData,
+    filterStore: ContactTableFilterStore
 ): Boolean = isAgeBiggerThanMinAge(itemData, filterStore) && isAgeSmallerThanMaxAge(itemData, filterStore)
 
 private fun isAgeBiggerThanMinAge(
-	itemData: ContactTableItemData,
-	filterStore: ContactTableFilterStore
+    itemData: ContactTableItemData,
+    filterStore: ContactTableFilterStore
 ) = itemData.age > (filterStore.ageMinFilterText.value.toIntOrNull() ?: 0)
 
 private fun isAgeSmallerThanMaxAge(
-	itemData: ContactTableItemData,
-	filterStore: ContactTableFilterStore
+    itemData: ContactTableItemData,
+    filterStore: ContactTableFilterStore
 ) = itemData.age < (filterStore.ageMaxFilterText.value.toIntOrNull() ?: Int.MAX_VALUE)
 
 private fun isOnlyMaxAgeIsExists(filterStore: ContactTableFilterStore): Boolean {
-	return filterStore.ageMinFilterText.value.isEmpty() &&
-			filterStore.ageMaxFilterText.value.isNotEmpty()
+    return filterStore.ageMinFilterText.value.isEmpty() &&
+            filterStore.ageMaxFilterText.value.isNotEmpty()
 }
 
 private fun isOnlyMinAgeIsExists(filterStore: ContactTableFilterStore): Boolean {
-	return filterStore.ageMinFilterText.value.isNotEmpty() &&
-			filterStore.ageMaxFilterText.value.isEmpty()
+    return filterStore.ageMinFilterText.value.isNotEmpty() &&
+            filterStore.ageMaxFilterText.value.isEmpty()
 }
 

@@ -1,4 +1,4 @@
-package callScreen.presentation.components.contactTable
+package serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.Text
@@ -10,7 +10,7 @@ import core.presentation.components.table.TableHeader
 
 @Preview
 @Composable
-fun ContactTableHeader() {
+fun TasksTableHeader() {
     TableHeader {
         Text("Фамилия", Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
@@ -20,8 +20,6 @@ fun ContactTableHeader() {
         VerticalDivider()
         Text("Номер телефона", Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Text("Пол", Modifier.weight(1f), textAlign = TextAlign.Center)
-        VerticalDivider()
-        Text("Возраст", Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text("Шаблон", Modifier.weight(1f), textAlign = TextAlign.Center)
     }
 }
