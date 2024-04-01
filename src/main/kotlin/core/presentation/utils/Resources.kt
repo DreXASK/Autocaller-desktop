@@ -1,4 +1,4 @@
-package core.utils
+package core.presentation.utils
 import App
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf

@@ -6,6 +6,8 @@ import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.tabs.ConnectionInfoWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.MainTabsWindow
+import serverScreen.presentation.components.serverControlPanel.tabs.clientsWindow.ClientsWindow
+import serverScreen.presentation.components.serverControlPanel.tabs.connectionRequestsWindow.ConnectionRequestsWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.TasksWindow
 
 @Preview
@@ -13,13 +15,14 @@ import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.
 fun ServerControlPanelScreen() {
 	val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
-	when(viewModel.serverControlPanelSettings.windowToDisplay.value) {
+	when(viewModel.serverControlPanel.windowToDisplay.value) {
 		ServerControlPanelWindows.TabsWindow -> MainTabsWindow()
 		ServerControlPanelWindows.ConnectionInfoWindow -> ConnectionInfoWindow()
 		ServerControlPanelWindows.Tasks -> TasksWindow()
 		ServerControlPanelWindows.MessageTemplates -> TODO()
 		ServerControlPanelWindows.Statistics -> TODO()
-		ServerControlPanelWindows.ListOfConnected -> TODO()
-		ServerControlPanelWindows.ListOfPendingConnection -> TODO()
+		ServerControlPanelWindows.ListOfConnectedClients -> ClientsWindow()
+		ServerControlPanelWindows.ConnectionRequestsList -> ConnectionRequestsWindow()
+		ServerControlPanelWindows.ServerSettings -> TODO()
 	}
 }

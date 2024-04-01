@@ -6,6 +6,7 @@ enum class ServerControlPanelWindows {
     Tasks,
     MessageTemplates,
     Statistics,
-    ListOfConnected,
-    ListOfPendingConnection
+    ListOfConnectedClients,
+    ConnectionRequestsList,
+    ServerSettings
 }

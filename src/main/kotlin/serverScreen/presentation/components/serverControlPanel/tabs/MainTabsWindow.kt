@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import core.presentation.components.OutlinedButtonWithIconText
 import core.presentation.components.buttonTab.ButtonTabData
 import core.presentation.components.buttonTab.ButtonTabMenuGrid
 import org.koin.java.KoinJavaComponent.inject
@@ -25,7 +26,7 @@ fun MainTabsWindow() {
     val buttonData = listOf(
         ButtonTabData(
             onClick = {
-                      viewModel.serverControlPanelSettings.windowToDisplay.value = ServerControlPanelWindows.Tasks
+                      viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.Tasks
             },
             Icons.Rounded.Phone,
             text = "Текущие задания на сервере",
@@ -41,12 +42,16 @@ fun MainTabsWindow() {
             text = "Статистика информирования"
         ),
         ButtonTabData(
-            onClick = { },
+            onClick = {
+                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.ListOfConnectedClients
+            },
             Icons.Rounded.List,
             text = "Список подключенных клиентов"
         ),
         ButtonTabData(
-            onClick = { },
+            onClick = {
+                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.ConnectionRequestsList
+            },
             Icons.Rounded.List,
             text = "Запросы на подключение"
         )
@@ -65,23 +70,13 @@ fun MainTabsWindow() {
                 modifier = Modifier.align(Alignment.Center),
                 fontSize = 25.sp
             )
-            OutlinedButton(
-                onClick = {
-                    viewModel.serverControlPanelSettings.windowToDisplay.value =
-                        ServerControlPanelWindows.ConnectionInfoWindow
-                },
-                modifier = Modifier.align(Alignment.CenterEnd).padding(10.dp)
+            OutlinedButtonWithIconText(
+                modifier = Modifier.align(Alignment.CenterEnd).padding(10.dp),
+                icon = Icons.Rounded.Info,
+                text = "Соединение"
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        Icons.Rounded.Info,
-                        null,
-                        modifier = Modifier.padding(end = 5.dp)
-                    )
-                    Text("Соединение")
-                }
+                viewModel.serverControlPanel.windowToDisplay.value =
+                    ServerControlPanelWindows.ConnectionInfoWindow
             }
         }
         Divider()

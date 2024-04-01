@@ -10,7 +10,7 @@ import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import core.utils.Res
+import core.presentation.utils.Res
 
 
 enum class Page(val title: MutableState<String>) {

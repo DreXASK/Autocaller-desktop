@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import callScreen.domain.*
 import org.koin.java.KoinJavaComponent.inject
 import core.presentation.components.buttonTab.ButtonTabData
-import core.utils.useNonBreakingSpace
+import core.presentation.utils.useNonBreakingSpace
 
 class CallScreenViewModel {
 	val contactTable by inject<ContactTable>(ContactTable::class.java)

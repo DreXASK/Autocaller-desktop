@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
-import core.utils.useNonBreakingSpace
+import core.presentation.utils.useNonBreakingSpace
 
 @Preview
 @Composable

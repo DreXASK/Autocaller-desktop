@@ -1,4 +1,4 @@
-package core.utils
+package core.presentation.utils
 
 object Constants {
     const val REGULAR_SPACE_CHARACTER = ' '

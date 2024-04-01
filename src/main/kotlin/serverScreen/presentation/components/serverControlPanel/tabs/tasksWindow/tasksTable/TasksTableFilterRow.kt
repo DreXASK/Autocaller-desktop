@@ -1,5 +1,6 @@
 package serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import core.presentation.components.VerticalDivider
@@ -23,6 +24,9 @@ fun TasksTableFilterRow(
             TableFilterOutlinedTextField(numberFilterText, modifier, onFilterValueChange)
             VerticalDivider()
             TableFilterOutlinedTextField(messageTemplateFilterText, modifier, onFilterValueChange)
+            VerticalDivider()
+            Spacer(Modifier.weight(0.3f))
+            VerticalDivider()
         }
     }
 }

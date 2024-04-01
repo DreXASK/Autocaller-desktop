@@ -1,4 +1,4 @@
-package serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow
+package serverScreen.presentation.components.serverControlPanel.tabs.clientsWindow
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
@@ -16,19 +16,19 @@ import core.presentation.components.OutlinedButtonWithIconText
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
-import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableUI
+import serverScreen.presentation.components.serverControlPanel.tabs.clientsWindow.clientsTable.ClientsTableUI
 
 @Preview
 @Composable
-fun TasksWindow() {
+fun ClientsWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-
         Box(
-            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max).padding(start = 30.dp, top = 10.dp, end = 30.dp),
+            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max)
+                .padding(start = 30.dp, top = 10.dp, end = 30.dp),
             contentAlignment = Alignment.TopStart
         ) {
             Row {
@@ -54,17 +54,11 @@ fun TasksWindow() {
             ) {
                 Icon(Icons.Rounded.Refresh, "Refresh the table")
             }
-
-
         }
 
-
-
-        TasksTableUI(
-            viewModel.tasksTable.tasksListFiltered,
-            viewModel.tasksTable.filterStore,
-            contentPadding = PaddingValues(start = 30.dp, top = 10.dp, end = 30.dp, bottom = 30.dp),
-            viewModel.tasksTable::updateTasksListFiltered
+        ClientsTableUI(
+            viewModel.clientsTable.clientsList,
+            contentPadding = PaddingValues(start = 30.dp, top = 10.dp, end = 30.dp, bottom = 30.dp)
         )
     }
 }

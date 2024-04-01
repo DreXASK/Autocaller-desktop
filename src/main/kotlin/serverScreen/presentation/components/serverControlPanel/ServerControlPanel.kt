@@ -2,7 +2,7 @@ package serverScreen.presentation.components.serverControlPanel
 
 import androidx.compose.runtime.mutableStateOf
 
-class ServerControlPanelSettings {
+class ServerControlPanel {
     var windowToDisplay = mutableStateOf(ServerControlPanelWindows.TabsWindow)
 }
 

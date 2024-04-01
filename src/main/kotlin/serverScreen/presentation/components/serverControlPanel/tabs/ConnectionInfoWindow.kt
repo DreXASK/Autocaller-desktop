@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import core.utils.useNonBreakingSpace
+import core.presentation.utils.useNonBreakingSpace
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
@@ -56,7 +56,7 @@ fun ConnectionInfoWindow() {
             }
             OutlinedButton(
                 onClick = {
-                    viewModel.serverControlPanelSettings.windowToDisplay.value = ServerControlPanelWindows.TabsWindow
+                    viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.TabsWindow
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {

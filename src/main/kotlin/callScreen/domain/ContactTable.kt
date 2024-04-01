@@ -1,11 +1,12 @@
 package callScreen.domain
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import callScreen.domain.models.ContactTableItemData
 import callScreen.domain.usecase.AddContactToTableUseCase
 import callScreen.domain.usecase.AddContactsToTableFromFileUseCase
 import callScreen.domain.usecase.GetFilteredContactListUseCase
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
-import callScreen.presentation.components.contactTable.ContactTableStore
 import org.koin.java.KoinJavaComponent.inject
 
 class ContactTable {
@@ -18,26 +19,28 @@ class ContactTable {
     private val getFilteredContactListUseCase by inject<GetFilteredContactListUseCase>(
         GetFilteredContactListUseCase::class.java
     )
-    val contactTableStore by inject<ContactTableStore>(ContactTableStore::class.java)
+
     val filterStore by inject<ContactTableFilterStore>(ContactTableFilterStore::class.java)
+    private val contactList: SnapshotStateList<ContactTableItemData> = mutableStateListOf()
+    val contactListFiltered: SnapshotStateList<ContactTableItemData> = mutableStateListOf()
 
     fun updateContactListFiltered() {
-        contactTableStore.contactListFiltered.clear()
-        contactTableStore.contactListFiltered.addAll(
+        contactListFiltered.clear()
+        contactListFiltered.addAll(
             getFilteredContactListUseCase.execute(
-                contactTableStore.contactList,
+                contactList,
                 filterStore
             )
         )
     }
 
     fun addContactListToTableViaUrl(url: String) {
-        addContactsToTableViaUrlUseCase.execute(contactTableStore.contactList, url)
+        addContactsToTableViaUrlUseCase.execute(contactList, url)
         updateContactListFiltered()
     }
 
     fun addContactToTable(itemData: ContactTableItemData) {
-        addContactToTableUseCase.execute(contactTableStore.contactList, itemData)
+        addContactToTableUseCase.execute(contactList, itemData)
         updateContactListFiltered()
     }
 }

@@ -28,7 +28,7 @@ import java.awt.Dimension
 @Composable
 @Preview
 fun App() {
-    val mode = mutableStateOf(MainScreenModes.Calls)
+    val mode = mutableStateOf(MainScreenModes.Server)
 
     AutocallerClientTheme(isSystemInDarkTheme()) {
         Surface(

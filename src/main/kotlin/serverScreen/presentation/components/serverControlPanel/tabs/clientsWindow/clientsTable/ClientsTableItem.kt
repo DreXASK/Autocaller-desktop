@@ -1,9 +1,8 @@
-package serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable
+package serverScreen.presentation.components.serverControlPanel.tabs.clientsWindow.clientsTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipArea
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
@@ -17,37 +16,33 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import core.presentation.components.VerticalDivider
 import core.presentation.components.table.TableItem
-import serverScreen.domain.models.TasksTableItemData
+import serverScreen.domain.models.ClientsTableItemData
+import serverScreen.domain.models.ConnectionRequestsTableItemData
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
-fun TasksTableItem(itemData: TasksTableItemData) {
+fun ClientsTableItem(itemData: ClientsTableItemData) {
     TableItem {
-        Text(itemData.surname, Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text(itemData.id, Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
         Text(itemData.name, Modifier.weight(1f), textAlign = TextAlign.Center)
-        VerticalDivider()
-        Text(itemData.patronymic, Modifier.weight(1f), textAlign = TextAlign.Center)
-        VerticalDivider()
-        Text(itemData.phoneNumber, Modifier.weight(1f), textAlign = TextAlign.Center)
-        VerticalDivider()
-        Text(itemData.messageTemplate, Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
         TooltipArea(
             tooltip = {
                 Card(elevation = 20.dp) {
-                    Text("Удалить задание")
+                    Text("Отвязать клиент от сервера")
                 }
             },
-            modifier = Modifier.weight(0.3f)
+            modifier = Modifier.weight(0.1f)
         ) {
             OutlinedButton(
                 onClick = { },
                 shape = RectangleShape
             ) {
-                Icon(Icons.Rounded.Close, "Remove the task")
+                Icon(Icons.Rounded.Close, "Unbind client from server")
             }
         }
     }
 }
+

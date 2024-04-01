@@ -1,6 +1,7 @@
 package serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,5 +22,7 @@ fun TasksTableHeader() {
         Text("Номер телефона", Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
         Text("Шаблон", Modifier.weight(1f), textAlign = TextAlign.Center)
+        VerticalDivider()
+        Spacer(Modifier.weight(0.3f))
     }
 }

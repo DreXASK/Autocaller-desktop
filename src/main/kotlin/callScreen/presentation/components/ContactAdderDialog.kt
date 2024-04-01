@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import callScreen.domain.models.ContactTableItemData
-import core.utils.useNonBreakingSpace
+import core.presentation.utils.useNonBreakingSpace
 
 @Preview
 @Composable
@@ -19,7 +19,6 @@ fun ContactAdderDialog(
 	addButtonCallback: (itemData: ContactTableItemData) -> Unit
 ) {
 	val mFieldStates = ContactAdderDialogStates()
-	val mButtonsEnableState = mutableStateOf(false)
 
 	Dialog(
 		onDismissRequest = onDismissRequest

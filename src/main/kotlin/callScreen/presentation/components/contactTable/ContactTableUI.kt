@@ -6,19 +6,20 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.dp
-import callScreen.presentation.components.contactTable.ContactTableStore
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import callScreen.domain.models.ContactTableItemData
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 fun ContactTableUI(
-	contactTableStore: ContactTableStore,
+	contactList: SnapshotStateList<ContactTableItemData>,
 	filterStore: ContactTableFilterStore,
+	contentPadding: PaddingValues,
 	onFilterValueChanged: () -> Unit
 ) {
 	LazyColumn(
-		contentPadding = PaddingValues(30.dp)
+		contentPadding = contentPadding
 	) {
 		stickyHeader {
 			ContactTableHeader()
@@ -29,7 +30,7 @@ fun ContactTableUI(
                 onFilterValueChanged
 			)
 		}
-		items(contactTableStore.contactListFiltered) {
+		items(contactList) {
 			ContactTableItem(it)
 		}
 	}

@@ -6,6 +6,7 @@ import androidx.compose.material.Divider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.*
+import androidx.compose.ui.unit.dp
 import org.koin.java.KoinJavaComponent.inject
 import callScreen.presentation.components.ContactAdderDialog
 import core.presentation.components.MyFileDialog
@@ -27,8 +28,9 @@ fun CallScreen() {
             contentAlignment = Alignment.TopCenter
         ) {
             ContactTableUI(
-                viewModel.contactTable.contactTableStore,
+                viewModel.contactTable.contactListFiltered,
                 viewModel.contactTable.filterStore,
+                contentPadding = PaddingValues(30.dp),
                 viewModel.contactTable::updateContactListFiltered
             )
         }

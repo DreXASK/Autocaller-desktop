@@ -1,4 +1,4 @@
-package core.utils
+package core.presentation.utils
 
 fun String?.useNonBreakingSpace() = this.orEmpty()
     .replace(
