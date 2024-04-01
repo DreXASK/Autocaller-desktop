@@ -10,7 +10,7 @@ class ContactRepositoryLocal : ContactRepository {
         return try {
             Json.decodeFromString<List<ContactTableItemData>>(File(url).readText())
         } catch (e: Exception) {
-            throw Exception(e.message)
+            throw e
         }
     }
 

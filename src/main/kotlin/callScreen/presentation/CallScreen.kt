@@ -12,12 +12,16 @@ import callScreen.presentation.components.ContactAdderDialog
 import core.presentation.components.MyFileDialog
 import core.presentation.components.buttonTab.ButtonTabMenuLazyRow
 import callScreen.presentation.components.contactTable.ContactTableUI
+import kotlinx.coroutines.*
+import java.awt.Window
+import java.io.File
+import javax.swing.JFileChooser
+import javax.swing.filechooser.FileSystemView
 
 @Preview
 @Composable
 fun CallScreen() {
     val viewModel by inject<CallScreenViewModel>(CallScreenViewModel::class.java)
-    val isFilePickerOpen by remember { viewModel.isFilePickerOpen  }
     var isContactAdderDialogOpen by remember { viewModel.isContactAdderDialogOpen }
 
     Column(
@@ -36,14 +40,6 @@ fun CallScreen() {
         }
         Divider()
         ButtonTabMenuLazyRow(viewModel.buttonsDataList)
-    }
-
-    if(isFilePickerOpen) {
-        MyFileDialog(
-            onCloseRequest = {
-                it?.let { viewModel.contactTable.addContactListToTableViaUrl(it) }
-            }
-        )
     }
 
     if(isContactAdderDialogOpen) {
