@@ -82,7 +82,7 @@ fun MainTabsWindow() {
         Divider()
         ButtonTabMenuGrid(
             buttonsDataList = buttonData,
-            gridCells = GridCells.Fixed(4)
+            gridCells = GridCells.Adaptive(250.dp)
         )
     }
 

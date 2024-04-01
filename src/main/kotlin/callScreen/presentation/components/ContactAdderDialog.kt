@@ -18,7 +18,7 @@ fun ContactAdderDialog(
 	onDismissRequest: () -> Unit,
 	addButtonCallback: (itemData: ContactTableItemData) -> Unit
 ) {
-	val mFieldStates = ContactAdderDialogStates()
+	val fieldStates = ContactAdderDialogStates()
 
 	Dialog(
 		onDismissRequest = onDismissRequest
@@ -28,19 +28,19 @@ fun ContactAdderDialog(
 				modifier = Modifier.padding(20.dp).width(IntrinsicSize.Min),
 				horizontalAlignment = Alignment.CenterHorizontally
 			) {
-				ContactAdderOutlinedTextField(mFieldStates.surname) { Text("Фамилия") }
-				ContactAdderOutlinedTextField(mFieldStates.name) { Text("Имя") }
-				ContactAdderOutlinedTextField(mFieldStates.patronymic) { Text("Отчество") }
-				ContactAdderOutlinedTextField(mFieldStates.number) { Text("Номер телефона") }
-				ContactAdderOutlinedTextField(mFieldStates.gender) { Text("Пол") }
-				ContactAdderOutlinedTextField(mFieldStates.age) { Text("Возраст") }
+				ContactAdderOutlinedTextField(fieldStates.surname) { Text("Фамилия") }
+				ContactAdderOutlinedTextField(fieldStates.name) { Text("Имя") }
+				ContactAdderOutlinedTextField(fieldStates.patronymic) { Text("Отчество") }
+				ContactAdderOutlinedTextField(fieldStates.number) { Text("Номер телефона") }
+				ContactAdderOutlinedTextField(fieldStates.gender) { Text("Пол") }
+				ContactAdderOutlinedTextField(fieldStates.age) { Text("Возраст") }
 				Row() {
 					Button(
 						onClick = {
-							if (!mFieldStates.isDataCorrect()) { return@Button }
-							val itemData = createContactTableItemData(mFieldStates)
+							if (!fieldStates.isDataCorrect()) return@Button
+							val itemData = createContactTableItemData(fieldStates)
 							addButtonCallback(itemData)
-							mFieldStates.clearStates()
+							fieldStates.clearStates()
 						},
 						modifier = Modifier.padding(end = 5.dp)
 					) {
@@ -48,8 +48,8 @@ fun ContactAdderDialog(
 					}
 					Button(
 						onClick = {
-							if (!mFieldStates.isDataCorrect()) return@Button
-							val itemData = createContactTableItemData(mFieldStates)
+							if (!fieldStates.isDataCorrect()) return@Button
+							val itemData = createContactTableItemData(fieldStates)
 							addButtonCallback(itemData)
 							onDismissRequest()
 						},
@@ -82,7 +82,6 @@ private data class ContactAdderDialogStates(
 				|| age.value.toIntOrNull() == null
 				)
 	}
-
 	fun clearStates() {
 		surname.value = ""
 		name.value = ""
@@ -94,15 +93,15 @@ private data class ContactAdderDialogStates(
 }
 
 private fun createContactTableItemData(
-	mStates: ContactAdderDialogStates
+	states: ContactAdderDialogStates
 ): ContactTableItemData {
 	return ContactTableItemData(
-		mStates.surname.value,
-		mStates.name.value,
-		mStates.patronymic.value,
-		mStates.number.value,
-		mStates.gender.value,
-		mStates.age.value.toInt()
+		states.surname.value,
+		states.name.value,
+		states.patronymic.value,
+		states.number.value,
+		states.gender.value,
+		states.age.value.toInt()
 	)
 }
 

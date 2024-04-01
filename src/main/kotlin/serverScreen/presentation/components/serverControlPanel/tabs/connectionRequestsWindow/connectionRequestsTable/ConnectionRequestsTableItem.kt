@@ -3,6 +3,7 @@ package serverScreen.presentation.components.serverControlPanel.tabs.connectionR
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipArea
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import core.presentation.components.VerticalDivider
+import core.presentation.components.table.OutlinedButtonWithIconAndTooltip
 import core.presentation.components.table.TableItem
 import serverScreen.domain.models.ConnectionRequestsTableItemData
 import serverScreen.domain.models.TasksTableItemData
@@ -30,39 +32,15 @@ fun ConnectionRequestsTableItem(itemData: ConnectionRequestsTableItemData) {
         VerticalDivider()
         Text(itemData.requestArrivalTime, Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
-
-        TooltipArea(
-            tooltip = {
-                Card(elevation = 20.dp) {
-                    Text("Принять запрос на подключение")
-                }
-            },
-            modifier = Modifier.weight(0.1f)
-        ) {
-            OutlinedButton(
-                onClick = { },
-                shape = RectangleShape,
-                modifier = Modifier.weight(0.1f)
-            ) {
-                Icon(Icons.Rounded.Done, "Accept request")
-            }
-        }
-
-        TooltipArea(
-            tooltip = {
-                Card(elevation = 20.dp) {
-                    Text("Отклонить запрос на подключение")
-                }
-            },
-            modifier = Modifier.weight(0.1f)
-        ) {
-            OutlinedButton(
-                onClick = { },
-                shape = RectangleShape,
-                modifier = Modifier.weight(0.1f)
-            ) {
-                Icon(Icons.Rounded.Close, "Deny request")
-            }
-        }
+        OutlinedButtonWithIconAndTooltip(
+            tooltip = { Text("Принять запрос на подключение") },
+            icon = { Icon(Icons.Rounded.Done, "Accept the request") },
+            weight = 0.1f
+        ) { }
+        OutlinedButtonWithIconAndTooltip(
+            tooltip = { Text("Отклонить запрос на подключение") },
+            icon = { Icon(Icons.Rounded.Close, "Deny the request") },
+            weight = 0.1f
+        ) { }
     }
 }
