@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import core.domain.ServerConnectionStatus
 import core.presentation.utils.useNonBreakingSpace
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
@@ -46,7 +47,10 @@ fun ConnectionInfoWindow() {
                         softWrap = false
                     ) // TODO("Вписать сюда IP")
                     OutlinedButton(
-                        onClick = { },
+                        onClick = {
+                            viewModel.serverConnection.connectionStatus.value = ServerConnectionStatus.Disconnected
+                            viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.Tabs
+                        },
                         modifier = Modifier.fillMaxWidth().padding(10.dp),
                         colors = ButtonDefaults.outlinedButtonColors(Color.Red)
                     ) {
@@ -56,7 +60,7 @@ fun ConnectionInfoWindow() {
             }
             OutlinedButton(
                 onClick = {
-                    viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.TabsWindow
+                    viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.Tabs
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {

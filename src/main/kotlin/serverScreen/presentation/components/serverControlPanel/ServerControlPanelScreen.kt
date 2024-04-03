@@ -8,6 +8,8 @@ import serverScreen.presentation.components.serverControlPanel.tabs.ConnectionIn
 import serverScreen.presentation.components.serverControlPanel.tabs.MainTabsWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.clientsWindow.ClientsWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.connectionRequestsWindow.ConnectionRequestsWindow
+import serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow.MessageTemplatesWindow
+import serverScreen.presentation.components.serverControlPanel.tabs.statisticsWindow.StatisticsWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.TasksWindow
 
 @Preview
@@ -16,11 +18,11 @@ fun ServerControlPanelScreen() {
 	val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
 	when(viewModel.serverControlPanel.windowToDisplay.value) {
-		ServerControlPanelWindows.TabsWindow -> MainTabsWindow()
-		ServerControlPanelWindows.ConnectionInfoWindow -> ConnectionInfoWindow()
+		ServerControlPanelWindows.Tabs -> MainTabsWindow()
+		ServerControlPanelWindows.ConnectionInfo -> ConnectionInfoWindow()
 		ServerControlPanelWindows.Tasks -> TasksWindow()
-		ServerControlPanelWindows.MessageTemplates -> TODO()
-		ServerControlPanelWindows.Statistics -> TODO()
+		ServerControlPanelWindows.MessageTemplates -> MessageTemplatesWindow()
+		ServerControlPanelWindows.Statistics -> StatisticsWindow()
 		ServerControlPanelWindows.ListOfConnectedClients -> ClientsWindow()
 		ServerControlPanelWindows.ConnectionRequestsList -> ConnectionRequestsWindow()
 		ServerControlPanelWindows.ServerSettings -> TODO()

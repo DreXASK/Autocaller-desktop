@@ -38,13 +38,7 @@ fun ClientsWindow() {
                     text = "Назад в меню"
                 ) {
                     viewModel.serverControlPanel.windowToDisplay.value =
-                        ServerControlPanelWindows.TabsWindow
-                }
-                OutlinedButton(
-                    onClick = { },
-                    modifier = Modifier.fillMaxHeight(),
-                ) {
-                    Text("123")
+                        ServerControlPanelWindows.Tabs
                 }
             }
 

@@ -21,7 +21,7 @@ fun ConnectingWindow() {
     var connectionStatus by remember { viewModel.serverConnection.connectionStatus }
 
     val abc = CoroutineScope(Dispatchers.Default).launch {
-        delay(500)
+        delay(1000)
         connectionStatus = ServerConnectionStatus.Connected
     }
 

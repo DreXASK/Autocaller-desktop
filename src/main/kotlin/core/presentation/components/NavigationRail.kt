@@ -9,33 +9,32 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import core.presentation.utils.Res
 
 
-enum class Page(val title: MutableState<String>) {
-    CALL_MANAGER(Res.str.call_manager_label),
-    SERVER_ADMIN_MENU(Res.str.server_label)
+enum class Page(val title: MutableState<String>, val icon: ImageVector) {
+    CALL_MANAGER(Res.str.call_manager_label, Icons.Rounded.Call),
+    SERVER_ADMIN_MENU(Res.str.server_label, Icons.Rounded.Settings)
 }
 
 @Preview
 @Composable
 fun NavigationRail(mode: MutableState<MainScreenModes>) {
-    var selectedItem by remember { mutableStateOf(0) }
     val pages = Page.entries.toTypedArray()
-    val icons = listOf(Icons.Rounded.Call, Icons.Rounded.Settings, Icons.Rounded.Menu)
+
     NavigationRail(
         modifier = Modifier.width(IntrinsicSize.Min)
     ) {
-        pages.forEachIndexed { index, item ->
+        pages.forEach {item ->
             when (item) {
                 Page.CALL_MANAGER -> {
                     NavigationRailItem(
                         label = { Text(item.title.value, maxLines = 1) },
-                        icon = { Icon(icons[index], contentDescription = "") },
-                        selected = selectedItem == index,
+                        icon = { Icon(item.icon, contentDescription = "") },
+                        selected = mode.value == MainScreenModes.Calls,
                         onClick = {
-                            selectedItem = index
                             mode.value = MainScreenModes.Calls
                         },
                         alwaysShowLabel = false
@@ -44,10 +43,9 @@ fun NavigationRail(mode: MutableState<MainScreenModes>) {
                 Page.SERVER_ADMIN_MENU -> {
                     NavigationRailItem(
                         label = { Text(item.title.value, maxLines = 1) },
-                        icon = { Icon(icons[index], contentDescription = "") },
-                        selected = selectedItem == index,
+                        icon = { Icon(item.icon, contentDescription = "") },
+                        selected = mode.value == MainScreenModes.Server,
                         onClick = {
-                            selectedItem = index
                             mode.value = MainScreenModes.Server
                         },
                         alwaysShowLabel = false

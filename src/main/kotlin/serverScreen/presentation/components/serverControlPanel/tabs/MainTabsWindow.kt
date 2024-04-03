@@ -32,12 +32,16 @@ fun MainTabsWindow() {
             text = "Текущие задания на сервере",
         ),
         ButtonTabData(
-            onClick = { },
+            onClick = {
+                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.MessageTemplates
+            },
             Icons.Rounded.Edit,
             text = "Шаблоны сообщений"
         ),
         ButtonTabData(
-            onClick = { },
+            onClick = {
+                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.Statistics
+            },
             Icons.Rounded.Notifications,
             text = "Статистика информирования"
         ),
@@ -76,7 +80,7 @@ fun MainTabsWindow() {
                 text = "Соединение"
             ) {
                 viewModel.serverControlPanel.windowToDisplay.value =
-                    ServerControlPanelWindows.ConnectionInfoWindow
+                    ServerControlPanelWindows.ConnectionInfo
             }
         }
         Divider()
