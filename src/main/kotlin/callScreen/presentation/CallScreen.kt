@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
 import org.koin.java.KoinJavaComponent.inject
 import callScreen.presentation.components.ContactAdderDialog
+import callScreen.presentation.components.SenderContactsToServerDialog
 import core.presentation.components.MyFileDialog
 import core.presentation.components.buttonTab.ButtonTabMenuLazyRow
 import callScreen.presentation.components.contactTable.ContactTableUI
@@ -23,6 +24,7 @@ import javax.swing.filechooser.FileSystemView
 fun CallScreen() {
     val viewModel by inject<CallScreenViewModel>(CallScreenViewModel::class.java)
     var isContactAdderDialogOpen by remember { viewModel.isContactAdderDialogOpen }
+    var isSenderContactsToServerDialogOpen by remember { viewModel.isSenderContactsToServerDialogOpen }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -46,6 +48,13 @@ fun CallScreen() {
         ContactAdderDialog(
             onDismissRequest = { isContactAdderDialogOpen = false },
             addButtonCallback = viewModel.contactTable::addContactToTable
+        )
+    }
+
+    if(isSenderContactsToServerDialogOpen) {
+        SenderContactsToServerDialog(
+            onDismissRequest = { isSenderContactsToServerDialogOpen = false },
+            buttonCallback = { println("Отправлено") }
         )
     }
 }

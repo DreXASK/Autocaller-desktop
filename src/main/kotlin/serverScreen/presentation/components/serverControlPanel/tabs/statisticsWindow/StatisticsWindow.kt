@@ -150,9 +150,13 @@ fun StatisticsWindow() {
             ) {
                 Column {
                     Image(
-                        painterResource("drawable/stats.jpg"),
+                        painterResource("drawable/stats1.jpg"),
                         null,
-                        modifier = Modifier.fillMaxSize())
+                        modifier = Modifier.weight(1f).fillMaxSize())
+                    Image(
+                        painterResource("drawable/stats2.jpg"),
+                        null,
+                        modifier = Modifier.weight(1f).fillMaxSize())
                 }
             }
         }

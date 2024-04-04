@@ -16,6 +16,7 @@ class CallScreenViewModel {
     val contactTable by inject<ContactTable>(ContactTable::class.java)
 
     var isContactAdderDialogOpen = mutableStateOf(false)
+    var isSenderContactsToServerDialogOpen = mutableStateOf(false)
 
     val buttonsDataList = listOf(
         ButtonTabData(
@@ -34,9 +35,7 @@ class CallScreenViewModel {
             text = "Загрузить базу (Json)".useNonBreakingSpace(),
         ),
         ButtonTabData(
-            onClick = {
-                println(789)
-            },
+            onClick = { isSenderContactsToServerDialogOpen.value = true },
             icon = Icons.Rounded.Send,
             text = "Отправить контакты на сервер".useNonBreakingSpace(),
         )
