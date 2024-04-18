@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import callScreen.di.callScreenModule
 import callScreen.domain.models.ContactTableItemData
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
-import org.junit.jupiter.api.Assertions
 import org.koin.core.context.startKoin
 import org.koin.java.KoinJavaComponent.inject
 import kotlin.test.Test
@@ -16,7 +15,7 @@ class GetFilteredContactListUseCaseTest {
     val useCase by inject<GetFilteredContactListUseCase>(GetFilteredContactListUseCase::class.java)
 
     @Test
-    fun shouldReturnFilteredList() {
+    fun `should return filtered list`() {
 
         startKoin {
             modules(callScreenModule)
