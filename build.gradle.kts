@@ -36,6 +36,14 @@ dependencies {
 
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
+
+    testImplementation(kotlin("test"))
+    implementation("org.mockito:mockito-core:5.3.1")
+    implementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 compose.desktop {
