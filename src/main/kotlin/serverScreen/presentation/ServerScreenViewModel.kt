@@ -15,7 +15,5 @@ class ServerScreenViewModel {
     val tasksTable by inject<TasksTable>(TasksTable::class.java)
     val connectionRequestsTable by inject<ConnectionRequestsTable>(ConnectionRequestsTable::class.java)
     val clientsTable by inject<ClientsTable>(ClientsTable::class.java)
-
-
 }
 

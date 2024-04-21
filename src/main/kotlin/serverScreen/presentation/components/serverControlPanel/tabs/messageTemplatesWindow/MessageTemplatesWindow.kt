@@ -63,6 +63,7 @@ fun MessageTemplatesWindow() {
                         value = dropdownMenuSelected?.name.orEmpty(),
                         onValueChange = { },
                         readOnly = true,
+                        singleLine = true,
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownMenuExpanded) }
                     )
 

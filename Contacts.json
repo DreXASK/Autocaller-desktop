@@ -4,7 +4,7 @@
     "name": "Илья",
     "patronymic": "Николаевич",
     "phoneNumber": "88005553535",
-    "gender": "М",
+    "sex": "MALE",
     "age": 21
   },
   {
@@ -12,7 +12,7 @@
     "name": "Данила",
     "patronymic": "Русланович",
     "phoneNumber": "88005553536",
-    "gender": "М",
+    "sex": "MALE",
     "age": 22
   },
   {
@@ -20,7 +20,7 @@
     "name": "Дамир",
     "patronymic": "Сакенович",
     "phoneNumber": "88005553537",
-    "gender": "М",
+    "sex": "MALE",
     "age": 21
   },
   {
@@ -28,7 +28,7 @@
     "name": "Елизавета",
     "patronymic": "Ивановна",
     "phoneNumber": "74952759503",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 32
   },
 {
@@ -36,7 +36,7 @@
     "name": "Алексей",
     "patronymic": "Петрович",
     "phoneNumber": "79871234567",
-    "gender": "М",
+    "sex": "MALE",
     "age": 45
   },
   {
@@ -44,7 +44,7 @@
     "name": "Мария",
     "patronymic": "Сергеевна",
     "phoneNumber": "74951234567",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 28
   },
   {
@@ -52,7 +52,7 @@
     "name": "Дмитрий",
     "patronymic": "Александрович",
     "phoneNumber": "79105673219",
-    "gender": "М",
+    "sex": "MALE",
     "age": 37
   },
   {
@@ -60,7 +60,7 @@
     "name": "Екатерина",
     "patronymic": "Владимировна",
     "phoneNumber": "74957654321",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 30
   },
   {
@@ -68,7 +68,7 @@
     "name": "Андрей",
     "patronymic": "Игоревич",
     "phoneNumber": "79871239876",
-    "gender": "М",
+    "sex": "MALE",
     "age": 34
   },
   {
@@ -76,7 +76,7 @@
     "name": "Ольга",
     "patronymic": "Александровна",
     "phoneNumber": "74951239876",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 29
   },
   {
@@ -84,7 +84,7 @@
     "name": "Иван",
     "patronymic": "Павлович",
     "phoneNumber": "79105676432",
-    "gender": "М",
+    "sex": "MALE",
     "age": 41
   },
   {
@@ -92,7 +92,7 @@
     "name": "Татьяна",
     "patronymic": "Николаевна",
     "phoneNumber": "74957659876",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 25
   },
   {
@@ -100,7 +100,7 @@
     "name": "Сергей",
     "patronymic": "Дмитриевич",
     "phoneNumber": "79871238901",
-    "gender": "М",
+    "sex": "MALE",
     "age": 39
   },
   {
@@ -108,7 +108,7 @@
     "name": "Анастасия",
     "patronymic": "Юрьевна",
     "phoneNumber": "74951239801",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 31
   },
   {
@@ -116,7 +116,7 @@
     "name": "Артем",
     "patronymic": "Олегович",
     "phoneNumber": "79871239999",
-    "gender": "М",
+    "sex": "MALE",
     "age": 36
   },
   {
@@ -124,7 +124,7 @@
     "name": "Александр",
     "patronymic": "Игоревич",
     "phoneNumber": "74951230000",
-    "gender": "М",
+    "sex": "MALE",
     "age": 27
   },
   {
@@ -132,7 +132,7 @@
     "name": "Елена",
     "patronymic": "Андреевна",
     "phoneNumber": "79105670000",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 40
   },
   {
@@ -140,7 +140,7 @@
     "name": "Владимир",
     "patronymic": "Алексеевич",
     "phoneNumber": "74957650000",
-    "gender": "М",
+    "sex": "MALE",
     "age": 33
   },
   {
@@ -148,7 +148,7 @@
     "name": "Наталья",
     "patronymic": "Дмитриевна",
     "phoneNumber": "79871231111",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 38
   },
   {
@@ -156,7 +156,7 @@
     "name": "Павел",
     "patronymic": "Иванович",
     "phoneNumber": "74951231111",
-    "gender": "М",
+    "sex": "MALE",
     "age": 26
   },
   {
@@ -164,7 +164,7 @@
     "name": "София",
     "patronymic": "Сергеевна",
     "phoneNumber": "79105670001",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 29
   },
   {
@@ -172,7 +172,7 @@
     "name": "Григорий",
     "patronymic": "Петрович",
     "phoneNumber": "74957650001",
-    "gender": "М",
+    "sex": "MALE",
     "age": 42
   },
   {
@@ -180,7 +180,7 @@
     "name": "Ирина",
     "patronymic": "Александровна",
     "phoneNumber": "79871232222",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 32
   },
   {
@@ -188,7 +188,7 @@
     "name": "Антон",
     "patronymic": "Николаевич",
     "phoneNumber": "74951232222",
-    "gender": "М",
+    "sex": "MALE",
     "age": 31
   },
   {
@@ -196,7 +196,7 @@
     "name": "Вера",
     "patronymic": "Ивановна",
     "phoneNumber": "79105670002",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 35
   },
   {
@@ -204,7 +204,7 @@
     "name": "Михаил",
     "patronymic": "Андреевич",
     "phoneNumber": "74957650002",
-    "gender": "М",
+    "sex": "MALE",
     "age": 30
   },
   {
@@ -212,7 +212,7 @@
     "name": "Алена",
     "patronymic": "Петровна",
     "phoneNumber": "79871233333",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 28
   },
   {
@@ -220,7 +220,7 @@
     "name": "Виктор",
     "patronymic": "Владимирович",
     "phoneNumber": "74951233333",
-    "gender": "М",
+    "sex": "MALE",
     "age": 39
   },
   {
@@ -228,7 +228,7 @@
     "name": "Евгения",
     "patronymic": "Алексеевна",
     "phoneNumber": "79105670003",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 27
   },
   {
@@ -236,7 +236,7 @@
     "name": "Артемий",
     "patronymic": "Дмитриевич",
     "phoneNumber": "74957650003",
-    "gender": "М",
+    "sex": "MALE",
     "age": 37
   },
   {
@@ -244,7 +244,7 @@
     "name": "Людмила",
     "patronymic": "Анатольевна",
     "phoneNumber": "79871234444",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 26
   },
   {
@@ -252,7 +252,7 @@
     "name": "Василий",
     "patronymic": "Павлович",
     "phoneNumber": "74951234444",
-    "gender": "М",
+    "sex": "MALE",
     "age": 41
   },
   {
@@ -260,7 +260,7 @@
     "name": "Светлана",
     "patronymic": "Михайловна",
     "phoneNumber": "79105670004",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 34
   },
   {
@@ -268,7 +268,7 @@
     "name": "Аркадий",
     "patronymic": "Николаевич",
     "phoneNumber": "74957650004",
-    "gender": "М",
+    "sex": "MALE",
     "age": 33
   },
   {
@@ -276,7 +276,7 @@
     "name": "Елена",
     "patronymic": "Аркадьевна",
     "phoneNumber": "79871235555",
-    "gender": "Ж",
+    "sex": "FEMALE",
     "age": 30
   }
 ]

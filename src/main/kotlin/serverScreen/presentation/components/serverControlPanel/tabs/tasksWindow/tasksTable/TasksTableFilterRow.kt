@@ -3,6 +3,7 @@ package serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import core.presentation.components.PhoneNumberOutlinedTextField
 import core.presentation.components.VerticalDivider
 import core.presentation.components.table.TableFilterOutlinedTextField
 import core.presentation.components.table.TableFilterRow
@@ -21,7 +22,7 @@ fun TasksTableFilterRow(
             VerticalDivider()
             TableFilterOutlinedTextField(patronymicFilterText, modifier, onFilterValueChange)
             VerticalDivider()
-            TableFilterOutlinedTextField(numberFilterText, modifier, onFilterValueChange)
+            PhoneNumberOutlinedTextField(numberFilterText, modifier, onValueChange = onFilterValueChange)
             VerticalDivider()
             TableFilterOutlinedTextField(messageTemplateFilterText, modifier, onFilterValueChange)
             VerticalDivider()

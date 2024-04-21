@@ -6,8 +6,6 @@ import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.tabs.ConnectionInfoWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.MainTabsWindow
-import serverScreen.presentation.components.serverControlPanel.tabs.clientsWindow.ClientsWindow
-import serverScreen.presentation.components.serverControlPanel.tabs.connectionRequestsWindow.ConnectionRequestsWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow.MessageTemplatesWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.statisticsWindow.StatisticsWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.TasksWindow
@@ -21,10 +19,9 @@ fun ServerControlPanelScreen() {
 		ServerControlPanelWindows.Tabs -> MainTabsWindow()
 		ServerControlPanelWindows.ConnectionInfo -> ConnectionInfoWindow()
 		ServerControlPanelWindows.Tasks -> TasksWindow()
+		ServerControlPanelWindows.DoneTasks -> TODO()
 		ServerControlPanelWindows.MessageTemplates -> MessageTemplatesWindow()
 		ServerControlPanelWindows.Statistics -> StatisticsWindow()
-		ServerControlPanelWindows.ListOfConnectedClients -> ClientsWindow()
-		ServerControlPanelWindows.ConnectionRequestsList -> ConnectionRequestsWindow()
-		ServerControlPanelWindows.ServerSettings -> TODO()
+		ServerControlPanelWindows.CallProcessSettings -> TODO()
 	}
 }

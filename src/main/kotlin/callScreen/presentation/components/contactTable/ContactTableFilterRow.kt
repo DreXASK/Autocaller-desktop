@@ -2,25 +2,28 @@ package callScreen.presentation.components.contactTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import core.presentation.components.PhoneNumberOutlinedTextField
 import core.presentation.components.VerticalDivider
 import core.presentation.components.table.TableFilterRow
 import core.presentation.components.table.TableFilterOutlinedTextField
+import core.presentation.utils.Sex
 
+@OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
 fun ContactTableFilterRow(
     filterStore: ContactTableFilterStore,
     onFilterValueChange: () -> Unit
 ) {
+    var dropdownMenuExpanded by remember { mutableStateOf(false) }
+
     TableFilterRow {
         val modifier = Modifier.weight(1f)
-
-
 
         filterStore.apply {
             TableFilterOutlinedTextField(surnameFilterText, modifier, onFilterValueChange)
@@ -29,9 +32,49 @@ fun ContactTableFilterRow(
             VerticalDivider()
             TableFilterOutlinedTextField(patronymicFilterText, modifier, onFilterValueChange)
             VerticalDivider()
-            TableFilterOutlinedTextField(numberFilterText, modifier, onFilterValueChange)
+            PhoneNumberOutlinedTextField(numberFilterText, modifier, onValueChange = onFilterValueChange)
             VerticalDivider()
-            TableFilterOutlinedTextField(genderFilterText, modifier, onFilterValueChange)
+
+            ExposedDropdownMenuBox(
+                expanded = dropdownMenuExpanded,
+                onExpandedChange = { dropdownMenuExpanded = !dropdownMenuExpanded },
+                modifier = Modifier.weight(1f)
+            ) {
+
+                OutlinedTextField(
+                    value = sexFilterSelector.value?.initial.orEmpty(),
+                    onValueChange = { },
+                    readOnly = true,
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownMenuExpanded) }
+                )
+
+                ExposedDropdownMenu(
+                    expanded = dropdownMenuExpanded,
+                    onDismissRequest = { dropdownMenuExpanded = false }
+                ) {
+                    DropdownMenuItem(
+                        onClick = {
+                            dropdownMenuExpanded = !dropdownMenuExpanded
+                            sexFilterSelector.value = null
+                            onFilterValueChange()
+                        }
+                    ) {
+                        Text("")
+                    }
+                    Sex.entries.forEach { sex ->
+                        DropdownMenuItem(
+                            onClick = {
+                                dropdownMenuExpanded = !dropdownMenuExpanded
+                                sexFilterSelector.value = sex
+                                onFilterValueChange()
+                            }
+                        ) {
+                            Text(sex.initial)
+                        }
+                    }
+                }
+            }
+
             VerticalDivider()
             Row(
                 modifier = Modifier.weight(1f),

@@ -32,12 +32,12 @@ class CallScreenViewModel {
                 }
             },
             icon = Icons.Rounded.List,
-            text = "Загрузить базу (Json)".useNonBreakingSpace(),
+            text = "Загрузить список контактов (JSON)".useNonBreakingSpace(),
         ),
         ButtonTabData(
             onClick = { isSenderContactsToServerDialogOpen.value = true },
             icon = Icons.Rounded.Send,
-            text = "Отправить контакты на сервер".useNonBreakingSpace(),
+            text = "Обзвонить список".useNonBreakingSpace(),
         )
     )
 }

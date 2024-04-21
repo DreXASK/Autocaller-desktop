@@ -23,12 +23,12 @@ import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.
 fun TasksWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-
+    Column(modifier = Modifier.fillMaxSize()) {
         Box(
-            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max).padding(start = 30.dp, top = 10.dp, end = 30.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Max)
+                .padding(start = 30.dp, top = 10.dp, end = 30.dp),
             contentAlignment = Alignment.TopStart
         ) {
             Row {

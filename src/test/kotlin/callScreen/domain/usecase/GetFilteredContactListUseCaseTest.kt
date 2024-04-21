@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import callScreen.di.callScreenModule
 import callScreen.domain.models.ContactTableItemData
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
+import core.presentation.utils.Empty
+import core.presentation.utils.Sex
 import org.koin.core.context.startKoin
 import org.koin.java.KoinJavaComponent.inject
 import kotlin.test.Test
@@ -27,7 +29,7 @@ class GetFilteredContactListUseCaseTest {
                 "Иван",
                 "Иванович",
                 "89025768472",
-                "м",
+                Sex.MALE,
                 20
             ),
             ContactTableItemData(
@@ -35,7 +37,7 @@ class GetFilteredContactListUseCaseTest {
                 "Георгий",
                 "Константинович",
                 "89022667325",
-                "м",
+                Sex.MALE,
                 50
             ),
             ContactTableItemData(
@@ -43,7 +45,7 @@ class GetFilteredContactListUseCaseTest {
                 "Ольга",
                 "Руслановна",
                 "89025324512",
-                "ж",
+                Sex.FEMALE,
                 80
             ),
         )
@@ -52,7 +54,7 @@ class GetFilteredContactListUseCaseTest {
             nameFilterText = mutableStateOf(""),
             patronymicFilterText = mutableStateOf(""),
             numberFilterText = mutableStateOf(""),
-            genderFilterText = mutableStateOf("ж"),
+            sexFilterSelector = mutableStateOf(Sex.FEMALE),
             ageMinFilterText = mutableStateOf("50")
         )
 
@@ -62,7 +64,7 @@ class GetFilteredContactListUseCaseTest {
                 "Ольга",
                 "Руслановна",
                 "89025324512",
-                "ж",
+                Sex.FEMALE,
                 80
             )
         )

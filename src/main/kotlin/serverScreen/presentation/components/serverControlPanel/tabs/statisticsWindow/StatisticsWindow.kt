@@ -45,14 +45,20 @@ fun StatisticsWindow() {
         // Left column------------------------------------------------------------------------------------------
 
         Column(
-            modifier = Modifier.weight(1f).padding(10.dp)
+            modifier = Modifier
+                .weight(1f)
+                .padding(10.dp)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Max),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 OutlinedButtonWithIconText(
-                    modifier = Modifier.fillMaxHeight(),
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(end = 5.dp),
                     icon = Icons.Rounded.ArrowBack,
                     text = "Назад в меню"
                 ) {
@@ -60,53 +66,61 @@ fun StatisticsWindow() {
                         ServerControlPanelWindows.Tabs
                 }
 
-                Row {
-                    ExposedDropdownMenuBox(
+                ExposedDropdownMenuBox(
+                    expanded = dropdownMenuExpanded,
+                    onExpandedChange = { dropdownMenuExpanded = !dropdownMenuExpanded },
+                    modifier = Modifier.weight(1f)
+                ) {
+
+                    OutlinedTextField(
+                        value = dropdownMenuSelected?.name.orEmpty(),
+                        onValueChange = { },
+                        modifier = Modifier.fillMaxWidth(),
+                        readOnly = true,
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownMenuExpanded) }
+                    )
+
+                    ExposedDropdownMenu(
                         expanded = dropdownMenuExpanded,
-                        onExpandedChange = { dropdownMenuExpanded = !dropdownMenuExpanded }
+                        onDismissRequest = { dropdownMenuExpanded = false }
                     ) {
-
-                        TextField(
-                            value = dropdownMenuSelected?.name.orEmpty(),
-                            onValueChange = { },
-                            readOnly = true,
-                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownMenuExpanded) }
-                        )
-
-                        ExposedDropdownMenu(
-                            expanded = dropdownMenuExpanded,
-                            onDismissRequest = { dropdownMenuExpanded = false }
-                        ) {
-                            dropdownMenuItemList.forEach { item ->
-                                DropdownMenuItem(
-                                    onClick = {
-                                        dropdownMenuExpanded = !dropdownMenuExpanded
-                                        dropdownMenuSelected = item
-                                    }
-                                ) {
-                                    Text(item.name)
+                        dropdownMenuItemList.forEach { item ->
+                            DropdownMenuItem(
+                                onClick = {
+                                    dropdownMenuExpanded = !dropdownMenuExpanded
+                                    dropdownMenuSelected = item
                                 }
+                            ) {
+                                Text(item.name)
                             }
                         }
                     }
+                }
 
-                    OutlinedButton(
-                        onClick = {  },
-                        modifier = Modifier.fillMaxHeight().padding(start = 5.dp),
-                    ) {
-                        Icon(Icons.Rounded.Refresh, "")
-                    }
+                OutlinedButton(
+                    onClick = { },
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(start = 5.dp)
+                ) {
+                    Icon(Icons.Rounded.Refresh, "")
                 }
             }
 
+
             Card(
-                modifier = Modifier.fillMaxSize().padding(top = 10.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 10.dp),
                 elevation = 20.dp
             ) {
                 Column(modifier = Modifier.padding(5.dp)) {
                     TableStringRow("Отправлено сообщений", dropdownMenuSelected?.sentMessages.toString())
                     Divider()
-                    TableStringRow("Процент прочитанных сообщений", dropdownMenuSelected?.percentOfReadMessages.toString())
+                    TableStringRow(
+                        "Процент прочитанных сообщений",
+                        dropdownMenuSelected?.percentOfReadMessages.toString()
+                    )
                 }
             }
         }
@@ -114,14 +128,20 @@ fun StatisticsWindow() {
         // Right column------------------------------------------------------------------------------------------
 
         Column(
-            modifier = Modifier.weight(1f).padding(10.dp)
+            modifier = Modifier
+                .weight(1f)
+                .padding(10.dp)
         ) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = 20.dp
             ) {
                 Column {
-                    Text("Фильтр", Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+                    Text(
+                        "Фильтр",
+                        Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
+                    )
                     Row(Modifier.height(IntrinsicSize.Max)) {
                         OutlinedTextField(
                             value = dateFrom,
@@ -145,18 +165,26 @@ fun StatisticsWindow() {
                 }
             }
             Card(
-                modifier = Modifier.weight(1f).padding(top = 10.dp),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(top = 10.dp),
                 elevation = 20.dp
             ) {
                 Column {
                     Image(
                         painterResource("drawable/stats1.jpg"),
                         null,
-                        modifier = Modifier.weight(1f).fillMaxSize())
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize()
+                    )
                     Image(
                         painterResource("drawable/stats2.jpg"),
                         null,
-                        modifier = Modifier.weight(1f).fillMaxSize())
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize()
+                    )
                 }
             }
         }

@@ -4,9 +4,8 @@ enum class ServerControlPanelWindows {
     Tabs,
     ConnectionInfo,
     Tasks,
+    DoneTasks,
     MessageTemplates,
     Statistics,
-    ListOfConnectedClients,
-    ConnectionRequestsList,
-    ServerSettings
+    CallProcessSettings
 }

@@ -10,12 +10,11 @@ import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import core.presentation.utils.Res
 
 
 enum class Page(val title: MutableState<String>, val icon: ImageVector) {
-    CALL_MANAGER(Res.str.call_manager_label, Icons.Rounded.Call),
+    CALL_SCREEN(Res.str.call_screen_label, Icons.Rounded.Call),
     SERVER_ADMIN_MENU(Res.str.server_label, Icons.Rounded.Settings)
 }
 
@@ -29,7 +28,7 @@ fun NavigationRail(mode: MutableState<MainScreenModes>) {
     ) {
         pages.forEach {item ->
             when (item) {
-                Page.CALL_MANAGER -> {
+                Page.CALL_SCREEN -> {
                     NavigationRailItem(
                         label = { Text(item.title.value, maxLines = 1) },
                         icon = { Icon(item.icon, contentDescription = "") },

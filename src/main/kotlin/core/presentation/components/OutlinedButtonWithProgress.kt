@@ -28,7 +28,9 @@ fun OutLinedButtonWithProgress(
 			buttonText()
 		}
 		CircularProgressIndicator(
-			modifier = Modifier.width(256.dp).aspectRatio(1f),
+			modifier = Modifier
+				.width(256.dp)
+				.aspectRatio(1f),
 			color = MaterialTheme.colors.secondary,
 			strokeCap = StrokeCap.Round
 		)

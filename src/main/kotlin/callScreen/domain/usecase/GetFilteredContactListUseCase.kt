@@ -14,11 +14,11 @@ class GetFilteredContactListUseCase {
 
         callTableContactListFiltered.addAll(
             contactList.filter {
-                it.surname.contains(filterStore.surnameFilterText.value, ignoreCase = true)
-                        && it.name.contains(filterStore.nameFilterText.value, ignoreCase = true)
-                        && it.patronymic.contains(filterStore.patronymicFilterText.value, ignoreCase = true)
-                        && it.phoneNumber.contains(filterStore.numberFilterText.value, ignoreCase = true)
-                        && it.gender.contains(filterStore.genderFilterText.value, ignoreCase = true)
+                isFieldContainsFilterText(it.surname, filterStore.surnameFilterText.value)
+                        && isFieldContainsFilterText(it.name, filterStore.nameFilterText.value)
+                        && isFieldContainsFilterText(it.patronymic, filterStore.patronymicFilterText.value)
+                        && isFieldContainsFilterText(it.phoneNumber, filterStore.numberFilterText.value)
+                        && isSexIsTheSame(it, filterStore)
                         && (isAgeFieldsAreEmpty(filterStore)
                         || isAgeBiggerThanMinAgeAndSmallerThanMaxAge(it, filterStore)
                         || (isOnlyMinAgeIsExists(filterStore) && isAgeBiggerThanMinAge(it, filterStore))
@@ -27,9 +27,27 @@ class GetFilteredContactListUseCase {
             }
         )
 
-
         return callTableContactListFiltered
     }
+}
+
+private fun isFieldContainsFilterText(
+    fieldText: String?,
+    filterText: String
+): Boolean {
+    if(filterText.isBlank()) {
+        return true
+    }
+    return fieldText?.contains(filterText, ignoreCase = true) ?: false
+}
+
+private fun isSexIsTheSame(
+    itemData: ContactTableItemData,
+    filterStore: ContactTableFilterStore
+): Boolean {
+    if (filterStore.sexFilterSelector.value == null)
+        return true
+    return itemData.sex == filterStore.sexFilterSelector.value
 }
 
 private fun isAgeFieldsAreEmpty(filterStore: ContactTableFilterStore): Boolean =
@@ -43,12 +61,25 @@ private fun isAgeBiggerThanMinAgeAndSmallerThanMaxAge(
 private fun isAgeBiggerThanMinAge(
     itemData: ContactTableItemData,
     filterStore: ContactTableFilterStore
-) = itemData.age > (filterStore.ageMinFilterText.value.toIntOrNull() ?: 0)
+): Boolean {
+    if (filterStore.ageMinFilterText.value.toIntOrNull() == null)
+        return true
+    if (itemData.age == null)
+        return false
+
+    return itemData.age > (filterStore.ageMinFilterText.value.toIntOrNull() ?: 0)
+}
 
 private fun isAgeSmallerThanMaxAge(
     itemData: ContactTableItemData,
     filterStore: ContactTableFilterStore
-) = itemData.age < (filterStore.ageMaxFilterText.value.toIntOrNull() ?: Int.MAX_VALUE)
+): Boolean {
+    if (filterStore.ageMaxFilterText.value.toIntOrNull() == null)
+        return true
+    if (itemData.age == null)
+        return false
+    return itemData.age < (filterStore.ageMaxFilterText.value.toIntOrNull() ?: Int.MAX_VALUE)
+}
 
 private fun isOnlyMaxAgeIsExists(filterStore: ContactTableFilterStore): Boolean {
     return filterStore.ageMinFilterText.value.isEmpty() &&

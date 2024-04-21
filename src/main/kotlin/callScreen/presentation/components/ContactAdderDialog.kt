@@ -3,15 +3,22 @@ package callScreen.presentation.components
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import callScreen.domain.models.ContactTableItemData
+import core.presentation.PhoneVisualTransformation
+import core.presentation.components.PhoneNumberOutlinedTextField
+import core.presentation.utils.Constants.PHONE_NUMBER_LENGTH
+import core.presentation.utils.Sex
 import core.presentation.utils.useNonBreakingSpace
 
+@OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
 fun ContactAdderDialog(
@@ -19,22 +26,71 @@ fun ContactAdderDialog(
 	addButtonCallback: (itemData: ContactTableItemData) -> Unit
 ) {
 	val fieldStates = ContactAdderDialogStates()
+	var dropdownMenuExpanded by remember { mutableStateOf(false) }
 
 	Dialog(
 		onDismissRequest = onDismissRequest
 	) {
-		Card() {
+		Card {
 			Column(
-				modifier = Modifier.padding(20.dp).width(IntrinsicSize.Min),
+				modifier = Modifier
+					.padding(20.dp)
+					.width(IntrinsicSize.Min),
 				horizontalAlignment = Alignment.CenterHorizontally
 			) {
 				ContactAdderOutlinedTextField(fieldStates.surname) { Text("Фамилия") }
 				ContactAdderOutlinedTextField(fieldStates.name) { Text("Имя") }
 				ContactAdderOutlinedTextField(fieldStates.patronymic) { Text("Отчество") }
-				ContactAdderOutlinedTextField(fieldStates.number) { Text("Номер телефона") }
-				ContactAdderOutlinedTextField(fieldStates.gender) { Text("Пол") }
+
+				PhoneNumberOutlinedTextField(
+					phoneNumberState = fieldStates.number,
+					modifier = Modifier.fillMaxWidth(),
+					label = { Text("Номер телефона") }
+				)
+
+				ExposedDropdownMenuBox(
+					modifier = Modifier.fillMaxWidth(),
+					expanded = dropdownMenuExpanded,
+					onExpandedChange = { dropdownMenuExpanded = !dropdownMenuExpanded }
+				) {
+
+					OutlinedTextField(
+						value = fieldStates.sex.value?.initial.orEmpty(),
+						onValueChange = { },
+						modifier = Modifier.fillMaxWidth(),
+						label = { Text("Пол") },
+						readOnly = true,
+						singleLine = true,
+						trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownMenuExpanded) }
+					)
+
+					ExposedDropdownMenu(
+						expanded = dropdownMenuExpanded,
+						onDismissRequest = { dropdownMenuExpanded = false }
+					) {
+						DropdownMenuItem(
+							onClick = {
+								dropdownMenuExpanded = !dropdownMenuExpanded
+								fieldStates.sex.value = null
+							}
+						) {
+							Text("")
+						}
+						Sex.entries.forEach { sex ->
+							DropdownMenuItem(
+								onClick = {
+									dropdownMenuExpanded = !dropdownMenuExpanded
+									fieldStates.sex.value = sex
+								}
+							) {
+								Text(sex.initial)
+							}
+						}
+					}
+				}
+
 				ContactAdderOutlinedTextField(fieldStates.age) { Text("Возраст") }
-				Row() {
+				Row {
 					Button(
 						onClick = {
 							if (!fieldStates.isDataCorrect()) return@Button
@@ -70,24 +126,22 @@ private class ContactAdderDialogStates(
 	var name: MutableState<String> = mutableStateOf(""),
 	var patronymic: MutableState<String> = mutableStateOf(""),
 	var number: MutableState<String> = mutableStateOf(""),
-	var gender: MutableState<String> = mutableStateOf(""),
+	var sex: MutableState<Sex?> = mutableStateOf(null),
 	var age: MutableState<String> = mutableStateOf("")
 ) {
 	fun isDataCorrect(): Boolean {
-		return !(surname.value.isNullOrBlank()
-				|| name.value.isNullOrBlank()
-				|| patronymic.value.isNullOrBlank()
-				|| number.value.toLongOrNull() == null
-				|| gender.value.isNullOrBlank()
-				|| age.value.toIntOrNull() == null
-				)
+		if (number.value.length != 11)
+			return false
+		if (number.value.toLongOrNull() == null)
+			return false
+		return true
 	}
 	fun clearStates() {
 		surname.value = ""
 		name.value = ""
 		patronymic.value = ""
 		number.value = ""
-		gender.value = ""
+		sex.value = null
 		age.value = ""
 	}
 }
@@ -96,12 +150,12 @@ private fun createContactTableItemData(
 	states: ContactAdderDialogStates
 ): ContactTableItemData {
 	return ContactTableItemData(
-		states.surname.value,
-		states.name.value,
-		states.patronymic.value,
+		states.surname.value.ifBlank { null },
+		states.name.value.ifBlank { null },
+		states.patronymic.value.ifBlank { null },
 		states.number.value,
-		states.gender.value,
-		states.age.value.toInt()
+		states.sex.value,
+		states.age.value.toIntOrNull()
 	)
 }
 

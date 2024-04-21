@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import core.presentation.components.VerticalDivider
 import core.presentation.components.table.OutlinedButtonWithIconAndTooltip
 import core.presentation.components.table.TableItem
+import core.presentation.utils.applyPhoneVisualTransformation
 import serverScreen.domain.models.TasksTableItemData
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -32,7 +33,7 @@ fun TasksTableItem(itemData: TasksTableItemData) {
         VerticalDivider()
         Text(itemData.patronymic, Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Text(itemData.phoneNumber, Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text(itemData.phoneNumber.applyPhoneVisualTransformation(), Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
         Text(itemData.messageTemplate, Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()

@@ -27,7 +27,9 @@ fun OutlinedButtonWithIconText(
         Icon(
             imageVector = icon,
             contentDescription = contentDescription,
-            modifier = Modifier.padding(end = 5.dp).align(Alignment.CenterVertically)
+            modifier = Modifier
+                .padding(end = 5.dp)
+                .align(Alignment.CenterVertically)
         )
         Text(
             text = text,

@@ -29,7 +29,14 @@ fun MainTabsWindow() {
                       viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.Tasks
             },
             Icons.Rounded.Phone,
-            text = "Текущие задания на сервере",
+            text = "Запланированные обзвоны",
+        ),
+        ButtonTabData(
+            onClick = {
+                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.DoneTasks
+            },
+            Icons.Rounded.Done,
+            text = "Выполненные обзвоны"
         ),
         ButtonTabData(
             onClick = {
@@ -43,21 +50,14 @@ fun MainTabsWindow() {
                 viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.Statistics
             },
             Icons.Rounded.Notifications,
-            text = "Статистика информирования"
+            text = "Статистика обзвонов"
         ),
         ButtonTabData(
             onClick = {
-                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.ListOfConnectedClients
+                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.CallProcessSettings
             },
-            Icons.Rounded.List,
-            text = "Список подключенных клиентов"
-        ),
-        ButtonTabData(
-            onClick = {
-                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.ConnectionRequestsList
-            },
-            Icons.Rounded.List,
-            text = "Запросы на подключение"
+            Icons.Rounded.Settings,
+            text = "Настройки обзвонов"
         )
     )
 
@@ -86,7 +86,7 @@ fun MainTabsWindow() {
         Divider()
         ButtonTabMenuGrid(
             buttonsDataList = buttonData,
-            gridCells = GridCells.Adaptive(250.dp)
+            gridCells = GridCells.Adaptive(220.dp)
         )
     }
 

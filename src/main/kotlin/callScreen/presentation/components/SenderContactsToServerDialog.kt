@@ -44,10 +44,12 @@ fun SenderContactsToServerDialog(
                         expanded = dropdownMenuExpanded,
                         onExpandedChange = { dropdownMenuExpanded = !dropdownMenuExpanded }
                     ) {
-
-                        TextField(
+                        OutlinedTextField(
                             value = dropdownMenuSelected?.name ?: "Выберите шаблон",
                             onValueChange = { },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 10.dp),
                             readOnly = true,
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownMenuExpanded) }
                         )
@@ -71,7 +73,9 @@ fun SenderContactsToServerDialog(
 
                     OutlinedButton(
                         onClick = {  },
-                        modifier = Modifier.fillMaxHeight().padding(start = 5.dp),
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(start = 5.dp),
                     ) {
                         Icon(Icons.Rounded.Add, "")
                     }
@@ -82,7 +86,9 @@ fun SenderContactsToServerDialog(
                     onValueChange = {  },
                     maxLines = 10,
                     readOnly = true,
-                    modifier = Modifier.fillMaxWidth().padding(top = 10.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
                 )
 
                 Button(
