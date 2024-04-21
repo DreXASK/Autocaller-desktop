@@ -79,9 +79,9 @@ fun MessageTemplateAdderDialog(
     }
 }
 
-private data class MessageTemplateAdderDialogStates(
-    var name: MutableState<String> = mutableStateOf(""),
-    var text: MutableState<String> = mutableStateOf(""),
+private class MessageTemplateAdderDialogStates(
+    val name: MutableState<String> = mutableStateOf(""),
+    val text: MutableState<String> = mutableStateOf(""),
 ) {
     fun isDataCorrect(): Boolean {
         return (name.value.isNotEmpty() && text.value.isNotEmpty())

@@ -65,7 +65,7 @@ fun ContactAdderDialog(
 	}
 }
 
-private data class ContactAdderDialogStates(
+private class ContactAdderDialogStates(
 	var surname: MutableState<String> = mutableStateOf(""),
 	var name: MutableState<String> = mutableStateOf(""),
 	var patronymic: MutableState<String> = mutableStateOf(""),

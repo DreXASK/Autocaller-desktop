@@ -19,6 +19,9 @@ fun ContactTableFilterRow(
 ) {
     TableFilterRow {
         val modifier = Modifier.weight(1f)
+
+
+
         filterStore.apply {
             TableFilterOutlinedTextField(surnameFilterText, modifier, onFilterValueChange)
             VerticalDivider()

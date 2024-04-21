@@ -12,7 +12,7 @@ import kotlin.test.assertContentEquals
 
 class GetFilteredContactListUseCaseTest {
 
-    val useCase by inject<GetFilteredContactListUseCase>(GetFilteredContactListUseCase::class.java)
+    private val useCase by inject<GetFilteredContactListUseCase>(GetFilteredContactListUseCase::class.java)
 
     @Test
     fun `should return filtered list`() {

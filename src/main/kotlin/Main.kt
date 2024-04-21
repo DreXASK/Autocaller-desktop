@@ -31,20 +31,13 @@ fun App() {
     val mode = mutableStateOf(MainScreenModes.Server)
 
     AutocallerClientTheme(isSystemInDarkTheme()) {
-        Surface(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Row()
-            {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            Row {
                 NavigationRail(mode)
-
                 when (mode.value) {
-                    MainScreenModes.Calls ->
-                        CallScreen()
-                    MainScreenModes.Server ->
-                        ServerScreen()
+                    MainScreenModes.Calls -> CallScreen()
+                    MainScreenModes.Server -> ServerScreen()
                 }
-
             }
         }
     }
@@ -54,12 +47,12 @@ fun main() = application {
     Window(
         state = WindowState(
             WindowPlacement.Floating,
-            size = DpSize(1280.dp,720.dp)
+            size = DpSize(1280.dp, 720.dp)
         ),
         title = "Autocaller Client",
         onCloseRequest = ::exitApplication
     ) {
-        window.minimumSize = Dimension(1000,400)
+        window.minimumSize = Dimension(1000, 400)
         window.iconImage = useResource("drawable/Icon.png", ::loadImageBitmap).toAwtImage()
         initKoin()
         App()
