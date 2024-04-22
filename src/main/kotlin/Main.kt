@@ -28,15 +28,15 @@ import java.awt.Dimension
 @Composable
 @Preview
 fun App() {
-    val mode = mutableStateOf(MainScreenModes.Server)
+    val mode = mutableStateOf(MainScreenModes.SERVER)
 
     AutocallerClientTheme(isSystemInDarkTheme()) {
         Surface(modifier = Modifier.fillMaxSize()) {
             Row {
                 NavigationRail(mode)
                 when (mode.value) {
-                    MainScreenModes.Calls -> CallScreen()
-                    MainScreenModes.Server -> ServerScreen()
+                    MainScreenModes.CALLS -> CallScreen()
+                    MainScreenModes.SERVER -> ServerScreen()
                 }
             }
         }

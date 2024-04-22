@@ -16,12 +16,12 @@ fun ServerControlPanelScreen() {
 	val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
 	when(viewModel.serverControlPanel.windowToDisplay.value) {
-		ServerControlPanelWindows.Tabs -> MainTabsWindow()
-		ServerControlPanelWindows.ConnectionInfo -> ConnectionInfoWindow()
-		ServerControlPanelWindows.Tasks -> TasksWindow()
-		ServerControlPanelWindows.DoneTasks -> TODO()
-		ServerControlPanelWindows.MessageTemplates -> MessageTemplatesWindow()
-		ServerControlPanelWindows.Statistics -> StatisticsWindow()
-		ServerControlPanelWindows.CallProcessSettings -> TODO()
+		ServerControlPanelWindows.TABS -> MainTabsWindow()
+		ServerControlPanelWindows.CONNECTION_INFO -> ConnectionInfoWindow()
+		ServerControlPanelWindows.TASKS -> TasksWindow()
+		ServerControlPanelWindows.DONE_TASKS -> TODO()
+		ServerControlPanelWindows.MESSAGE_TEMPLATES -> MessageTemplatesWindow()
+		ServerControlPanelWindows.STATISTICS -> StatisticsWindow()
+		ServerControlPanelWindows.CALL_PROCESS_SETTINGS -> TODO()
 	}
 }

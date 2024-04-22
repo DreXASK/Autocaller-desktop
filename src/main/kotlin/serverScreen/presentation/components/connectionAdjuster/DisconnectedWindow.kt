@@ -35,7 +35,7 @@ fun DisconnectedWindow() {
         Button(
             onClick = {
                 CoroutineScope(Dispatchers.Default).launch {
-                    connectionStatus = ServerConnectionStatus.Connecting
+                    connectionStatus = ServerConnectionStatus.CONNECTING
                     viewModel.serverConnection.getToken()
                     viewModel.serverConnection.getConnectionStatus()
                 }

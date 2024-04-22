@@ -14,7 +14,7 @@ import serverScreen.domain.models.TasksTableItemData
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
 import kotlin.test.assertContentEquals
 
-class GetFilteredTaskListUseCaseTest : AutoCloseKoinTest() {
+class GetFilteredTaskListUseCaseTest {
 
     private val useCase by inject<GetFilteredTaskListUseCase>(GetFilteredTaskListUseCase::class.java)
 

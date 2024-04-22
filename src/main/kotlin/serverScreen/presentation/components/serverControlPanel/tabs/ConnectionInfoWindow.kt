@@ -48,8 +48,8 @@ fun ConnectionInfoWindow() {
                     ) // TODO("Вписать сюда IP")
                     OutlinedButton(
                         onClick = {
-                            viewModel.serverConnection.connectionStatus.value = ServerConnectionStatus.Disconnected
-                            viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.Tabs
+                            viewModel.serverConnection.connectionStatus.value = ServerConnectionStatus.DISCONNECTED
+                            viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.TABS
                         },
                         modifier = Modifier.fillMaxWidth().padding(10.dp),
                         colors = ButtonDefaults.outlinedButtonColors(Color.Red)
@@ -60,7 +60,7 @@ fun ConnectionInfoWindow() {
             }
             OutlinedButton(
                 onClick = {
-                    viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.Tabs
+                    viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.TABS
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {

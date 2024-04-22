@@ -21,11 +21,11 @@ fun ConnectionAdjusterScreen() {
         contentAlignment = Alignment.Center
     ) {
         when (viewModel.serverConnection.connectionStatus.value) {
-            ServerConnectionStatus.Disconnected ->
+            ServerConnectionStatus.DISCONNECTED ->
                 DisconnectedWindow()
-            ServerConnectionStatus.Connecting ->
+            ServerConnectionStatus.CONNECTING ->
                 ConnectingWindow()
-            ServerConnectionStatus.Connected ->
+            ServerConnectionStatus.CONNECTED ->
                 Text("Подключение успешно")
         }
     }

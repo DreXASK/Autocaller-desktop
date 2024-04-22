@@ -12,7 +12,7 @@ class ServerConnection {
         GetConnectionStatusUseCase::class.java
     )
 
-    val connectionStatus = mutableStateOf(ServerConnectionStatus.Disconnected)
+    val connectionStatus = mutableStateOf(ServerConnectionStatus.DISCONNECTED)
 
     suspend fun getToken() {
         println(getTokenUseCase.execute())

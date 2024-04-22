@@ -9,7 +9,6 @@ import androidx.compose.runtime.setValue
 import core.domain.ServerConnectionStatus
 import core.presentation.components.OutLinedButtonWithProgress
 import kotlinx.coroutines.*
-import org.koin.java.KoinJavaComponent
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 
@@ -22,12 +21,12 @@ fun ConnectingWindow() {
 
     val abc = CoroutineScope(Dispatchers.Default).launch {
         delay(1000)
-        connectionStatus = ServerConnectionStatus.Connected
+        connectionStatus = ServerConnectionStatus.CONNECTED
     }
 
     OutLinedButtonWithProgress(
         onClick = {
-            connectionStatus = ServerConnectionStatus.Disconnected
+            connectionStatus = ServerConnectionStatus.DISCONNECTED
             abc.cancel()
         },
         buttonText = { Text("Отмена подключения") }

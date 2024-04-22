@@ -4,7 +4,6 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Refresh
@@ -38,7 +37,7 @@ fun TasksWindow() {
                     text = "Назад в меню"
                 ) {
                     viewModel.serverControlPanel.windowToDisplay.value =
-                        ServerControlPanelWindows.Tabs
+                        ServerControlPanelWindows.TABS
                 }
             }
 

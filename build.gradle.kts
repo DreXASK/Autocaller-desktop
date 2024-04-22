@@ -11,6 +11,7 @@ version = "1.0-SNAPSHOT"
 val ktor_version: String by project
 val koin_version: String by project
 val coroutines_version: String by project
+val mockk_version: String by project
 
 repositories {
     mavenCentral()
@@ -39,7 +40,7 @@ dependencies {
     testImplementation("io.insert-koin:koin-test-junit5:$koin_version")
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version")
-    //testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:$mockk_version")
 }
 
 tasks.test {

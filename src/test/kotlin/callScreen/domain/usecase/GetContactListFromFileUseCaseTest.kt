@@ -3,29 +3,18 @@ package callScreen.domain.usecase
 import callScreen.domain.models.ContactTableItemData
 import callScreen.domain.repository.ContactRepository
 import core.presentation.utils.Sex
-import callScreen.mock.data.ContactRepositoryTest
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.jupiter.api.Test
-import org.koin.core.context.startKoin
-import org.koin.dsl.module
-import org.koin.java.KoinJavaComponent.inject
-import org.koin.test.junit5.AutoCloseKoinTest
 import kotlin.test.assertContentEquals
 
-class GetContactListFromFileUseCaseTest: AutoCloseKoinTest() {
+class GetContactListFromFileUseCaseTest {
 
-    private val useCase by inject<GetContactListFromFileUseCase>(GetContactListFromFileUseCase::class.java)
+    private val contactRepository = mockk<ContactRepository>()
+    private val useCase = GetContactListFromFileUseCase(contactRepository)
 
     @Test
     fun `get the same contact list as was sent from test repository`() {
-
-        startKoin {
-            modules(
-                module {
-                    single { GetContactListFromFileUseCase(contactRepository = get()) }
-                    single<ContactRepository> { ContactRepositoryTest() }
-                }
-            )
-        }
 
         val expectedList = mutableListOf(
             ContactTableItemData(
@@ -53,6 +42,8 @@ class GetContactListFromFileUseCaseTest: AutoCloseKoinTest() {
                 20
             )
         )
+
+        every { contactRepository.getContactList(any()) } returns expectedList
 
         val actualList: MutableList<ContactTableItemData> = mutableListOf()
         actualList.addAll(useCase.execute(""))

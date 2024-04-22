@@ -15,7 +15,7 @@ fun ServerScreen() {
 	val connection by inject<ServerConnection>(ServerConnection::class.java)
 
 	when(connection.connectionStatus.value) {
-		ServerConnectionStatus.Connected -> ServerControlPanelScreen()
+		ServerConnectionStatus.CONNECTED -> ServerControlPanelScreen()
 		else -> ConnectionAdjusterScreen()
 	}
 }

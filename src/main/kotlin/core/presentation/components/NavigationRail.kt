@@ -32,9 +32,9 @@ fun NavigationRail(mode: MutableState<MainScreenModes>) {
                     NavigationRailItem(
                         label = { Text(item.title.value, maxLines = 1) },
                         icon = { Icon(item.icon, contentDescription = "") },
-                        selected = mode.value == MainScreenModes.Calls,
+                        selected = mode.value == MainScreenModes.CALLS,
                         onClick = {
-                            mode.value = MainScreenModes.Calls
+                            mode.value = MainScreenModes.CALLS
                         },
                         alwaysShowLabel = false
                     )
@@ -43,9 +43,9 @@ fun NavigationRail(mode: MutableState<MainScreenModes>) {
                     NavigationRailItem(
                         label = { Text(item.title.value, maxLines = 1) },
                         icon = { Icon(item.icon, contentDescription = "") },
-                        selected = mode.value == MainScreenModes.Server,
+                        selected = mode.value == MainScreenModes.SERVER,
                         onClick = {
-                            mode.value = MainScreenModes.Server
+                            mode.value = MainScreenModes.SERVER
                         },
                         alwaysShowLabel = false
                     )

@@ -1,11 +1,11 @@
 package serverScreen.presentation.components.serverControlPanel
 
 enum class ServerControlPanelWindows {
-    Tabs,
-    ConnectionInfo,
-    Tasks,
-    DoneTasks,
-    MessageTemplates,
-    Statistics,
-    CallProcessSettings
+    TABS,
+    CONNECTION_INFO,
+    TASKS,
+    DONE_TASKS,
+    MESSAGE_TEMPLATES,
+    STATISTICS,
+    CALL_PROCESS_SETTINGS
 }

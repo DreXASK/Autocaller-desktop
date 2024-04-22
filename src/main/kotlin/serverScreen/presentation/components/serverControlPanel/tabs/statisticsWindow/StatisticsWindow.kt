@@ -6,14 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Place
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toAwtImage
-import androidx.compose.ui.res.loadImageBitmap
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.useResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import core.presentation.DateVisualTransformation
@@ -63,7 +59,7 @@ fun StatisticsWindow() {
                     text = "Назад в меню"
                 ) {
                     viewModel.serverControlPanel.windowToDisplay.value =
-                        ServerControlPanelWindows.Tabs
+                        ServerControlPanelWindows.TABS
                 }
 
                 ExposedDropdownMenuBox(

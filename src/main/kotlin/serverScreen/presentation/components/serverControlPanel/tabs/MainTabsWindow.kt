@@ -26,35 +26,35 @@ fun MainTabsWindow() {
     val buttonData = listOf(
         ButtonTabData(
             onClick = {
-                      viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.Tasks
+                      viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.TASKS
             },
             Icons.Rounded.Phone,
             text = "Запланированные обзвоны",
         ),
         ButtonTabData(
             onClick = {
-                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.DoneTasks
+                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.DONE_TASKS
             },
             Icons.Rounded.Done,
             text = "Выполненные обзвоны"
         ),
         ButtonTabData(
             onClick = {
-                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.MessageTemplates
+                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.MESSAGE_TEMPLATES
             },
             Icons.Rounded.Edit,
             text = "Шаблоны сообщений"
         ),
         ButtonTabData(
             onClick = {
-                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.Statistics
+                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.STATISTICS
             },
             Icons.Rounded.Notifications,
             text = "Статистика обзвонов"
         ),
         ButtonTabData(
             onClick = {
-                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.CallProcessSettings
+                viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.CALL_PROCESS_SETTINGS
             },
             Icons.Rounded.Settings,
             text = "Настройки обзвонов"
@@ -80,7 +80,7 @@ fun MainTabsWindow() {
                 text = "Соединение"
             ) {
                 viewModel.serverControlPanel.windowToDisplay.value =
-                    ServerControlPanelWindows.ConnectionInfo
+                    ServerControlPanelWindows.CONNECTION_INFO
             }
         }
         Divider()

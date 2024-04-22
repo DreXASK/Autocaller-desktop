@@ -51,7 +51,7 @@ fun MessageTemplatesWindow() {
                     text = "Назад в меню"
                 ) {
                     viewModel.serverControlPanel.windowToDisplay.value =
-                        ServerControlPanelWindows.Tabs
+                        ServerControlPanelWindows.TABS
                 }
 
                 ExposedDropdownMenuBox(

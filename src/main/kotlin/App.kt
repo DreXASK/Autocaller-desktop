@@ -1,9 +1,9 @@
 object App {
-    var language = Languages.Russian
+    var language = Languages.RUSSIAN
 
     enum class Languages(name: String) {
-        Russian("Русский"),
-        English("English")
+        RUSSIAN("Русский"),
+        ENGLISH("English")
     }
 }
 

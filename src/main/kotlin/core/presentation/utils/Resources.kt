@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 object Res {
     val str: StringsResourcesByLanguages.StringInterface
         get() {
-            return if (App.language == App.Languages.Russian)
+            return if (App.language == App.Languages.RUSSIAN)
                 StringsResourcesByLanguages.Russian
             else
                 StringsResourcesByLanguages.English

@@ -6,27 +6,15 @@ import callScreen.domain.models.ContactTableItemData
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
 import core.presentation.utils.Sex
 import org.junit.jupiter.api.Test
-import org.koin.core.context.startKoin
-import org.koin.dsl.module
-import org.koin.java.KoinJavaComponent.inject
-import org.koin.test.junit5.AutoCloseKoinTest
 import kotlin.test.assertContentEquals
 
 
-class GetFilteredContactListUseCaseTest: AutoCloseKoinTest() {
+class GetFilteredContactListUseCaseTest {
 
-    private val useCase by inject<GetFilteredContactListUseCase>(GetFilteredContactListUseCase::class.java)
+    private val useCase = GetFilteredContactListUseCase()
 
     @Test
     fun `return filtered contact list`() {
-
-        startKoin {
-            modules(
-                module {
-                    single { GetFilteredContactListUseCase() }
-                }
-            )
-        }
 
         val initialContactList = mutableStateListOf(
             ContactTableItemData(
@@ -74,7 +62,7 @@ class GetFilteredContactListUseCaseTest: AutoCloseKoinTest() {
             )
         )
 
-        val actualList =  useCase.execute(initialContactList, filterStore)
+        val actualList = useCase.execute(initialContactList, filterStore)
 
         assertContentEquals(expected = expectedList, actual = actualList)
     }
