@@ -16,7 +16,7 @@ class GetContactListFromFileUseCaseTest: AutoCloseKoinTest() {
     private val useCase by inject<GetContactListFromFileUseCase>(GetContactListFromFileUseCase::class.java)
 
     @Test
-    fun `get the same contact list as was sent from fake repository`() {
+    fun `get the same contact list as was sent from test repository`() {
 
         startKoin {
             modules(

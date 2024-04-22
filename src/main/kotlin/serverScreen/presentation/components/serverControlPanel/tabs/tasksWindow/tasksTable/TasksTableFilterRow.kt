@@ -22,7 +22,7 @@ fun TasksTableFilterRow(
             VerticalDivider()
             TableFilterOutlinedTextField(patronymicFilterText, modifier, onFilterValueChange)
             VerticalDivider()
-            PhoneNumberOutlinedTextField(numberFilterText, modifier, onValueChange = onFilterValueChange)
+            PhoneNumberOutlinedTextField(phoneNumberFilterText, modifier, onValueChange = onFilterValueChange)
             VerticalDivider()
             TableFilterOutlinedTextField(messageTemplateFilterText, modifier, onFilterValueChange)
             VerticalDivider()

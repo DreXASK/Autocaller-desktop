@@ -7,6 +7,6 @@ class TasksTableFilterStore(
     val surnameFilterText: MutableState<String> = mutableStateOf(""),
     val nameFilterText: MutableState<String> = mutableStateOf(""),
     val patronymicFilterText: MutableState<String> = mutableStateOf(""),
-    val numberFilterText: MutableState<String> = mutableStateOf(""),
+    val phoneNumberFilterText: MutableState<String> = mutableStateOf(""),
     val messageTemplateFilterText: MutableState<String> = mutableStateOf("")
 )

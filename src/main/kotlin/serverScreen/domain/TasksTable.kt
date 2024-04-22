@@ -4,12 +4,12 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.domain.models.TasksTableItemData
-import serverScreen.domain.usecase.GetFilteredTasksListUseCase
+import serverScreen.domain.usecase.GetFilteredTaskListUseCase
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
 
 class TasksTable {
-    private val getFilteredTasksListUseCase by inject<GetFilteredTasksListUseCase>(
-        GetFilteredTasksListUseCase::class.java
+    private val getFilteredTaskListUseCase by inject<GetFilteredTaskListUseCase>(
+        GetFilteredTaskListUseCase::class.java
     )
 
     val filterStore by inject<TasksTableFilterStore>(TasksTableFilterStore::class.java)
@@ -56,7 +56,7 @@ class TasksTable {
     fun updateTasksListFiltered() {
         tasksListFiltered.clear()
         tasksListFiltered.addAll(
-            getFilteredTasksListUseCase.execute(
+            getFilteredTaskListUseCase.execute(
                 tasksList,
                 filterStore
             )

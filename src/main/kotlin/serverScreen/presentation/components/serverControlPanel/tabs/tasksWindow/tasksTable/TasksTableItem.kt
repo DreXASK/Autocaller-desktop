@@ -27,11 +27,11 @@ import serverScreen.domain.models.TasksTableItemData
 @Composable
 fun TasksTableItem(itemData: TasksTableItemData) {
     TableItem {
-        Text(itemData.surname, Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text(itemData.surname ?: "", Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Text(itemData.name, Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text(itemData.name ?: "", Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Text(itemData.patronymic, Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text(itemData.patronymic ?: "", Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
         Text(itemData.phoneNumber.applyPhoneVisualTransformation(), Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()

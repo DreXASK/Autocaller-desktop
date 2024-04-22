@@ -10,7 +10,7 @@ group = "com.drexask.autocaller.client"
 version = "1.0-SNAPSHOT"
 val ktor_version: String by project
 val koin_version: String by project
-//val koin_compose_version: String by project
+val coroutines_version: String by project
 
 repositories {
     mavenCentral()
@@ -38,6 +38,7 @@ dependencies {
     implementation("io.insert-koin:koin-ktor:$koin_version")
     testImplementation("io.insert-koin:koin-test-junit5:$koin_version")
 
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version")
     //testImplementation(kotlin("test"))
 }
 

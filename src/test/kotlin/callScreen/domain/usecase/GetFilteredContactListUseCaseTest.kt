@@ -18,7 +18,7 @@ class GetFilteredContactListUseCaseTest: AutoCloseKoinTest() {
     private val useCase by inject<GetFilteredContactListUseCase>(GetFilteredContactListUseCase::class.java)
 
     @Test
-    fun `return filtered list`() {
+    fun `return filtered contact list`() {
 
         startKoin {
             modules(
@@ -58,7 +58,7 @@ class GetFilteredContactListUseCaseTest: AutoCloseKoinTest() {
             surnameFilterText = mutableStateOf("Иванов"),
             nameFilterText = mutableStateOf(""),
             patronymicFilterText = mutableStateOf(""),
-            numberFilterText = mutableStateOf(""),
+            phoneNumberFilterText = mutableStateOf(""),
             sexFilterSelector = mutableStateOf(Sex.FEMALE),
             ageMinFilterText = mutableStateOf("50")
         )

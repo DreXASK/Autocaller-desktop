@@ -8,7 +8,7 @@ import serverScreen.data.remote.ConnectionRepositoryRemote
 import serverScreen.data.remote.TokenRepositoryRemote
 import serverScreen.domain.TasksTable
 import serverScreen.domain.repository.ConnectionRepository
-import serverScreen.domain.usecase.GetFilteredTasksListUseCase
+import serverScreen.domain.usecase.GetFilteredTaskListUseCase
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanel
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
@@ -36,7 +36,7 @@ val ServerScreenModule = module {
 		TasksTable()
 	}
 	single {
-		GetFilteredTasksListUseCase()
+		GetFilteredTaskListUseCase()
 	}
 	single {
 		TasksTableFilterStore()
