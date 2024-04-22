@@ -2,10 +2,8 @@ package serverScreen.domain
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import callScreen.domain.models.ContactTableItemData
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.domain.models.TasksTableItemData
-import serverScreen.domain.usecase.AddTaskToTableUseCase
 import serverScreen.domain.usecase.GetFilteredTasksListUseCase
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
 
@@ -13,7 +11,6 @@ class TasksTable {
     private val getFilteredTasksListUseCase by inject<GetFilteredTasksListUseCase>(
         GetFilteredTasksListUseCase::class.java
     )
-    private val addTaskToTableUseCase by inject<AddTaskToTableUseCase>(AddTaskToTableUseCase::class.java)
 
     val filterStore by inject<TasksTableFilterStore>(TasksTableFilterStore::class.java)
 
@@ -22,7 +19,7 @@ class TasksTable {
 
     init {
         repeat(10) {
-            addTasksToTable(
+            addTaskListToTable(
                 listOf(
                     TasksTableItemData(
                         "Крючков",
@@ -51,10 +48,8 @@ class TasksTable {
         updateTasksListFiltered()
     }
 
-    fun addTasksToTable(taskList: List<TasksTableItemData>) {
-        taskList.forEach {
-            addTaskToTableUseCase.execute(tasksList, it)
-        }
+    fun addTaskListToTable(taskList: List<TasksTableItemData>) {
+        tasksList.addAll(taskList)
         updateTasksListFiltered()
     }
 

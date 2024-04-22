@@ -4,11 +4,11 @@ import core.domain.ServerConnectionStatus
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ClientTokenStatusRequest(
+data class ConnectionStatusRequest(
 	val token: String
 )
 
 @Serializable
-data class ClientTokenStatusResponse(
+data class ConnectionStatusResponse(
 	val connectionStatus: ServerConnectionStatus
 )

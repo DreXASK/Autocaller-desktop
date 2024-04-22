@@ -5,6 +5,7 @@ import callScreen.domain.models.ContactTableItemData
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
 
 class GetFilteredContactListUseCase {
+
     fun execute(
         contactList: SnapshotStateList<ContactTableItemData>,
         filterStore: ContactTableFilterStore
@@ -22,8 +23,7 @@ class GetFilteredContactListUseCase {
                         && (isAgeFieldsAreEmpty(filterStore)
                         || isAgeBiggerThanMinAgeAndSmallerThanMaxAge(it, filterStore)
                         || (isOnlyMinAgeIsExists(filterStore) && isAgeBiggerThanMinAge(it, filterStore))
-                        || (isOnlyMaxAgeIsExists(filterStore) && isAgeSmallerThanMaxAge(it, filterStore))
-                        )
+                        || (isOnlyMaxAgeIsExists(filterStore) && isAgeSmallerThanMaxAge(it, filterStore)))
             }
         )
 
@@ -35,9 +35,9 @@ private fun isFieldContainsFilterText(
     fieldText: String?,
     filterText: String
 ): Boolean {
-    if(filterText.isBlank()) {
+    if (filterText.isBlank())
         return true
-    }
+
     return fieldText?.contains(filterText, ignoreCase = true) ?: false
 }
 
@@ -47,6 +47,7 @@ private fun isSexIsTheSame(
 ): Boolean {
     if (filterStore.sexFilterSelector.value == null)
         return true
+
     return itemData.sex == filterStore.sexFilterSelector.value
 }
 
@@ -78,16 +79,13 @@ private fun isAgeSmallerThanMaxAge(
         return true
     if (itemData.age == null)
         return false
+
     return itemData.age < (filterStore.ageMaxFilterText.value.toIntOrNull() ?: Int.MAX_VALUE)
 }
 
-private fun isOnlyMaxAgeIsExists(filterStore: ContactTableFilterStore): Boolean {
-    return filterStore.ageMinFilterText.value.isEmpty() &&
-            filterStore.ageMaxFilterText.value.isNotEmpty()
-}
+private fun isOnlyMaxAgeIsExists(filterStore: ContactTableFilterStore): Boolean =
+    filterStore.ageMinFilterText.value.isEmpty() && filterStore.ageMaxFilterText.value.isNotEmpty()
 
-private fun isOnlyMinAgeIsExists(filterStore: ContactTableFilterStore): Boolean {
-    return filterStore.ageMinFilterText.value.isNotEmpty() &&
-            filterStore.ageMaxFilterText.value.isEmpty()
-}
 
+private fun isOnlyMinAgeIsExists(filterStore: ContactTableFilterStore): Boolean =
+    filterStore.ageMinFilterText.value.isNotEmpty() && filterStore.ageMaxFilterText.value.isEmpty()

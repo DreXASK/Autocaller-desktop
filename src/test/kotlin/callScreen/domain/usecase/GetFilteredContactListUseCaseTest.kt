@@ -2,25 +2,30 @@ package callScreen.domain.usecase
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import callScreen.di.callScreenModule
 import callScreen.domain.models.ContactTableItemData
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
-import core.presentation.utils.Empty
 import core.presentation.utils.Sex
+import org.junit.jupiter.api.Test
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 import org.koin.java.KoinJavaComponent.inject
-import kotlin.test.Test
+import org.koin.test.junit5.AutoCloseKoinTest
 import kotlin.test.assertContentEquals
 
-class GetFilteredContactListUseCaseTest {
+
+class GetFilteredContactListUseCaseTest: AutoCloseKoinTest() {
 
     private val useCase by inject<GetFilteredContactListUseCase>(GetFilteredContactListUseCase::class.java)
 
     @Test
-    fun `should return filtered list`() {
+    fun `return filtered list`() {
 
         startKoin {
-            modules(callScreenModule)
+            modules(
+                module {
+                    single { GetFilteredContactListUseCase() }
+                }
+            )
         }
 
         val initialContactList = mutableStateListOf(
@@ -71,6 +76,6 @@ class GetFilteredContactListUseCaseTest {
 
         val actualList =  useCase.execute(initialContactList, filterStore)
 
-        assertContentEquals(expectedList, actualList)
+        assertContentEquals(expected = expectedList, actual = actualList)
     }
 }

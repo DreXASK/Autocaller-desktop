@@ -10,6 +10,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import core.domain.ServerConnectionStatus
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 
@@ -31,9 +34,11 @@ fun DisconnectedWindow() {
         )
         Button(
             onClick = {
-                connectionStatus = ServerConnectionStatus.Connecting
-                viewModel.serverConnection.getToken()
-                viewModel.serverConnection.checkTokenStatus()
+                CoroutineScope(Dispatchers.Default).launch {
+                    connectionStatus = ServerConnectionStatus.Connecting
+                    viewModel.serverConnection.getToken()
+                    viewModel.serverConnection.getConnectionStatus()
+                }
             },
             modifier = Modifier.fillMaxWidth()
         ) {

@@ -25,8 +25,6 @@ fun ConnectionAdjusterScreen() {
                 DisconnectedWindow()
             ServerConnectionStatus.Connecting ->
                 ConnectingWindow()
-            ServerConnectionStatus.PendingToken ->
-                TODO()
             ServerConnectionStatus.Connected ->
                 Text("Подключение успешно")
         }

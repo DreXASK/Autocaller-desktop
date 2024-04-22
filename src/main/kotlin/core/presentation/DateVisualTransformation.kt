@@ -17,7 +17,7 @@ private fun dateFilter(text: AnnotatedString): TransformedText {
     var out = ""
     for (i in trimmed.indices) {
         out += trimmed[i]
-        if (i % 2 == 1 && i < 4) out += "/"
+        if (i % 2 == 1 && i < 4) out += "."
     }
 
     val numberOffsetTranslator = object : OffsetMapping {

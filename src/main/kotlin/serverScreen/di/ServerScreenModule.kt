@@ -1,14 +1,13 @@
 package serverScreen.di
 
-import serverScreen.domain.repository.ClientTokenRepository
-import serverScreen.domain.usecase.CheckConnectionStatusUseCase
-import serverScreen.domain.usecase.GetClientTokenUseCase
+import serverScreen.domain.repository.TokenRepository
+import serverScreen.domain.usecase.GetConnectionStatusUseCase
+import serverScreen.domain.usecase.GetTokenUseCase
 import org.koin.dsl.module
-import serverScreen.data.remote.ClientTokenRepositoryRemote
-import serverScreen.domain.ClientsTable
-import serverScreen.domain.ConnectionRequestsTable
+import serverScreen.data.remote.ConnectionRepositoryRemote
+import serverScreen.data.remote.TokenRepositoryRemote
 import serverScreen.domain.TasksTable
-import serverScreen.domain.usecase.AddTaskToTableUseCase
+import serverScreen.domain.repository.ConnectionRepository
 import serverScreen.domain.usecase.GetFilteredTasksListUseCase
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanel
@@ -21,14 +20,17 @@ val ServerScreenModule = module {
 	single {
 		ServerControlPanel()
 	}
-	single<ClientTokenRepository> {
-		ClientTokenRepositoryRemote()
+	single<TokenRepository> {
+		TokenRepositoryRemote(httpClient = get())
+	}
+	single<ConnectionRepository> {
+		ConnectionRepositoryRemote(httpClient = get())
 	}
 	single {
-		GetClientTokenUseCase()
+		GetTokenUseCase(tokenRepository = get())
 	}
 	single {
-		CheckConnectionStatusUseCase()
+		GetConnectionStatusUseCase(connectionRepository = get())
 	}
 	single {
 		TasksTable()
@@ -36,16 +38,7 @@ val ServerScreenModule = module {
 	single {
 		GetFilteredTasksListUseCase()
 	}
-	factory {
+	single {
 		TasksTableFilterStore()
-	}
-	single {
-		ConnectionRequestsTable()
-	}
-	single {
-		ClientsTable()
-	}
-	single {
-		AddTaskToTableUseCase()
 	}
 }

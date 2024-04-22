@@ -1,31 +1,25 @@
 package core.domain
 
 import androidx.compose.runtime.mutableStateOf
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
-import serverScreen.data.remote.dto.ClientTokenStatusRequest
-import serverScreen.domain.usecase.CheckConnectionStatusUseCase
-import serverScreen.domain.usecase.GetClientTokenUseCase
+import serverScreen.data.remote.dto.ConnectionStatusRequest
+import serverScreen.domain.usecase.GetConnectionStatusUseCase
+import serverScreen.domain.usecase.GetTokenUseCase
 
 class ServerConnection {
-    private val getClientTokenUseCase by inject<GetClientTokenUseCase>(GetClientTokenUseCase::class.java)
-    private val checkConnectionStatusUseCase by inject<CheckConnectionStatusUseCase>(
-        CheckConnectionStatusUseCase::class.java
+    private val getTokenUseCase by inject<GetTokenUseCase>(GetTokenUseCase::class.java)
+    private val getConnectionStatusUseCase by inject<GetConnectionStatusUseCase>(
+        GetConnectionStatusUseCase::class.java
     )
 
     val connectionStatus = mutableStateOf(ServerConnectionStatus.Disconnected)
 
-    fun getToken() {
-        CoroutineScope(Dispatchers.Default).launch {
-            println(getClientTokenUseCase.execute())
-        }
+    suspend fun getToken() {
+        println(getTokenUseCase.execute())
     }
-    fun checkTokenStatus() {
-        CoroutineScope(Dispatchers.Default).launch {
-            println(checkConnectionStatusUseCase.execute(ClientTokenStatusRequest("123")))
-        }
+
+    suspend fun getConnectionStatus() {
+        println(getConnectionStatusUseCase.execute(ConnectionStatusRequest("123")))
     }
 }
 

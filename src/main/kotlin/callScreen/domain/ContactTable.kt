@@ -3,18 +3,14 @@ package callScreen.domain
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import callScreen.domain.models.ContactTableItemData
-import callScreen.domain.usecase.AddContactToTableUseCase
-import callScreen.domain.usecase.AddContactsToTableFromFileUseCase
+import callScreen.domain.usecase.GetContactListFromFileUseCase
 import callScreen.domain.usecase.GetFilteredContactListUseCase
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
 import org.koin.java.KoinJavaComponent.inject
 
 class ContactTable {
-    private val addContactToTableUseCase by inject<AddContactToTableUseCase>(
-        AddContactToTableUseCase::class.java
-    )
-    private val addContactsToTableViaUrlUseCase by inject<AddContactsToTableFromFileUseCase>(
-        AddContactsToTableFromFileUseCase::class.java
+    private val getContactListFromFileUseCase by inject<GetContactListFromFileUseCase>(
+        GetContactListFromFileUseCase::class.java
     )
     private val getFilteredContactListUseCase by inject<GetFilteredContactListUseCase>(
         GetFilteredContactListUseCase::class.java
@@ -35,12 +31,12 @@ class ContactTable {
     }
 
     fun addContactListToTableViaUrl(url: String) {
-        addContactsToTableViaUrlUseCase.execute(contactList, url)
+        contactList.addAll(getContactListFromFileUseCase.execute(url))
         updateContactListFiltered()
     }
 
     fun addContactToTable(itemData: ContactTableItemData) {
-        addContactToTableUseCase.execute(contactList, itemData)
+        contactList.add(itemData)
         updateContactListFiltered()
     }
 }

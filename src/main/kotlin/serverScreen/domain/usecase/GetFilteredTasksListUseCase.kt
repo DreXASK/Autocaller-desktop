@@ -5,6 +5,7 @@ import serverScreen.domain.models.TasksTableItemData
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
 
 class GetFilteredTasksListUseCase {
+
     fun execute(
         tasksList: SnapshotStateList<TasksTableItemData>,
         filterStore: TasksTableFilterStore
@@ -22,4 +23,5 @@ class GetFilteredTasksListUseCase {
 
         return tasksListFiltered
     }
+
 }
