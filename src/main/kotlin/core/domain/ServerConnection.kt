@@ -2,14 +2,14 @@ package core.domain
 
 import androidx.compose.runtime.mutableStateOf
 import org.koin.java.KoinJavaComponent.inject
-import serverScreen.data.remote.dto.ConnectionStatusRequest
-import serverScreen.domain.usecase.GetConnectionStatusUseCase
-import serverScreen.domain.usecase.GetTokenUseCase
+import core.data.dto.TokenStatusRequest
+import core.domain.usecase.GetTokenStatusUseCase
+import core.domain.usecase.GetTokenUseCase
 
 class ServerConnection {
     private val getTokenUseCase by inject<GetTokenUseCase>(GetTokenUseCase::class.java)
-    private val getConnectionStatusUseCase by inject<GetConnectionStatusUseCase>(
-        GetConnectionStatusUseCase::class.java
+    private val getTokenStatusUseCase by inject<GetTokenStatusUseCase>(
+        GetTokenStatusUseCase::class.java
     )
 
     val connectionStatus = mutableStateOf(ServerConnectionStatus.DISCONNECTED)
@@ -19,7 +19,7 @@ class ServerConnection {
     }
 
     suspend fun getConnectionStatus() {
-        println(getConnectionStatusUseCase.execute(ConnectionStatusRequest("123")))
+        println(getTokenStatusUseCase.execute(TokenStatusRequest("123")))
     }
 }
 

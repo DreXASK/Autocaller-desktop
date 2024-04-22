@@ -1,7 +1,8 @@
-package callScreen.domain.usecase
+package unit.callScreen.domain.usecase
 
 import callScreen.domain.models.ContactTableItemData
 import callScreen.domain.repository.ContactRepository
+import callScreen.domain.usecase.GetContactListFromFileUseCase
 import core.presentation.utils.Sex
 import io.mockk.every
 import io.mockk.mockk

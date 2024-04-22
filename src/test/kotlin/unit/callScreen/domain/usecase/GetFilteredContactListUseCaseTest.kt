@@ -1,8 +1,9 @@
-package callScreen.domain.usecase
+package unit.callScreen.domain.usecase
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import callScreen.domain.models.ContactTableItemData
+import callScreen.domain.usecase.GetFilteredContactListUseCase
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
 import core.presentation.utils.Sex
 import org.junit.jupiter.api.Test

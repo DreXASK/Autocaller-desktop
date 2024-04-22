@@ -1,4 +1,4 @@
-package serverScreen.domain.usecase
+package unit.serverScreen.domain.usecase
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -11,23 +11,16 @@ import org.koin.dsl.module
 import org.koin.java.KoinJavaComponent.inject
 import org.koin.test.junit5.AutoCloseKoinTest
 import serverScreen.domain.models.TasksTableItemData
+import serverScreen.domain.usecase.GetFilteredTaskListUseCase
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
 import kotlin.test.assertContentEquals
 
 class GetFilteredTaskListUseCaseTest {
 
-    private val useCase by inject<GetFilteredTaskListUseCase>(GetFilteredTaskListUseCase::class.java)
+    private val useCase = GetFilteredTaskListUseCase()
 
     @Test
     fun `return filtered task list`() {
-
-        startKoin {
-            modules(
-                module {
-                    single { GetFilteredTaskListUseCase() }
-                }
-            )
-        }
 
         val initialTaskList = mutableStateListOf(
             TasksTableItemData(

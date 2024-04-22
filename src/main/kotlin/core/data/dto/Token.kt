@@ -1,11 +1,6 @@
-package serverScreen.data.remote.dto
+package core.data.dto
 
 import kotlinx.serialization.Serializable
-
-@Serializable
-data class TokenRequest(
-	val token: String
-)
 
 @Serializable
 data class TokenResponse(

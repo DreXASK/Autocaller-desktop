@@ -1,13 +1,13 @@
 package serverScreen.di
 
-import serverScreen.domain.repository.TokenRepository
-import serverScreen.domain.usecase.GetConnectionStatusUseCase
-import serverScreen.domain.usecase.GetTokenUseCase
+import core.domain.repository.TokenRepository
+import core.domain.usecase.GetTokenStatusUseCase
+import core.domain.usecase.GetTokenUseCase
 import org.koin.dsl.module
-import serverScreen.data.remote.ConnectionRepositoryRemote
-import serverScreen.data.remote.TokenRepositoryRemote
+import core.data.TokenStatusRepositoryRemote
+import core.data.TokenRepositoryRemote
 import serverScreen.domain.TasksTable
-import serverScreen.domain.repository.ConnectionRepository
+import core.domain.repository.TokenStatusRepository
 import serverScreen.domain.usecase.GetFilteredTaskListUseCase
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanel
@@ -19,18 +19,6 @@ val ServerScreenModule = module {
 	}
 	single {
 		ServerControlPanel()
-	}
-	single<TokenRepository> {
-		TokenRepositoryRemote(httpClient = get())
-	}
-	single<ConnectionRepository> {
-		ConnectionRepositoryRemote(httpClient = get())
-	}
-	single {
-		GetTokenUseCase(tokenRepository = get())
-	}
-	single {
-		GetConnectionStatusUseCase(connectionRepository = get())
 	}
 	single {
 		TasksTable()
