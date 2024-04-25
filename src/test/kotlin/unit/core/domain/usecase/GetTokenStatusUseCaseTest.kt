@@ -19,8 +19,7 @@ class GetTokenStatusUseCaseTest {
     @Test
     fun `return connected status`() = runTest {
 
-        coEvery { tokenStatusRepository.getTokenStatus(any()) } returns
-                TokenStatusResponse(TokenStatus.REGISTERED)
+        coEvery { tokenStatusRepository.getTokenStatus(any()) } returns TokenStatusResponse(TokenStatus.REGISTERED)
 
         val actual = useCase.execute(TokenStatusRequest(""))
         val expected = TokenStatus.REGISTERED

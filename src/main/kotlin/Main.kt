@@ -22,7 +22,7 @@ import core.presentation.components.NavigationRail
 import serverScreen.presentation.ServerScreen
 import core.presentation.MainScreenModes
 import core.presentation.theme.AutocallerClientTheme
-import serverScreen.di.ServerScreenModule
+import serverScreen.di.serverScreenModule
 import java.awt.Dimension
 
 @Composable
@@ -64,7 +64,7 @@ fun initKoin() {
         modules(
             callScreenModule,
             coreModule,
-            ServerScreenModule
+            serverScreenModule
         )
     }
 }

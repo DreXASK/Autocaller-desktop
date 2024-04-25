@@ -9,12 +9,15 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import core.domain.ServerConnectionStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
+
+const val DISCONNECTED_BUTTON_TAG = "DISCONNECTED_BUTTON_TAG"
 
 @Preview
 @Composable
@@ -40,7 +43,9 @@ fun DisconnectedWindow() {
                     viewModel.serverConnection.getConnectionStatus()
                 }
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(DISCONNECTED_BUTTON_TAG)
         ) {
             Text("Подключиться к серверу")
         }

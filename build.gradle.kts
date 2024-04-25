@@ -41,6 +41,8 @@ dependencies {
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version")
     testImplementation("io.mockk:mockk:$mockk_version")
+
+    implementation(compose.desktop.uiTestJUnit4)
 }
 
 tasks.test {
