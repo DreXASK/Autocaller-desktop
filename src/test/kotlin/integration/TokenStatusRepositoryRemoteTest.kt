@@ -1,4 +1,4 @@
-package e2e
+package integration
 
 import core.data.TokenStatusRepositoryRemote
 import core.data.dto.TokenStatusRequest
@@ -23,7 +23,7 @@ class TokenStatusRepositoryRemoteTest {
     private val connectionRepositoryRemote = TokenStatusRepositoryRemote(httpClient)
 
     @Test
-    fun `abc abc`() = runTest {
+    fun `return unregistered when trying to connect to the server`() = runTest {
 
         val expected = TokenStatusResponse(TokenStatus.UNREGISTERED)
 
