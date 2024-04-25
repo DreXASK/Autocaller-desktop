@@ -13,7 +13,7 @@ import serverScreen.presentation.ServerScreen
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.connectionAdjuster.DISCONNECTED_BUTTON_TAG
 
-class ServerScreenTest: AutoCloseKoinTest() {
+class ServerScreenUiTest: AutoCloseKoinTest() {
 
     private val viewModel by inject<ServerScreenViewModel>()
 
