@@ -8,16 +8,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
 import org.koin.java.KoinJavaComponent.inject
-import callScreen.presentation.components.ContactAdderDialog
+import callScreen.presentation.components.contactAdderDialog.ContactAdderDialog
 import callScreen.presentation.components.SenderContactsToServerDialog
-import core.presentation.components.MyFileDialog
 import core.presentation.components.buttonTab.ButtonTabMenuLazyRow
 import callScreen.presentation.components.contactTable.ContactTableUI
-import kotlinx.coroutines.*
-import java.awt.Window
-import java.io.File
-import javax.swing.JFileChooser
-import javax.swing.filechooser.FileSystemView
 
 @Preview
 @Composable

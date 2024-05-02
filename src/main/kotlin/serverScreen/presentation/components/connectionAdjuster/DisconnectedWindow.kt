@@ -24,6 +24,7 @@ const val DISCONNECTED_BUTTON_TAG = "DISCONNECTED_BUTTON_TAG"
 fun DisconnectedWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
     var ipTextValue by remember { mutableStateOf("localhost:8080") }
+    var connectionKeyTextValue by remember { mutableStateOf("") }
     var connectionStatus by remember { viewModel.serverConnection.connectionStatus }
 
     Column(
@@ -34,6 +35,11 @@ fun DisconnectedWindow() {
             value = ipTextValue,
             onValueChange = { ipTextValue = it },
             label = { Text("IP:Port") }
+        )
+        OutlinedTextField(
+            value = connectionKeyTextValue,
+            onValueChange = { connectionKeyTextValue = it },
+            label = { Text("Ключ аутентификации") }
         )
         Button(
             onClick = {

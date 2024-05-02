@@ -1,7 +1,8 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
@@ -15,15 +16,18 @@ import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import callScreen.di.callScreenModule
-import org.koin.core.context.startKoin
 import callScreen.presentation.CallScreen
 import core.di.coreModule
-import core.presentation.components.NavigationRail
-import serverScreen.presentation.ServerScreen
+import core.domain.util.EncryptionDecryptionUtil
 import core.presentation.MainScreenModes
+import core.presentation.components.NavigationRail
 import core.presentation.theme.AutocallerClientTheme
+import org.koin.core.context.startKoin
 import serverScreen.di.serverScreenModule
+import serverScreen.presentation.ServerScreen
 import java.awt.Dimension
+import java.io.File
+
 
 @Composable
 @Preview
@@ -56,6 +60,12 @@ fun main() = application {
         window.iconImage = useResource("drawable/Icon.png", ::loadImageBitmap).toAwtImage()
         initKoin()
         App()
+
+        File("token.txt").writeText(EncryptionDecryptionUtil.encrypt("secret","123213123"))
+        val readBase64CipherText =  File("token.txt").readText()
+
+        println(EncryptionDecryptionUtil.decrypt("secret", readBase64CipherText))
+
     }
 }
 
