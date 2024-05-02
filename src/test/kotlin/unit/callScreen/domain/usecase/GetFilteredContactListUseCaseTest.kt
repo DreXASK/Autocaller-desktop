@@ -20,7 +20,7 @@ import kotlin.test.assertContentEquals
 
 class GetFilteredContactListUseCaseTest {
 
-    private val useCase = spyk<GetFilteredContactListUseCase>(recordPrivateCalls = true)
+    private val useCase = spyk<GetFilteredContactListUseCase>()
 
     @get:Rule
     val filterStore = ContactTableFilterStore(

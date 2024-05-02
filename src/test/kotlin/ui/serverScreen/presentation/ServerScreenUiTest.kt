@@ -37,5 +37,4 @@ class ServerScreenUiTest: AutoCloseKoinTest() {
         onNodeWithTag(DISCONNECTED_BUTTON_TAG).performClick()
         assert(viewModel.serverConnection.connectionStatus.value != ServerConnectionStatus.DISCONNECTED)
     }
-
 }
