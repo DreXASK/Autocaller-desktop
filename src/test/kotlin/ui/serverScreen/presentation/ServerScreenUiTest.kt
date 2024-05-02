@@ -1,4 +1,4 @@
-package unit.serverScreen.presentation
+package ui.serverScreen.presentation
 
 import androidx.compose.ui.test.*
 import core.di.coreModule

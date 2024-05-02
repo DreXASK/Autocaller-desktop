@@ -6,7 +6,7 @@ plugins {
     kotlin("plugin.serialization") version "1.9.22"
 }
 
-group = "com.drexask.autocaller.client"
+group = "com.drexask"
 version = "1.0-SNAPSHOT"
 val ktor_version: String by project
 val koin_version: String by project

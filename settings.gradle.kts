@@ -10,4 +10,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Autocaller-client"
+rootProject.name = "autocaller.client"
