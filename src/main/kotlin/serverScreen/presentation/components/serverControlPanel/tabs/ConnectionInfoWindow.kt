@@ -41,14 +41,14 @@ fun ConnectionInfoWindow() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        "IP-адрес сервера: TODO TODO TODO".useNonBreakingSpace(),
+                        text = "${viewModel.serverConnection.serverConnectionSettings?.ip}:${viewModel.serverConnection.serverConnectionSettings?.port}".useNonBreakingSpace(),
                         modifier = Modifier.padding(start = 10.dp, top = 10.dp, end = 10.dp),
                         maxLines = 1,
                         softWrap = false
-                    ) // TODO("Вписать сюда IP")
+                    )
                     OutlinedButton(
                         onClick = {
-                            viewModel.serverConnection.connectionStatus.value = ServerConnectionStatus.DISCONNECTED
+                            viewModel.logOutFromServer()
                             viewModel.serverControlPanel.windowToDisplay.value = ServerControlPanelWindows.TABS
                         },
                         modifier = Modifier.fillMaxWidth().padding(10.dp),

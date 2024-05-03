@@ -35,6 +35,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.5.2")
 
     implementation("io.insert-koin:koin-core:$koin_version")
+    implementation("io.insert-koin:koin-core-coroutines:$koin_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
     testImplementation("io.insert-koin:koin-test-junit5:$koin_version")
 

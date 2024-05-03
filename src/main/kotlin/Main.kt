@@ -18,11 +18,17 @@ import androidx.compose.ui.window.application
 import callScreen.di.callScreenModule
 import callScreen.presentation.CallScreen
 import core.di.coreModule
-import core.domain.util.EncryptionDecryptionUtil
+import core.domain.Result
+import core.domain.ServerConnection
+import core.domain.ServerConnectionStatus
+import core.domain.usecase.GetServerConnectionSettingsUseCase
+import core.domain.utils.EncryptionDecryptionUtil
 import core.presentation.MainScreenModes
 import core.presentation.components.NavigationRail
 import core.presentation.theme.AutocallerClientTheme
+import kotlinx.coroutines.*
 import org.koin.core.context.startKoin
+import org.koin.java.KoinJavaComponent.inject
 import serverScreen.di.serverScreenModule
 import serverScreen.presentation.ServerScreen
 import java.awt.Dimension
@@ -38,6 +44,7 @@ fun App() {
         Surface(modifier = Modifier.fillMaxSize()) {
             Row {
                 NavigationRail(mode)
+
                 when (mode.value) {
                     MainScreenModes.CALLS -> CallScreen()
                     MainScreenModes.SERVER -> ServerScreen()
@@ -59,22 +66,35 @@ fun main() = application {
         window.minimumSize = Dimension(1000, 400)
         window.iconImage = useResource("drawable/Icon.png", ::loadImageBitmap).toAwtImage()
         initKoin()
+        initConnection()
         App()
-
-        File("token.txt").writeText(EncryptionDecryptionUtil.encrypt("secret","123213123"))
-        val readBase64CipherText =  File("token.txt").readText()
-
-        println(EncryptionDecryptionUtil.decrypt("secret", readBase64CipherText))
-
     }
 }
 
-fun initKoin() {
+private fun initKoin() {
     startKoin {
         modules(
             callScreenModule,
             coreModule,
             serverScreenModule
         )
+    }
+}
+
+private fun initConnection() {
+    CoroutineScope(Dispatchers.IO).launch {
+        val serverConnection by inject<ServerConnection>(ServerConnection::class.java)
+        val getServerConnectionSettingsUseCase by inject<GetServerConnectionSettingsUseCase>(
+            GetServerConnectionSettingsUseCase::class.java
+        )
+
+        delay(500)
+
+        val result = getServerConnectionSettingsUseCase.execute()
+        if (result is Result.Success) {
+            serverConnection.loginOnServer(result.data.ip, result.data.port, result.data.token)
+        }
+        else if (result is Result.Error)
+            println(result.error)
     }
 }

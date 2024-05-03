@@ -1,19 +1,13 @@
 package serverScreen.presentation.components.connectionAdjuster
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import core.domain.ServerConnectionStatus
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import androidx.compose.ui.unit.dp
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 
@@ -23,31 +17,42 @@ const val DISCONNECTED_BUTTON_TAG = "DISCONNECTED_BUTTON_TAG"
 @Composable
 fun DisconnectedWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
-    var ipTextValue by remember { mutableStateOf("localhost:8080") }
-    var connectionKeyTextValue by remember { mutableStateOf("") }
-    var connectionStatus by remember { viewModel.serverConnection.connectionStatus }
+    var ipTextValue by remember { mutableStateOf("localhost") }
+    var portTextValue by remember { mutableStateOf("8080") }
+    var connectionSecretKeyTextValue by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier.width(IntrinsicSize.Min),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Row {
+            OutlinedTextField(
+                value = ipTextValue,
+                onValueChange = { ipTextValue = it },
+                modifier = Modifier.width(250.dp),
+                singleLine = true,
+                label = { Text("IP") }
+            )
+            Spacer(Modifier.width(10.dp))
+            OutlinedTextField(
+                value = portTextValue,
+                onValueChange = { portTextValue = it },
+                modifier = Modifier.width(100.dp),
+                singleLine = true,
+                label = { Text("Port") }
+            )
+
+        }
         OutlinedTextField(
-            value = ipTextValue,
-            onValueChange = { ipTextValue = it },
-            label = { Text("IP:Port") }
-        )
-        OutlinedTextField(
-            value = connectionKeyTextValue,
-            onValueChange = { connectionKeyTextValue = it },
+            value = connectionSecretKeyTextValue,
+            onValueChange = { connectionSecretKeyTextValue = it },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
             label = { Text("Ключ аутентификации") }
         )
         Button(
             onClick = {
-                CoroutineScope(Dispatchers.Default).launch {
-                    connectionStatus = ServerConnectionStatus.CONNECTING
-                    viewModel.serverConnection.getToken()
-                    viewModel.serverConnection.getConnectionStatus()
-                }
+                viewModel.connectToServer(ipTextValue, portTextValue)
             },
             modifier = Modifier
                 .fillMaxWidth()

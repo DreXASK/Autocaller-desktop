@@ -1,27 +1,43 @@
 package core.data
 
+import core.data.dto.TokenResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import core.data.dto.TokenStatusRequest
 import core.data.dto.TokenStatusResponse
+import core.domain.ApiError
+import core.domain.Result
 import core.domain.repository.TokenStatusRepository
 import io.ktor.http.*
+import kotlinx.serialization.json.Json
 import serverScreen.data.remote.ServerScreenHttpRoutes
+import java.net.ConnectException
 
 class TokenStatusRepositoryRemote(private val httpClient: HttpClient): TokenStatusRepository {
 
-    override suspend fun getTokenStatus(tokenStatusRequest: TokenStatusRequest): TokenStatusResponse {
+    override suspend fun getTokenStatus(tokenStatusRequest: TokenStatusRequest): Result<TokenStatusResponse, ApiError> {
         return try {
-            httpClient.get {
+            val tokenStatusResponse = httpClient.get {
                 url(ServerScreenHttpRoutes.GET_TOKEN_STATUS)
                 setBody(tokenStatusRequest)
                 contentType(ContentType.Application.Json)
-            }.body<TokenStatusResponse>()
-        } catch (e: ResponseException) {
-            println(e.response.status.description)
-            TODO()
+            }
+            when (tokenStatusResponse.status) {
+                HttpStatusCode.OK  -> Result.Success(tokenStatusResponse.body<TokenStatusResponse>())
+                HttpStatusCode.BadRequest -> {
+                    val error = Json.decodeFromString<ApiError.TokenStatusError>(tokenStatusResponse.body<String>())
+                    when(error) {
+                        ApiError.TokenStatusError.INVALID_TOKEN -> Result.Error(ApiError.TokenStatusError.INVALID_TOKEN)
+                    }
+                }
+                else -> Result.Error(ApiError.UnknownError)
+            }
+        } catch (e: HttpRequestTimeoutException) {
+            Result.Error(ApiError.Network.REQUEST_TIMEOUT)
+        } catch (e: ConnectException) {
+            Result.Error(ApiError.Network.CONNECTION_REFUSED)
         }
     }
 

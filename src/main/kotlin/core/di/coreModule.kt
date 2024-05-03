@@ -1,12 +1,13 @@
 package core.di
 
+import core.data.ServerConnectionSettingsRepositoryLocal
 import core.data.TokenRepositoryRemote
 import core.data.TokenStatusRepositoryRemote
 import core.domain.ServerConnection
+import core.domain.repository.ServerConnectionSettingsRepository
 import core.domain.repository.TokenRepository
 import core.domain.repository.TokenStatusRepository
-import core.domain.usecase.GetTokenStatusUseCase
-import core.domain.usecase.GetTokenUseCase
+import core.domain.usecase.*
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -32,9 +33,21 @@ val coreModule = module {
         TokenStatusRepositoryRemote(httpClient = get())
     }
     single {
-        GetTokenUseCase(tokenRepository = get())
+        GetTokenUseCase(repository = get())
     }
     single {
-        GetTokenStatusUseCase(tokenStatusRepository = get())
+        GetTokenStatusUseCase(repository = get())
+    }
+    single {
+        GetServerConnectionSettingsUseCase(repository = get())
+    }
+    single {
+        SaveServerConnectionSettingsUseCase(repository = get())
+    }
+    single {
+        DeleteServerConnectionSettingsUseCase(repository = get())
+    }
+    single<ServerConnectionSettingsRepository> {
+        ServerConnectionSettingsRepositoryLocal()
     }
 }

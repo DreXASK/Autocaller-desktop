@@ -1,4 +1,4 @@
-package core.domain.util
+package core.domain.utils
 
 import java.util.*
 import javax.crypto.Cipher

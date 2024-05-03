@@ -17,17 +17,10 @@ import serverScreen.presentation.ServerScreenViewModel
 @Composable
 fun ConnectingWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
-    var connectionStatus by remember { viewModel.serverConnection.connectionStatus }
-
-    val abc = CoroutineScope(Dispatchers.Default).launch {
-        delay(1000)
-        connectionStatus = ServerConnectionStatus.CONNECTED
-    }
 
     OutLinedButtonWithProgress(
         onClick = {
-            connectionStatus = ServerConnectionStatus.DISCONNECTED
-            abc.cancel()
+            viewModel.abortConnectionProcess()
         },
         buttonText = { Text("Отмена подключения") }
     )

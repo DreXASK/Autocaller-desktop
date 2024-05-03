@@ -1,4 +1,3 @@
 package core.domain
 
-interface Error {
-}
+interface Error
