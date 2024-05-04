@@ -34,6 +34,8 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
     implementation("ch.qos.logback:logback-classic:1.5.2")
 
+    implementation("com.github.lgooddatepicker:LGoodDatePicker:11.2.1")
+
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-core-coroutines:$koin_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
@@ -41,7 +43,6 @@ dependencies {
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version")
     testImplementation("io.mockk:mockk:$mockk_version")
-
     implementation(compose.desktop.uiTestJUnit4)
 }
 

@@ -1,4 +1,4 @@
-package serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow
+package serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
@@ -19,8 +19,9 @@ import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.
 
 @Preview
 @Composable
-fun TasksWindow() {
+fun CompletedTasksWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
+
 
     Column(modifier = Modifier.fillMaxSize()) {
         Box(

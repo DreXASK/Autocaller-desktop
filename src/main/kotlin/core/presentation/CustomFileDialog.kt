@@ -1,4 +1,4 @@
-package core.presentation.components
+package core.presentation
 
 import java.awt.Frame
 import java.io.File
@@ -6,7 +6,7 @@ import javax.swing.JFileChooser
 import javax.swing.filechooser.FileSystemView
 
 
-class MyFileDialog {
+class CustomFileDialog {
     companion object {
         fun getFilePath(
             title: String = "Выберите файл",
@@ -26,18 +26,3 @@ class MyFileDialog {
         }
     }
 }
-
-
-/*) = AwtWindow(
-    create = {
-        object : FileDialog(parent, title, LOAD) {
-            override fun setVisible(value: Boolean) {
-                super.setVisible(value)
-                if (value) {
-                    onCloseRequest(directory + file)
-                }
-            }
-        }
-    },
-    dispose = FileDialog::dispose
-) */

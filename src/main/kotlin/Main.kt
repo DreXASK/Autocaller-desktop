@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toAwtImage
 import androidx.compose.ui.res.loadImageBitmap
@@ -27,7 +28,10 @@ import core.presentation.MainScreenModes
 import core.presentation.components.NavigationRail
 import core.presentation.theme.AutocallerClientTheme
 import kotlinx.coroutines.*
+import org.koin.core.KoinApplication
+import org.koin.core.context.KoinContext
 import org.koin.core.context.startKoin
+import org.koin.java.KoinJavaComponent.get
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.di.serverScreenModule
 import serverScreen.presentation.ServerScreen
@@ -38,7 +42,7 @@ import java.io.File
 @Composable
 @Preview
 fun App() {
-    val mode = mutableStateOf(MainScreenModes.SERVER)
+    val mode = mutableStateOf(MainScreenModes.CALLS)
 
     AutocallerClientTheme(isSystemInDarkTheme()) {
         Surface(modifier = Modifier.fillMaxSize()) {
@@ -65,6 +69,7 @@ fun main() = application {
     ) {
         window.minimumSize = Dimension(1000, 400)
         window.iconImage = useResource("drawable/Icon.png", ::loadImageBitmap).toAwtImage()
+
         initKoin()
         initConnection()
         App()
@@ -88,13 +93,9 @@ private fun initConnection() {
             GetServerConnectionSettingsUseCase::class.java
         )
 
-        delay(500)
-
-        val result = getServerConnectionSettingsUseCase.execute()
-        if (result is Result.Success) {
-            serverConnection.loginOnServer(result.data.ip, result.data.port, result.data.token)
+        when(val result = getServerConnectionSettingsUseCase.execute()) {
+            is Result.Success -> serverConnection.loginOnServer(result.data.ip, result.data.port, result.data.token)
+            is Result.Error -> println("initConnection failed, error = ${result.error}")
         }
-        else if (result is Result.Error)
-            println(result.error)
     }
 }

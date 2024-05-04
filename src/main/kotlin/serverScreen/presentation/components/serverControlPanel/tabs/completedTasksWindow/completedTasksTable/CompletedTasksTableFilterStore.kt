@@ -1,15 +1,12 @@
-package callScreen.presentation.components.contactTable
+package serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.completedTasksTable
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import core.domain.Sex
 
-class ContactTableFilterStore(
+class CompletedTasksTableFilterStore(
     val surnameFilterText: MutableState<String> = mutableStateOf(""),
     val nameFilterText: MutableState<String> = mutableStateOf(""),
     val patronymicFilterText: MutableState<String> = mutableStateOf(""),
     val phoneNumberFilterText: MutableState<String> = mutableStateOf(""),
-    val sexFilterSelector: MutableState<Sex?> = mutableStateOf(null),
-    val ageMinFilterText: MutableState<String> = mutableStateOf(""),
-    val ageMaxFilterText: MutableState<String> = mutableStateOf("")
+    val messageTemplateFilterText: MutableState<String> = mutableStateOf("")
 )

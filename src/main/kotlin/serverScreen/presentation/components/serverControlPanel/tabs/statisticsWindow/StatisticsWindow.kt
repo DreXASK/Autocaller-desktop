@@ -1,8 +1,14 @@
 package serverScreen.presentation.components.serverControlPanel.tabs.statisticsWindow
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.FocusInteraction
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.onClick
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -12,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import core.presentation.DatePicker
 import core.presentation.DateVisualTransformation
 import core.presentation.components.OutlinedButtonWithIconText
 import core.presentation.components.VerticalDivider
@@ -19,6 +26,7 @@ import org.koin.java.KoinJavaComponent.inject
 import serverScreen.domain.models.StatisticsData
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
@@ -26,8 +34,8 @@ import serverScreen.presentation.components.serverControlPanel.ServerControlPane
 fun StatisticsWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
-    var dateFrom by remember { mutableStateOf("") }
-    var dateTo by remember { mutableStateOf("") }
+    val dateFrom = mutableStateOf<LocalDate?>(null)
+    val dateTo = mutableStateOf<LocalDate?>(null)
 
     val dropdownMenuItemList = mutableStateListOf(
         StatisticsData("WhatsApp", 247, 56.7f),
@@ -92,7 +100,6 @@ fun StatisticsWindow() {
                         }
                     }
                 }
-
                 OutlinedButton(
                     onClick = { },
                     modifier = Modifier
@@ -102,7 +109,6 @@ fun StatisticsWindow() {
                     Icon(Icons.Rounded.Refresh, "")
                 }
             }
-
 
             Card(
                 modifier = Modifier
@@ -140,22 +146,36 @@ fun StatisticsWindow() {
                     )
                     Row(Modifier.height(IntrinsicSize.Max)) {
                         OutlinedTextField(
-                            value = dateFrom,
-                            onValueChange = {
-                                if (it.length <= 8) dateFrom = it
-                            },
-                            modifier = Modifier.weight(1f),
+                            value = dateFrom.value?.toString() ?: "",
+                            onValueChange = { },
+                            enabled = false,
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
+                                .clickable {
+                                    DatePicker.setDataToState(dateFrom)
+                                },
+                            colors = TextFieldDefaults.textFieldColors(
+                                disabledTextColor = LocalContentColor.current.copy(LocalContentAlpha.current),
+                                disabledLabelColor =  MaterialTheme.colors.onSurface.copy(ContentAlpha.medium)
+                            ),
                             label = { Text("Дата от") },
-                            visualTransformation = DateVisualTransformation()
                         )
                         OutlinedTextField(
-                            value = dateTo,
-                            onValueChange = {
-                                if (it.length <= 8) dateTo = it
-                            },
-                            modifier = Modifier.weight(1f),
+                            value = dateTo.value?.toString() ?: "",
+                            onValueChange = { },
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(end = 10.dp, bottom = 10.dp)
+                                .clickable {
+                                    DatePicker.setDataToState(dateTo)
+                                },
+                            enabled = false,
                             label = { Text("Дата до") },
-                            visualTransformation = DateVisualTransformation()
+                            colors = TextFieldDefaults.textFieldColors(
+                                disabledTextColor = LocalContentColor.current.copy(LocalContentAlpha.current),
+                                disabledLabelColor =  MaterialTheme.colors.onSurface.copy(ContentAlpha.medium)
+                            )
                         )
                     }
                 }
@@ -188,7 +208,7 @@ fun StatisticsWindow() {
 }
 
 @Composable
-fun TableStringRow(
+private fun TableStringRow(
     leftText: String,
     rightText: String
 ) {

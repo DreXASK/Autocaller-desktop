@@ -21,21 +21,19 @@ class ServerScreenViewModel {
     private val deleteServerConnectionSettingsUseCase by inject<DeleteServerConnectionSettingsUseCase>(
         DeleteServerConnectionSettingsUseCase::class.java
     )
-
-
     private var connectionJob: Job? = null
+
+
     fun connectToServer(ip: String, port: String) {
         connectionJob = CoroutineScope(Dispatchers.Default).launch {
 
             val result = serverConnection.registerOnServer(ip, port)
 
             if(result is Result.Success) {
-                println(result.data.token)
                 serverConnection.serverConnectionSettings?.let {
                     saveServerConnectionSettingsUseCase.execute(it)
+                    println("ServerConnectionSettings saved to the file storage")
                 }
-            } else {
-                println("Could not connect to the server")
             }
         }
     }
@@ -48,7 +46,8 @@ class ServerScreenViewModel {
     fun logOutFromServer() {
         CoroutineScope(Dispatchers.Default).launch {
             serverConnection.logoutFromServer()
-            deleteServerConnectionSettingsUseCase.execute()
+            if(deleteServerConnectionSettingsUseCase.execute() is Result.Success)
+                println("ServerConnectionSettings removed from the file storage")
         }
     }
 }

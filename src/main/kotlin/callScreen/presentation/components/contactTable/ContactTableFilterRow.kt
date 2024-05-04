@@ -11,7 +11,7 @@ import core.presentation.components.PhoneNumberOutlinedTextField
 import core.presentation.components.VerticalDivider
 import core.presentation.components.table.TableFilterRow
 import core.presentation.components.table.TableFilterOutlinedTextField
-import core.presentation.utils.Sex
+import core.domain.Sex
 
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
@@ -40,9 +40,12 @@ fun ContactTableFilterRow(
                 onExpandedChange = { dropdownMenuExpanded = !dropdownMenuExpanded },
                 modifier = Modifier.weight(1f)
             ) {
-
                 OutlinedTextField(
-                    value = sexFilterSelector.value?.initial.orEmpty(),
+                    value = when(sexFilterSelector.value) {
+                            Sex.MALE -> "М"
+                            Sex.FEMALE -> "Ж"
+                            else -> ""
+                    },
                     onValueChange = { },
                     readOnly = true,
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownMenuExpanded) }
@@ -69,7 +72,10 @@ fun ContactTableFilterRow(
                                 onFilterValueChange()
                             }
                         ) {
-                            Text(sex.initial)
+                            Text(when (sex) {
+                                Sex.MALE -> "М"
+                                Sex.FEMALE -> "Ж"
+                            })
                         }
                     }
                 }

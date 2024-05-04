@@ -1,4 +1,4 @@
-package serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable
+package serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.completedTasksTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.ui.unit.dp
+import serverScreen.domain.models.CompletedTasksTableItemData
 import serverScreen.domain.models.TasksTableItemData
 
 
@@ -15,8 +15,8 @@ import serverScreen.domain.models.TasksTableItemData
 @Preview
 @Composable
 fun CompletedTasksTableUI(
-    tasksListFiltered: SnapshotStateList<TasksTableItemData>,
-    filterStore: TasksTableFilterStore,
+    completedTasksListFiltered: SnapshotStateList<CompletedTasksTableItemData>,
+    filterStore: CompletedTasksTableFilterStore,
     contentPadding: PaddingValues,
     onFilterValueChanged: () -> Unit
 ) {
@@ -24,16 +24,16 @@ fun CompletedTasksTableUI(
         contentPadding = contentPadding
     ) {
         stickyHeader {
-            TasksTableHeader()
+            CompletedTasksTableHeader()
         }
         item {
-            TasksTableFilterRow(
+            CompletedTasksTableFilterRow(
                 filterStore,
                 onFilterValueChanged
             )
         }
-        items(tasksListFiltered) {
-            TasksTableItem(it)
+        items(completedTasksListFiltered) {
+            CompletedTasksTableItem(it)
         }
     }
 }

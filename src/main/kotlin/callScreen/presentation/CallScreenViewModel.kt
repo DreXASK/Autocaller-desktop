@@ -6,7 +6,7 @@ import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.Send
 import androidx.compose.runtime.mutableStateOf
 import callScreen.domain.*
-import core.presentation.components.MyFileDialog
+import core.presentation.CustomFileDialog
 import org.koin.java.KoinJavaComponent.inject
 import core.presentation.components.buttonTab.ButtonTabData
 import core.presentation.utils.useNonBreakingSpace
@@ -26,7 +26,7 @@ class CallScreenViewModel {
         ),
         ButtonTabData(
             onClick = {
-                val filePath = MyFileDialog.getFilePath()
+                val filePath = CustomFileDialog.getFilePath()
                 filePath?.let {
                     contactTable.addContactListToTableViaUrl(it)
                 }

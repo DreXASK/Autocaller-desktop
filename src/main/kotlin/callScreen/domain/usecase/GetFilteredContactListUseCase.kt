@@ -3,7 +3,7 @@ package callScreen.domain.usecase
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import callScreen.domain.models.ContactTableItemData
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
-import core.presentation.utils.Sex
+import core.domain.Sex
 
 class GetFilteredContactListUseCase {
 

@@ -1,4 +1,4 @@
-package serverScreen.presentation.components.serverControlPanel.tabs
+package serverScreen.presentation.components.serverControlPanel.tabs.connectionInfoWindow
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import core.domain.ServerConnectionStatus
 import core.presentation.utils.useNonBreakingSpace
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel

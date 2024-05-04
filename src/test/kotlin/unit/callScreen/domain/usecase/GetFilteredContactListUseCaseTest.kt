@@ -2,17 +2,13 @@ package unit.callScreen.domain.usecase
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import callScreen.domain.models.ContactTableItemData
 import callScreen.domain.usecase.GetFilteredContactListUseCase
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
-import core.presentation.utils.Sex
+import core.domain.Sex
 import io.mockk.clearMocks
-import io.mockk.mockk
 import io.mockk.spyk
-import io.mockk.verify
 import org.junit.Rule
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertContentEquals

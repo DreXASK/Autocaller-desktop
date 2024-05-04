@@ -8,6 +8,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import callScreen.domain.models.ContactTableItemData
+import core.domain.Sex
 import core.presentation.PhoneVisualTransformation
 import core.presentation.components.VerticalDivider
 import core.presentation.components.table.TableItem
@@ -25,9 +26,21 @@ fun ContactTableItem(itemData: ContactTableItemData) {
         VerticalDivider()
         Text(itemData.phoneNumber.applyPhoneVisualTransformation(), Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Text(itemData.sex?.initial ?: "", Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text(
+            text = when (itemData.sex) {
+                Sex.MALE -> "М"
+                Sex.FEMALE -> "Ж"
+                null -> ""
+            },
+            modifier = Modifier.weight(1f),
+            textAlign = TextAlign.Center
+        )
         VerticalDivider()
-        Text(if(itemData.age == null) "" else itemData.age.toString(), Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text(
+            text = itemData.age?.toString() ?: "",
+            modifier = Modifier.weight(1f),
+            textAlign = TextAlign.Center
+        )
     }
 }
 

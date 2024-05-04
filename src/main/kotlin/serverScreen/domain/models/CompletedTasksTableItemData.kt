@@ -1,14 +1,12 @@
-package callScreen.domain.models
+package serverScreen.domain.models
 
-import core.domain.Sex
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ContactTableItemData(
+data class CompletedTasksTableItemData(
     val surname: String?,
     val name: String?,
     val patronymic: String?,
     val phoneNumber: String,
-    val sex: Sex?,
-    val age: Int?
+    val messageTemplate: String
 )

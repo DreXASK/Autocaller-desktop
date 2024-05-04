@@ -19,21 +19,28 @@ class ServerConnection {
 
     suspend fun registerOnServer(ip: String, port: String): Result<TokenResponse, ApiError> {
         connectionStatus.value = ServerConnectionStatus.CONNECTING
+        println("ConnectionStatus set to CONNECTING")
 
         val tokenResult = getTokenUseCase.execute(TokenRequest("secret)))"))
+        println("Token requested")
+
         when (tokenResult) {
             is Result.Success -> {
+                println("Token = ${tokenResult.data.token}")
                 connectionStatus.value = ServerConnectionStatus.CONNECTED
+                println("ConnectionStatus set to CONNECTED")
 
                 serverConnectionSettings = ServerConnectionSettingsDto(
                     ip = ip,
                     port = port,
                     token = tokenResult.data.token
                 )
+                println("ServerConnectionSettings have been set")
             }
-
             is Result.Error -> {
                 connectionStatus.value = ServerConnectionStatus.DISCONNECTED
+                println("Token error - ${tokenResult.error}")
+                println("ConnectionStatus set to DISCONNECTED")
             }
         }
 
@@ -42,23 +49,28 @@ class ServerConnection {
 
     suspend fun loginOnServer(ip: String, port: String, token: String): Result<TokenStatusResponse, ApiError> {
         connectionStatus.value = ServerConnectionStatus.CONNECTING
+        println("ConnectionStatus set to CONNECTING")
 
         serverConnectionSettings = ServerConnectionSettingsDto(
             ip = ip,
             port = port,
             token = token
         )
+        println("ServerConnectionSettings have been set")
 
         val tokenStatusResult = getTokenStatusUseCase.execute(TokenStatusRequest(token))
+        println("TokenStatus requested")
+
         when (tokenStatusResult) {
             is Result.Success -> {
+                println("TokenStatus = ${tokenStatusResult.data.tokenStatus}")
                 connectionStatus.value = ServerConnectionStatus.CONNECTED
-                println(tokenStatusResult.data.tokenStatus)
+                println("ConnectionStatus set to CONNECTED")
             }
-
             is Result.Error -> {
                 connectionStatus.value = ServerConnectionStatus.DISCONNECTED
-                println("Could not connect to the server")
+                println("TokenStatus error - ${tokenStatusResult.error}")
+                println("ConnectionStatus set to DISCONNECTED")
             }
         }
 
@@ -67,7 +79,9 @@ class ServerConnection {
 
     fun logoutFromServer() {
         connectionStatus.value = ServerConnectionStatus.DISCONNECTED
+        println("ConnectionStatus set to DISCONNECTED")
         serverConnectionSettings = null
+        println("ServerConnectionSettings nullified")
     }
 }
 

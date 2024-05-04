@@ -2,17 +2,9 @@ package unit.serverScreen.domain.usecase
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import callScreen.presentation.components.contactTable.ContactTableFilterStore
-import core.presentation.utils.Sex
 import org.junit.Rule
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-import org.koin.core.context.startKoin
-import org.koin.dsl.module
-import org.koin.java.KoinJavaComponent.inject
-import org.koin.test.junit5.AutoCloseKoinTest
 import serverScreen.domain.models.TasksTableItemData
 import serverScreen.domain.usecase.GetFilteredTaskListUseCase
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore

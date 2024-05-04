@@ -4,8 +4,6 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Close
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,7 +13,7 @@ import androidx.compose.ui.window.Dialog
 import callScreen.domain.models.ContactTableItemData
 import core.domain.Result
 import core.presentation.components.PhoneNumberOutlinedTextField
-import core.presentation.utils.Sex
+import core.domain.Sex
 import core.presentation.utils.useNonBreakingSpace
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -55,7 +53,11 @@ fun ContactAdderDialog(
                     onExpandedChange = { dropdownMenuExpanded = !dropdownMenuExpanded }
                 ) {
                     OutlinedTextField(
-                        value = fieldStates.sex.value?.initial.orEmpty(),
+                        value = when (fieldStates.sex.value) {
+                            Sex.MALE -> "М"
+                            Sex.FEMALE -> "Ж"
+                            else -> ""
+                        },
                         onValueChange = { },
                         modifier = Modifier.fillMaxWidth(),
                         label = { Text("Пол") },
@@ -83,7 +85,10 @@ fun ContactAdderDialog(
                                     fieldStates.sex.value = sex
                                 }
                             ) {
-                                Text(sex.initial)
+                                Text(when (sex) {
+                                    Sex.MALE -> "М"
+                                    Sex.FEMALE -> "Ж"
+                                })
                             }
                         }
                     }
