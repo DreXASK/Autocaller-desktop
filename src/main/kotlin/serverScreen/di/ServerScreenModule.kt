@@ -2,6 +2,7 @@ package serverScreen.di
 
 import org.koin.dsl.module
 import serverScreen.domain.CompletedTasksTable
+import serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow.MessageTemplateStateFields
 import serverScreen.domain.TasksTable
 import serverScreen.domain.usecase.GetFilteredCompletedTaskListUseCase
 import serverScreen.domain.usecase.GetFilteredTaskListUseCase
@@ -18,7 +19,7 @@ val serverScreenModule = module {
 		ServerControlPanel()
 	}
 	single {
-		TasksTable()
+		TasksTable(getFilteredTaskListUseCase = get(), filterStore = get())
 	}
 	single {
 		GetFilteredTaskListUseCase()
@@ -27,12 +28,15 @@ val serverScreenModule = module {
 		TasksTableFilterStore()
 	}
 	single {
-		CompletedTasksTable()
+		CompletedTasksTable(getFilteredTaskListUseCase = get(), filterStore = get())
 	}
 	single {
 		GetFilteredCompletedTaskListUseCase()
 	}
 	single {
 		CompletedTasksTableFilterStore()
+	}
+	factory {
+		MessageTemplateStateFields()
 	}
 }

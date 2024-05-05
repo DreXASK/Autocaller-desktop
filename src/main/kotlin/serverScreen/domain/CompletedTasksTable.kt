@@ -2,19 +2,14 @@ package serverScreen.domain
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import org.koin.java.KoinJavaComponent.inject
 import serverScreen.domain.models.CompletedTasksTableItemData
 import serverScreen.domain.usecase.GetFilteredCompletedTaskListUseCase
 import serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.completedTasksTable.CompletedTasksTableFilterStore
-import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
 
-class CompletedTasksTable() {
-
-    private val getFilteredTaskListUseCase by inject<GetFilteredCompletedTaskListUseCase>(
-        GetFilteredCompletedTaskListUseCase::class.java
-    )
-
-    val filterStore by inject<CompletedTasksTableFilterStore>(TasksTableFilterStore::class.java)
+class CompletedTasksTable(
+    private val getFilteredTaskListUseCase: GetFilteredCompletedTaskListUseCase,
+    val filterStore: CompletedTasksTableFilterStore
+) {
 
     private val completedTasksList: SnapshotStateList<CompletedTasksTableItemData> = mutableStateListOf()
     val completedTasksListFiltered: SnapshotStateList<CompletedTasksTableItemData> = mutableStateListOf()

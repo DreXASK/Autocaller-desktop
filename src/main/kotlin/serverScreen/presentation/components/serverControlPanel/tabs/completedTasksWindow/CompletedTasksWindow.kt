@@ -15,6 +15,7 @@ import core.presentation.components.OutlinedButtonWithIconText
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
+import serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.completedTasksTable.CompletedTasksTableUI
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.CompletedTasksTableUI
 
 @Preview
@@ -53,10 +54,10 @@ fun CompletedTasksWindow() {
         }
 
         CompletedTasksTableUI(
-            viewModel.tasksTable.tasksListFiltered,
-            viewModel.tasksTable.filterStore,
+            viewModel.completedTasksTable.completedTasksListFiltered,
+            viewModel.completedTasksTable.filterStore,
             contentPadding = PaddingValues(start = 30.dp, top = 10.dp, end = 30.dp, bottom = 30.dp),
-            viewModel.tasksTable::updateTasksListFiltered
+            viewModel.completedTasksTable::updateTasksListFiltered
         )
     }
 }

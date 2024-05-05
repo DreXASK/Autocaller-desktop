@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import serverScreen.domain.models.MessageTemplateData
+import serverScreen.domain.models.MessageTemplatePlaceholders
 
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
@@ -21,8 +22,8 @@ fun SenderContactsToServerDialog(
     buttonCallback: () -> Unit
 ) {
     val messageTemplateList = mutableStateListOf(
-        MessageTemplateData("Первый шаблон", "Здрасте {surname}, который {name}"),
-        MessageTemplateData("Второй шаблон", "А тут пусто.")
+        MessageTemplateData("Первый шаблон", "Здрасте {surname}, который {name}", MessageTemplatePlaceholders()),
+        MessageTemplateData("Второй шаблон", "А тут пусто.", MessageTemplatePlaceholders())
     )
 
     var dropdownMenuSelected: MessageTemplateData? by remember { mutableStateOf(null) }

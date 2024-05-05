@@ -30,10 +30,11 @@ fun ButtonTab(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
-                icon,
-                iconDescription,
-                Modifier.weight(0.8f).fillMaxSize()
-                //Modifier.fillMaxSize()
+                imageVector = icon,
+                contentDescription = iconDescription,
+                modifier = Modifier
+                    .weight(0.8f)
+                    .fillMaxSize()
             )
 
             if (text != null) {
@@ -64,7 +65,9 @@ private fun ButtonTabPreview() {
     ButtonTab(
         onClick = { },
         icon = Icons.Filled.Edit,
-        modifier = Modifier.width(IntrinsicSize.Max).height(IntrinsicSize.Max),
+        modifier = Modifier
+            .width(IntrinsicSize.Max)
+            .height(IntrinsicSize.Max),
         text = "Text2222222222222222 33333333333".useNonBreakingSpace(),
     )
 }

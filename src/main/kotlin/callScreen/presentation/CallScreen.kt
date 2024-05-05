@@ -48,7 +48,7 @@ fun CallScreen() {
     if(isSenderContactsToServerDialogOpen) {
         SenderContactsToServerDialog(
             onDismissRequest = { isSenderContactsToServerDialogOpen = false },
-            buttonCallback = { println("Отправлено") }
+            buttonCallback = { println("TODO()") }
         )
     }
 }

@@ -8,7 +8,7 @@ import serverScreen.presentation.components.serverControlPanel.tabs.connectionIn
 import serverScreen.presentation.components.serverControlPanel.tabs.MainTabsWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.callProcessSettingsWindow.CallProcessSettingsWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.CompletedTasksWindow
-import serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow.MessageTemplatesWindow
+import serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow.MessageTemplateWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.statisticsWindow.StatisticsWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.TasksWindow
 
@@ -22,7 +22,7 @@ fun ServerControlPanelScreen() {
 		ServerControlPanelWindows.CONNECTION_INFO -> ConnectionInfoWindow()
 		ServerControlPanelWindows.TASKS -> TasksWindow()
 		ServerControlPanelWindows.DONE_TASKS -> CompletedTasksWindow()
-		ServerControlPanelWindows.MESSAGE_TEMPLATES -> MessageTemplatesWindow()
+		ServerControlPanelWindows.MESSAGE_TEMPLATES -> MessageTemplateWindow()
 		ServerControlPanelWindows.STATISTICS -> StatisticsWindow()
 		ServerControlPanelWindows.CALL_PROCESS_SETTINGS -> CallProcessSettingsWindow()
 	}

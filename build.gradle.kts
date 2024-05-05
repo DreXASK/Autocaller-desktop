@@ -12,6 +12,9 @@ val ktor_version: String by project
 val koin_version: String by project
 val coroutines_version: String by project
 val mockk_version: String by project
+val logback_version: String by project
+val lgooddatepicker_version: String by project
+val ycharts_version: String by project
 
 repositories {
     mavenCentral()
@@ -32,9 +35,11 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-client-serialization:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
-    implementation("ch.qos.logback:logback-classic:1.5.2")
+    implementation("ch.qos.logback:logback-classic:$logback_version")
 
-    implementation("com.github.lgooddatepicker:LGoodDatePicker:11.2.1")
+    implementation("com.github.lgooddatepicker:LGoodDatePicker:$lgooddatepicker_version")
+
+    implementation("co.yml:ycharts:$ycharts_version")
 
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-core-coroutines:$koin_version")

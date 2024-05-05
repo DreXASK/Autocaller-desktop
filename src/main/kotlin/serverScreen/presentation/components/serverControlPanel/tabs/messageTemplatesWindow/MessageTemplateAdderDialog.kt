@@ -6,28 +6,29 @@ import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
+import org.koin.java.KoinJavaComponent.inject
 import serverScreen.domain.models.MessageTemplateData
 
 @Preview
 @Composable
 fun MessageTemplateAdderDialog(
     onDismissRequest: () -> Unit,
-    addButtonCallback: (itemData: MessageTemplateData) -> Unit
+    addButtonCallback: (itemData: MessageTemplateData) -> Unit,
 ) {
-    val fieldStates = MessageTemplateAdderDialogStates()
+    val stateFields by remember { inject<MessageTemplateStateFields>(MessageTemplateStateFields::class.java) }
+    var templateName by remember { stateFields.templateName }
+    var templateText by remember { stateFields.templateText }
+    val templatePlaceholders by remember { stateFields.templatePlaceholders }
 
     Dialog(
         onDismissRequest = onDismissRequest
     ) {
-        Card() {
+        Card {
             Column(
                 modifier = Modifier
                     .padding(20.dp)
@@ -36,38 +37,39 @@ fun MessageTemplateAdderDialog(
             ) {
 
                 OutlinedTextField(
-                    value = fieldStates.name.value,
+                    value = templateName,
                     onValueChange = {
-                        fieldStates.name.value = it
+                        templateName = it
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Имя шаблона") },
+                    label = { Text("Название шаблона") },
                     singleLine = true
                 )
 
                 OutlinedTextField(
-                    value = fieldStates.text.value,
+                    value = templateText,
                     onValueChange = {
-                        fieldStates.text.value = it
+                        templateText = it
                     },
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text("Текст шаблона") },
                     maxLines = 10
                 )
 
+                MessageTemplatePlaceholdersUi(stateFields.templatePlaceholders, stateFields.templateText)
 
                 Button(
                     onClick = {
-                        if (!fieldStates.isDataCorrect()) return@Button
+                        if (templateName.isBlank() || templateText.isBlank()) return@Button
                         val itemData = MessageTemplateData(
-                            fieldStates.name.value,
-                            fieldStates.text.value
+                            templateName,
+                            templateText,
+                            templatePlaceholders
                         )
                         addButtonCallback(itemData)
-                        fieldStates.clearStates()
                         onDismissRequest()
                     },
-                    modifier = Modifier.padding(top = 5.dp)
+                    modifier = Modifier.fillMaxWidth().padding(top = 5.dp)
                 ) {
                     Text("Добавить")
                 }
@@ -76,19 +78,5 @@ fun MessageTemplateAdderDialog(
 
         }
 
-    }
-}
-
-private class MessageTemplateAdderDialogStates(
-    val name: MutableState<String> = mutableStateOf(""),
-    val text: MutableState<String> = mutableStateOf(""),
-) {
-    fun isDataCorrect(): Boolean {
-        return (name.value.isNotEmpty() && text.value.isNotEmpty())
-    }
-
-    fun clearStates() {
-        name.value = ""
-        text.value = ""
     }
 }
