@@ -14,14 +14,11 @@ import serverScreen.domain.models.MessageTemplatePlaceholders
 
 @Composable
 fun MessageTemplatePlaceholdersUi(
+    templateFieldText: MutableState<String>,
     templatePlaceholders: MutableState<MessageTemplatePlaceholders>,
-    templateFieldText: MutableState<String>
+    cardModifier: Modifier = Modifier
 ) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 10.dp)
-    ) {
+    Card(modifier = cardModifier) {
         Column {
             Text(
                 text = "Заглушки",

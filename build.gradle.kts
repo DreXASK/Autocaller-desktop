@@ -15,6 +15,7 @@ val mockk_version: String by project
 val logback_version: String by project
 val lgooddatepicker_version: String by project
 val ycharts_version: String by project
+val aay_chart_version: String by project
 
 repositories {
     mavenCentral()
@@ -39,7 +40,7 @@ dependencies {
 
     implementation("com.github.lgooddatepicker:LGoodDatePicker:$lgooddatepicker_version")
 
-    implementation("co.yml:ycharts:$ycharts_version")
+    implementation("io.github.thechance101:chart:$aay_chart_version")
 
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-core-coroutines:$koin_version")

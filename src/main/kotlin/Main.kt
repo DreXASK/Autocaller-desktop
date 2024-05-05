@@ -28,15 +28,11 @@ import core.presentation.MainScreenModes
 import core.presentation.components.NavigationRail
 import core.presentation.theme.AutocallerClientTheme
 import kotlinx.coroutines.*
-import org.koin.core.KoinApplication
-import org.koin.core.context.KoinContext
 import org.koin.core.context.startKoin
-import org.koin.java.KoinJavaComponent.get
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.di.serverScreenModule
 import serverScreen.presentation.ServerScreen
 import java.awt.Dimension
-import java.io.File
 
 
 @Composable

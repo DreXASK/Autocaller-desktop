@@ -56,7 +56,13 @@ fun MessageTemplateAdderDialog(
                     maxLines = 10
                 )
 
-                MessageTemplatePlaceholdersUi(stateFields.templatePlaceholders, stateFields.templateText)
+                MessageTemplatePlaceholdersUi(
+                    templateFieldText = stateFields.templateText,
+                    templatePlaceholders = stateFields.templatePlaceholders,
+                    cardModifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
+                )
 
                 Button(
                     onClick = {
