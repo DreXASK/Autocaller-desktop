@@ -7,16 +7,16 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import callScreen.domain.models.ContactTableItemData
+import callScreen.domain.models.ContactData
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 fun ContactTableUI(
-	contactList: SnapshotStateList<ContactTableItemData>,
-	filterStore: ContactTableFilterStore,
-	contentPadding: PaddingValues,
-	onFilterValueChanged: () -> Unit
+    contactList: SnapshotStateList<ContactData>,
+    filterStore: ContactTableFilterStore,
+    contentPadding: PaddingValues,
+    onFilterValueChanged: () -> Unit
 ) {
 	LazyColumn(
 		contentPadding = contentPadding

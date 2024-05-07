@@ -4,10 +4,10 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
-import core.data.login.LoginReceiveRemote
-import core.data.login.LoginResponseRemote
-import core.domain.TokenStatus
-import core.domain.repository.LoginRepository
+import core.data.repository.login.ParameterRemote
+import core.data.repository.login.ResponseRemote
+import core.domain.utils.TokenStatus
+import core.domain.repository.login.LoginRepository
 import core.domain.usecase.LoginOnServerUseCase
 import kotlin.test.assertEquals
 
@@ -19,9 +19,9 @@ class LoginOnServerUseCaseTest {
     @Test
     fun `return connected status`() = runTest {
 
-        coEvery { loginRepository.getTokenStatus(any()) } returns LoginResponseRemote(TokenStatus.REGISTERED)
+        coEvery { loginRepository.getTokenStatus(any()) } returns ResponseRemote(TokenStatus.REGISTERED)
 
-        val actual = useCase.execute(LoginReceiveRemote(""))
+        val actual = useCase.execute(ParameterRemote(""))
         val expected = TokenStatus.REGISTERED
 
         assertEquals(expected = expected, actual = actual)

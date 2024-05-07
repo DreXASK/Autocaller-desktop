@@ -10,10 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import callScreen.domain.models.ContactTableItemData
-import core.domain.Result
+import callScreen.domain.models.ContactData
+import core.domain.utils.Result
 import core.presentation.components.PhoneNumberOutlinedTextField
-import core.domain.Sex
+import core.domain.utils.Sex
 import core.presentation.utils.useNonBreakingSpace
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -21,7 +21,7 @@ import core.presentation.utils.useNonBreakingSpace
 @Composable
 fun ContactAdderDialog(
     onDismissRequest: () -> Unit,
-    addButtonCallback: (itemData: ContactTableItemData) -> Unit
+    addButtonCallback: (itemData: ContactData) -> Unit
 ) {
     val fieldStates = ContactAdderDialogStates()
     val resultMessageState = mutableStateOf("")
@@ -140,7 +140,7 @@ fun ContactAdderDialog(
     }
 }
 
-private fun displaySuccessToUser(itemData: ContactTableItemData, resultMessageState: MutableState<String>) {
+private fun displaySuccessToUser(itemData: ContactData, resultMessageState: MutableState<String>) {
     val stringBuilder = StringBuilder()
 
     stringBuilder.append("Контакт ")
@@ -205,8 +205,8 @@ private class ContactAdderDialogStates(
 
 private fun createContactTableItemData(
     states: ContactAdderDialogStates
-): ContactTableItemData {
-    return ContactTableItemData(
+): ContactData {
+    return ContactData(
         states.surname.value.ifBlank { null },
         states.name.value.ifBlank { null },
         states.patronymic.value.ifBlank { null },

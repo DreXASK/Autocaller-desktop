@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toAwtImage
 import androidx.compose.ui.res.loadImageBitmap
@@ -19,11 +18,9 @@ import androidx.compose.ui.window.application
 import callScreen.di.callScreenModule
 import callScreen.presentation.CallScreen
 import core.di.coreModule
-import core.domain.Result
-import core.domain.ServerConnection
-import core.domain.ServerConnectionStatus
+import core.domain.utils.Result
+import core.domain.utils.ServerConnection
 import core.domain.usecase.GetServerConnectionSettingsUseCase
-import core.domain.utils.EncryptionDecryptionUtil
 import core.presentation.MainScreenModes
 import core.presentation.components.NavigationRail
 import core.presentation.theme.AutocallerClientTheme

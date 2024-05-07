@@ -7,15 +7,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.ui.unit.dp
-import serverScreen.domain.models.TasksTableItemData
+import core.domain.models.CallTaskData
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 fun CompletedTasksTableUI(
-    tasksListFiltered: SnapshotStateList<TasksTableItemData>,
+    tasksListFiltered: SnapshotStateList<CallTaskData>,
     filterStore: TasksTableFilterStore,
     contentPadding: PaddingValues,
     onFilterValueChanged: () -> Unit

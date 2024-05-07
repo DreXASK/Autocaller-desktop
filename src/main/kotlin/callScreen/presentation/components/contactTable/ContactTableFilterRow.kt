@@ -11,7 +11,7 @@ import core.presentation.components.PhoneNumberOutlinedTextField
 import core.presentation.components.VerticalDivider
 import core.presentation.components.table.TableFilterRow
 import core.presentation.components.table.TableFilterOutlinedTextField
-import core.domain.Sex
+import core.domain.utils.Sex
 
 @OptIn(ExperimentalMaterialApi::class)
 @Preview

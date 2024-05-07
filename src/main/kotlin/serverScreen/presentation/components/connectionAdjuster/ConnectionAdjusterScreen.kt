@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.koin.java.KoinJavaComponent.inject
-import core.domain.ServerConnectionStatus
+import core.domain.utils.ServerConnectionStatus
 import serverScreen.presentation.ServerScreenViewModel
 
 @Preview

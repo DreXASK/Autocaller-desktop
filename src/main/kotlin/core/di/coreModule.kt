@@ -1,12 +1,12 @@
 package core.di
 
-import core.data.serverConnectionSettings.ServerConnectionSettingsRepositoryLocal
-import core.data.tokens.RegisterRepositoryRemote
-import core.data.login.LoginRepositoryRemote
-import core.domain.ServerConnection
+import core.data.repository.callTasks.CallTaskRepositoryRemote
+import core.data.repository.serverConnectionSettings.ServerConnectionSettingsRepositoryLocal
+import core.data.repository.login.LoginRepositoryRemote
+import core.domain.utils.ServerConnection
 import core.domain.repository.ServerConnectionSettingsRepository
-import core.domain.repository.RegisterRepository
-import core.domain.repository.LoginRepository
+import core.domain.repository.callTasks.CallTaskRepository
+import core.domain.repository.login.LoginRepository
 import core.domain.usecase.*
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -26,14 +26,8 @@ val coreModule = module {
             }
         }
     }
-    single<RegisterRepository> {
-        RegisterRepositoryRemote(httpClient = get())
-    }
     single<LoginRepository> {
         LoginRepositoryRemote(httpClient = get())
-    }
-    single {
-        RegisterOnServerUseCase(repository = get())
     }
     single {
         LoginOnServerUseCase(repository = get())
@@ -49,5 +43,11 @@ val coreModule = module {
     }
     single<ServerConnectionSettingsRepository> {
         ServerConnectionSettingsRepositoryLocal()
+    }
+    single<CallTaskRepository> {
+        CallTaskRepositoryRemote(httpClient = get())
+    }
+    single {
+        SendCallTasksListUseCase(callTaskRepository = get())
     }
 }

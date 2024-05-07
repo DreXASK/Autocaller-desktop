@@ -14,7 +14,6 @@ import core.presentation.components.table.OutlinedButtonWithIconAndTooltip
 import core.presentation.components.table.TableItem
 import core.presentation.utils.applyPhoneVisualTransformation
 import serverScreen.domain.models.CompletedTasksTableItemData
-import serverScreen.domain.models.TasksTableItemData
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
@@ -32,9 +31,10 @@ fun CompletedTasksTableItem(itemData: CompletedTasksTableItemData) {
         Text(itemData.messageTemplate, Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
         OutlinedButtonWithIconAndTooltip(
+            onClick = { },
             tooltip = { Text("Удалить задание") },
             icon = { Icon(Icons.Rounded.Close, "Remove the task") },
             weight = 0.3f
-        ) { }
+        )
     }
 }

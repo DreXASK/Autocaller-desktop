@@ -1,6 +1,6 @@
 package callScreen.presentation.components.contactAdderDialog
 
-import core.domain.Error
+import core.domain.utils.Error
 
 enum class ContactAdderDialogError: Error {
     PHONE_NUMBER_IS_NULL,

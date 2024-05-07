@@ -19,7 +19,7 @@ fun DisconnectedWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
     var ipTextValue by remember { mutableStateOf("localhost") }
     var portTextValue by remember { mutableStateOf("8080") }
-    var connectionSecretKeyTextValue by remember { mutableStateOf("") }
+    var tokenTextValue by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier.width(IntrinsicSize.Min),
@@ -44,15 +44,15 @@ fun DisconnectedWindow() {
 
         }
         OutlinedTextField(
-            value = connectionSecretKeyTextValue,
-            onValueChange = { connectionSecretKeyTextValue = it },
+            value = tokenTextValue,
+            onValueChange = { tokenTextValue = it },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            label = { Text("Ключ аутентификации") }
+            label = { Text("Токен") }
         )
         Button(
             onClick = {
-                viewModel.connectToServer(ipTextValue, portTextValue)
+                viewModel.connectToServer(ipTextValue, portTextValue, tokenTextValue)
             },
             modifier = Modifier
                 .fillMaxWidth()

@@ -2,7 +2,7 @@ package ui.serverScreen.presentation
 
 import androidx.compose.ui.test.*
 import core.di.coreModule
-import core.domain.ServerConnectionStatus
+import core.domain.utils.ServerConnectionStatus
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.koin.core.context.startKoin

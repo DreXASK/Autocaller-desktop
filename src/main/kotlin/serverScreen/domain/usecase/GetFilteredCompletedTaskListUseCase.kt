@@ -2,9 +2,7 @@ package serverScreen.domain.usecase
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import serverScreen.domain.models.CompletedTasksTableItemData
-import serverScreen.domain.models.TasksTableItemData
 import serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.completedTasksTable.CompletedTasksTableFilterStore
-import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
 
 class GetFilteredCompletedTaskListUseCase {
 

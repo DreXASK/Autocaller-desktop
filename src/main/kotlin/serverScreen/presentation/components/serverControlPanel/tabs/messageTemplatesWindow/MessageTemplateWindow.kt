@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import core.presentation.components.OutlinedButtonWithIconText
 import org.koin.java.KoinJavaComponent.inject
-import serverScreen.domain.models.MessageTemplateData
-import serverScreen.domain.models.MessageTemplatePlaceholders
+import core.domain.models.MessageTemplateData
+import core.domain.models.MessageTemplatePlaceholders
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
 

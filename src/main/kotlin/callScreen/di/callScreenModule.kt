@@ -1,12 +1,13 @@
 package callScreen.di
 
-import callScreen.data.repository.local.ContactRepositoryLocalCSV
-import callScreen.data.repository.local.ContactRepositoryLocalJSON
+import callScreen.data.repository.contacts.ContactRepositoryLocalCSV
+import callScreen.data.repository.contacts.ContactRepositoryLocalJSON
 import callScreen.domain.ContactTable
-import callScreen.domain.usecase.GetContactListFromFileUseCase
+import callScreen.domain.usecase.GetContactListUseCase
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
-import callScreen.domain.repository.ContactRepository
+import callScreen.domain.repository.contacts.ContactRepository
 import callScreen.domain.usecase.GetFilteredContactListUseCase
+import core.domain.usecase.SendCallTasksListUseCase
 import org.koin.dsl.module
 import callScreen.presentation.CallScreenViewModel
 import org.koin.core.qualifier.named
@@ -15,20 +16,23 @@ val callScreenModule = module {
     single {
         CallScreenViewModel()
     }
-    single(named("JSON")) {
-        GetContactListFromFileUseCase(contactRepository = get(named("JSON")))
+    single(named(Qualifiers.FileTypes.JSON)) {
+        GetContactListUseCase(contactRepository = get(named(Qualifiers.FileTypes.JSON)))
     }
-    single(named("CSV")) {
-        GetContactListFromFileUseCase(contactRepository = get(named("CSV")))
+    single(named(Qualifiers.FileTypes.CSV)) {
+        GetContactListUseCase(contactRepository = get(named(Qualifiers.FileTypes.CSV)))
     }
     single {
         GetFilteredContactListUseCase()
     }
-    single<ContactRepository>(named("JSON"))  {
+    single<ContactRepository>(named(Qualifiers.FileTypes.JSON))  {
         ContactRepositoryLocalJSON()
     }
-    single<ContactRepository>(named("CSV"))  {
+    single<ContactRepository>(named(Qualifiers.FileTypes.CSV))  {
         ContactRepositoryLocalCSV()
+    }
+    single(named(Qualifiers.Remoteness.REMOTE)) {
+        SendCallTasksListUseCase(callTaskRepository = get(named(Qualifiers.Remoteness.REMOTE)))
     }
     factory {
         ContactTableFilterStore()

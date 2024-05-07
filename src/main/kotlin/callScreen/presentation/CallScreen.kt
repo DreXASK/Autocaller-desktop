@@ -49,7 +49,7 @@ fun CallScreen() {
     if(isSenderContactsToServerDialogOpen) {
         SenderContactsToServerDialog(
             onDismissRequest = { isSenderContactsToServerDialogOpen = false },
-            buttonCallback = { println("TODO()") }
+            buttonCallback = viewModel::sendContactsToServer
         )
     }
     if(isLoadingFileTypePickerDialogOpen) {

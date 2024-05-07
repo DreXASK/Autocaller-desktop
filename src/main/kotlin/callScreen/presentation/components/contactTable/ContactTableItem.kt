@@ -4,19 +4,16 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
-import callScreen.domain.models.ContactTableItemData
-import core.domain.Sex
-import core.presentation.PhoneVisualTransformation
+import callScreen.domain.models.ContactData
+import core.domain.utils.Sex
 import core.presentation.components.VerticalDivider
 import core.presentation.components.table.TableItem
 import core.presentation.utils.applyPhoneVisualTransformation
 
 @Preview
 @Composable
-fun ContactTableItem(itemData: ContactTableItemData) {
+fun ContactTableItem(itemData: ContactData) {
     TableItem {
         Text(itemData.surname ?: "", Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()

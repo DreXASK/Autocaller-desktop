@@ -9,7 +9,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import serverScreen.domain.models.MessageTemplatePlaceholders
+import core.domain.models.MessageTemplatePlaceholders
 
 
 @Composable

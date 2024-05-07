@@ -1,8 +1,8 @@
 package core.domain.usecase
 
-import core.data.serverConnectionSettings.ServerConnectionSettingsDto
-import core.domain.ApiError
-import core.domain.Result
+import core.data.repository.serverConnectionSettings.ServerConnectionSettingsDto
+import core.domain.utils.ApiError
+import core.domain.utils.Result
 import core.domain.repository.ServerConnectionSettingsRepository
 
 class GetServerConnectionSettingsUseCase(private val repository: ServerConnectionSettingsRepository) {

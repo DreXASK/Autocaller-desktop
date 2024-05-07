@@ -2,7 +2,7 @@ package callScreen.presentation.components.contactTable
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import core.domain.Sex
+import core.domain.utils.Sex
 
 class ContactTableFilterStore(
     val surnameFilterText: MutableState<String> = mutableStateOf(""),

@@ -2,44 +2,49 @@ package serverScreen.domain
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import org.koin.java.KoinJavaComponent
-import org.koin.java.KoinJavaComponent.inject
-import serverScreen.domain.models.TasksTableItemData
+import core.domain.models.CallTaskData
 import serverScreen.domain.usecase.GetFilteredTaskListUseCase
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
+import java.time.LocalDateTime
 
 class TasksTable(
     private val getFilteredTaskListUseCase: GetFilteredTaskListUseCase,
     val filterStore: TasksTableFilterStore
 ) {
 
-    private val tasksList: SnapshotStateList<TasksTableItemData> = mutableStateListOf()
-    val tasksListFiltered: SnapshotStateList<TasksTableItemData> = mutableStateListOf()
+    private val tasksList: SnapshotStateList<CallTaskData> = mutableStateListOf()
+    val tasksListFiltered: SnapshotStateList<CallTaskData> = mutableStateListOf()
 
     init {
         repeat(10) {
             addTaskListToTable(
                 listOf(
-                    TasksTableItemData(
+                    CallTaskData(
                         "Крючков",
                         "Илья",
                         "Николаевич",
                         "89020285716",
-                        "Мессаге темплате"
+                        "Мессаге темплате",
+                        callAttempts = 0,
+                        nextCallDateAndTimeUTC = LocalDateTime.now().toString()
                     ),
-                    TasksTableItemData(
+                    CallTaskData(
                         "Крючков",
                         "Илья",
                         "Николаевич",
                         "89020285716",
-                        "Мессаге темплате 2"
+                        "Мессаге темплате 2",
+                        callAttempts = 0,
+                        nextCallDateAndTimeUTC = LocalDateTime.now().toString()
                     ),
-                    TasksTableItemData(
+                    CallTaskData(
                         "Крючков",
                         "Илья",
                         "Николаевич",
                         "89020285716",
-                        "Мессаге темплате 3"
+                        "Мессаге темплате 3",
+                        callAttempts = 0,
+                        nextCallDateAndTimeUTC = LocalDateTime.now().toString()
                     ),
                 )
             )
@@ -47,7 +52,7 @@ class TasksTable(
         updateTasksListFiltered()
     }
 
-    fun addTaskListToTable(taskList: List<TasksTableItemData>) {
+    fun addTaskListToTable(taskList: List<CallTaskData>) {
         tasksList.addAll(taskList)
         updateTasksListFiltered()
     }

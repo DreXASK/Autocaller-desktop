@@ -1,17 +1,17 @@
 package serverScreen.domain.usecase
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import serverScreen.domain.models.TasksTableItemData
+import core.domain.models.CallTaskData
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
 
 class GetFilteredTaskListUseCase {
 
     fun execute(
-        tasksList: SnapshotStateList<TasksTableItemData>,
+        tasksList: SnapshotStateList<CallTaskData>,
         filterStore: TasksTableFilterStore
-    ): List<TasksTableItemData> {
+    ): List<CallTaskData> {
 
-        val tasksListFiltered = mutableListOf<TasksTableItemData>()
+        val tasksListFiltered = mutableListOf<CallTaskData>()
 
         tasksListFiltered.addAll(
             tasksList.filter { task ->

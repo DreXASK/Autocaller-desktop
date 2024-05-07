@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import org.junit.Rule
 import org.junit.jupiter.api.Test
 
-import serverScreen.domain.models.TasksTableItemData
+import core.domain.models.CallTaskData
 import serverScreen.domain.usecase.GetFilteredTaskListUseCase
 import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
 import kotlin.test.assertContentEquals
@@ -16,14 +16,14 @@ class GetFilteredTaskListUseCaseTest {
 
     @get:Rule
     val initialTaskList = mutableStateListOf(
-        TasksTableItemData(
+        CallTaskData(
             null,
             "John",
             null,
             "88005553535",
             "Спишь? Это Дима. В баню завтра идешь?"
         ),
-        TasksTableItemData(
+        CallTaskData(
             "Иваненко",
             "Иван",
             "Иванович",
@@ -47,7 +47,7 @@ class GetFilteredTaskListUseCaseTest {
         val actual = useCase.execute(initialTaskList, filterStore)
 
         val expected = listOf(
-            TasksTableItemData(
+            CallTaskData(
                 null,
                 "John",
                 null,

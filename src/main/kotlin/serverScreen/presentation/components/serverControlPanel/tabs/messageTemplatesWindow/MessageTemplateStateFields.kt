@@ -1,7 +1,7 @@
 package serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow
 
 import androidx.compose.runtime.mutableStateOf
-import serverScreen.domain.models.MessageTemplatePlaceholders
+import core.domain.models.MessageTemplatePlaceholders
 
 class MessageTemplateStateFields {
 

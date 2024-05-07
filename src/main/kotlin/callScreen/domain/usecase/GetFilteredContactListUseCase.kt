@@ -1,18 +1,18 @@
 package callScreen.domain.usecase
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import callScreen.domain.models.ContactTableItemData
+import callScreen.domain.models.ContactData
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
-import core.domain.Sex
+import core.domain.utils.Sex
 
 class GetFilteredContactListUseCase {
 
     fun execute(
-        contactList: SnapshotStateList<ContactTableItemData>,
+        contactList: SnapshotStateList<ContactData>,
         filterStore: ContactTableFilterStore
-    ): List<ContactTableItemData> {
+    ): List<ContactData> {
 
-        val callTableContactListFiltered = mutableListOf<ContactTableItemData>()
+        val callTableContactListFiltered = mutableListOf<ContactData>()
 
         callTableContactListFiltered.addAll(
             contactList.filter { contact ->

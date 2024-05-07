@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import serverScreen.domain.models.CompletedTasksTableItemData
-import serverScreen.domain.models.TasksTableItemData
 
 
 @OptIn(ExperimentalFoundationApi::class)

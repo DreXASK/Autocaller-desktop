@@ -14,10 +14,10 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RowScope.OutlinedButtonWithIconAndTooltip(
+    onClick: () -> Unit,
     tooltip: @Composable () -> Unit,
     icon: @Composable () -> Unit,
-    weight: Float,
-    onClick: () -> Unit
+    weight: Float
 ) {
     TooltipArea(
         tooltip = {

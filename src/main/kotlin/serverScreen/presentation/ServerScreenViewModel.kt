@@ -1,9 +1,9 @@
 package serverScreen.presentation
 
 
-import core.domain.Result
-import core.domain.ServerConnection
-import core.domain.ServerConnectionStatus
+import core.domain.utils.Result
+import core.domain.utils.ServerConnection
+import core.domain.utils.ServerConnectionStatus
 import core.domain.usecase.DeleteServerConnectionSettingsUseCase
 import core.domain.usecase.SaveServerConnectionSettingsUseCase
 import kotlinx.coroutines.*
@@ -26,10 +26,10 @@ class ServerScreenViewModel {
     private var connectionJob: Job? = null
 
 
-    fun connectToServer(ip: String, port: String) {
+    fun connectToServer(ip: String, port: String, token: String) {
         connectionJob = CoroutineScope(Dispatchers.Default).launch {
 
-            val result = serverConnection.registerOnServer(ip, port)
+            val result = serverConnection.loginOnServer(ip, port, token)
 
             if(result is Result.Success) {
                 serverConnection.serverConnectionSettings?.let {

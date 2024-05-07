@@ -1,15 +1,16 @@
 package core.domain.usecase
 
-import core.data.login.LoginReceiveRemote
-import core.data.login.LoginResponseRemote
-import core.domain.ApiError
-import core.domain.Result
-import core.domain.repository.LoginRepository
+import core.data.repository.login.ParameterRemote
+import core.domain.utils.ApiError
+import core.domain.utils.Result
+import core.domain.utils.TokenStatus
+import core.domain.repository.login.LoginRepository
 
 class LoginOnServerUseCase(private val repository: LoginRepository) {
 
-	suspend fun execute(token: LoginReceiveRemote): Result<LoginResponseRemote, ApiError> {
-		return repository.getTokenStatus(token)
+	suspend fun execute(token: ParameterRemote): Result<TokenStatus, ApiError> {
+		val result = repository.getTokenStatus(token)
+		return result
 	}
 
 }

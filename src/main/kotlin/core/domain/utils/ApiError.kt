@@ -1,0 +1,28 @@
+package core.domain.utils
+
+sealed interface ApiError: Error {
+    enum class TokenStatusError: ApiError {
+        INVALID_TOKEN
+    }
+    enum class ServerConnectionSettingsError: ApiError {
+        FILE_DOES_NOT_EXIST
+    }
+    sealed interface ContactsError: ApiError {
+        sealed interface Local: ContactsError {
+            data class UnknownError(val exception: Exception): Local
+        }
+        sealed interface Remote: ContactsError {
+            data class UnknownError(val exception: Exception?): Remote
+        }
+    }
+    sealed interface CallTasksError: ApiError {
+        sealed interface Remote: CallTasksError {
+            data class UnknownError(val exception: Exception?): Remote
+        }
+    }
+    enum class Network: ApiError {
+        CONNECTION_REFUSED,
+        REQUEST_TIMEOUT
+    }
+    data object UnknownError : ApiError
+}

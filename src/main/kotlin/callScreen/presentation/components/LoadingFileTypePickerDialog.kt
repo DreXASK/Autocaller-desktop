@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import callScreen.di.Qualifiers
 import callScreen.presentation.CallScreenViewModel
 import org.koin.java.KoinJavaComponent.inject
 
@@ -41,7 +42,7 @@ fun LoadingFileTypePickerDialog(onDismissRequest: () -> Unit) {
                 ) {
                     OutlinedButton(
                         onClick = {
-                            viewModel.loadJsonFile()
+                            viewModel.loadFile(Qualifiers.FileTypes.JSON)
                             onDismissRequest()
                         },
                         modifier = Modifier
@@ -54,7 +55,7 @@ fun LoadingFileTypePickerDialog(onDismissRequest: () -> Unit) {
                     Spacer(Modifier.width(10.dp))
                     OutlinedButton(
                         onClick = {
-                            viewModel.loadCsvFile()
+                            viewModel.loadFile(Qualifiers.FileTypes.CSV)
                             onDismissRequest()
                         },
                         modifier = Modifier
