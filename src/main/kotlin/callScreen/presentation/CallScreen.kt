@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
+import callScreen.presentation.components.LoadingFileTypePickerDialog
 import org.koin.java.KoinJavaComponent.inject
 import callScreen.presentation.components.contactAdderDialog.ContactAdderDialog
 import callScreen.presentation.components.SenderContactsToServerDialog
@@ -16,9 +17,10 @@ import callScreen.presentation.components.contactTable.ContactTableUI
 @Preview
 @Composable
 fun CallScreen() {
-    val viewModel by inject<CallScreenViewModel>(CallScreenViewModel::class.java)
+    val viewModel by remember { inject<CallScreenViewModel>(CallScreenViewModel::class.java) }
     var isContactAdderDialogOpen by remember { viewModel.isContactAdderDialogOpen }
     var isSenderContactsToServerDialogOpen by remember { viewModel.isSenderContactsToServerDialogOpen }
+    var isLoadingFileTypePickerDialogOpen by remember { viewModel.isLoadingFileTypePickerDialogOpen }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -44,11 +46,17 @@ fun CallScreen() {
             addButtonCallback = viewModel.contactTable::addContactToTable
         )
     }
-
     if(isSenderContactsToServerDialogOpen) {
         SenderContactsToServerDialog(
             onDismissRequest = { isSenderContactsToServerDialogOpen = false },
             buttonCallback = { println("TODO()") }
         )
     }
+    if(isLoadingFileTypePickerDialogOpen) {
+        LoadingFileTypePickerDialog {
+            isLoadingFileTypePickerDialogOpen = false
+        }
+    }
+
+
 }

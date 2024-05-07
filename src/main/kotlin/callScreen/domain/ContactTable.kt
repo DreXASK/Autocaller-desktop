@@ -6,12 +6,16 @@ import callScreen.domain.models.ContactTableItemData
 import callScreen.domain.usecase.GetContactListFromFileUseCase
 import callScreen.domain.usecase.GetFilteredContactListUseCase
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
+import callScreen.presentation.utils.component6
+import core.domain.Sex
+import io.ktor.util.*
+import org.koin.core.qualifier.named
+import org.koin.java.KoinJavaComponent.get
 import org.koin.java.KoinJavaComponent.inject
+import java.io.File
+import java.io.InputStream
 
 class ContactTable {
-    private val getContactListFromFileUseCase by inject<GetContactListFromFileUseCase>(
-        GetContactListFromFileUseCase::class.java
-    )
     private val getFilteredContactListUseCase by inject<GetFilteredContactListUseCase>(
         GetFilteredContactListUseCase::class.java
     )
@@ -30,7 +34,8 @@ class ContactTable {
         )
     }
 
-    fun addContactListToTableViaUrl(url: String) {
+    fun addContactListToTableViaUrl(url: String, getContactListFromFileUseCase: GetContactListFromFileUseCase) {
+
         contactList.addAll(getContactListFromFileUseCase.execute(url))
         updateContactListFiltered()
     }
@@ -40,3 +45,5 @@ class ContactTable {
         updateContactListFiltered()
     }
 }
+
+

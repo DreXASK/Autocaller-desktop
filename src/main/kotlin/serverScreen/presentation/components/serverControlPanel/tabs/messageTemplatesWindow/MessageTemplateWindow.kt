@@ -4,11 +4,10 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import core.presentation.components.OutlinedButtonWithIconText
@@ -57,7 +56,7 @@ fun MessageTemplateWindow() {
         ) {
             OutlinedButtonWithIconText(
                 modifier = Modifier.fillMaxHeight().padding(end = 5.dp),
-                icon = Icons.AutoMirrored.Rounded.ArrowBack,
+                icon = Icons.Rounded.ArrowBack,
                 text = "Назад в меню"
             ) {
                 viewModel.serverControlPanel.windowToDisplay.value =

@@ -6,10 +6,13 @@ import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.Send
 import androidx.compose.runtime.mutableStateOf
 import callScreen.domain.*
+import callScreen.domain.usecase.GetContactListFromFileUseCase
 import core.presentation.CustomFileDialog
 import org.koin.java.KoinJavaComponent.inject
 import core.presentation.components.buttonTab.ButtonTabData
 import core.presentation.utils.useNonBreakingSpace
+import org.koin.core.qualifier.named
+import org.koin.java.KoinJavaComponent.get
 
 
 class CallScreenViewModel {
@@ -17,6 +20,7 @@ class CallScreenViewModel {
 
     var isContactAdderDialogOpen = mutableStateOf(false)
     var isSenderContactsToServerDialogOpen = mutableStateOf(false)
+    var isLoadingFileTypePickerDialogOpen = mutableStateOf(false)
 
     val buttonsDataList = listOf(
         ButtonTabData(
@@ -25,14 +29,9 @@ class CallScreenViewModel {
             text = "Добавить контакт".useNonBreakingSpace(),
         ),
         ButtonTabData(
-            onClick = {
-                val filePath = CustomFileDialog.getFilePath()
-                filePath?.let {
-                    contactTable.addContactListToTableViaUrl(it)
-                }
-            },
+            onClick = { isLoadingFileTypePickerDialogOpen.value = true },
             icon = Icons.Rounded.List,
-            text = "Загрузить список контактов (JSON)".useNonBreakingSpace(),
+            text = "Загрузить список контактов".useNonBreakingSpace(),
         ),
         ButtonTabData(
             onClick = { isSenderContactsToServerDialogOpen.value = true },
@@ -40,4 +39,24 @@ class CallScreenViewModel {
             text = "Обзвонить список".useNonBreakingSpace(),
         )
     )
+
+    fun loadCsvFile() {
+        val filePath = CustomFileDialog.getFilePath()
+        filePath?.let {
+            contactTable.addContactListToTableViaUrl(
+                it,
+                get(GetContactListFromFileUseCase::class.java, qualifier = named("CSV"))
+            )
+        }
+    }
+
+    fun loadJsonFile() {
+        val filePath = CustomFileDialog.getFilePath()
+        filePath?.let {
+            contactTable.addContactListToTableViaUrl(
+                it,
+                get(GetContactListFromFileUseCase::class.java, qualifier = named("JSON"))
+            )
+        }
+    }
 }
