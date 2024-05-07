@@ -8,9 +8,11 @@ import androidx.compose.runtime.mutableStateOf
 import callScreen.data.repository.contacts.ContactsParameterGetLocal
 import callScreen.di.Qualifiers
 import callScreen.domain.*
+import callScreen.domain.usecase.CreateCallTaskList
 import callScreen.domain.usecase.GetContactListUseCase
 import core.domain.usecase.SendCallTasksListUseCase
 import core.data.repository.callTasks.CallTasksParameterSendRemote
+import core.domain.models.MessageTemplateData
 import core.domain.utils.Result
 import core.domain.utils.ServerConnection
 import core.presentation.CustomFileDialog
@@ -19,6 +21,7 @@ import core.presentation.components.buttonTab.ButtonTabData
 import core.presentation.utils.useNonBreakingSpace
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.koin.core.qualifier.named
 import org.koin.java.KoinJavaComponent.get
@@ -67,18 +70,34 @@ class CallScreenViewModel {
         }
     }
 
-    fun sendContactsToServer() {
+    fun sendContactsToServer(
+        messageTemplateData: MessageTemplateData
+    ) {
         CoroutineScope(Dispatchers.IO).launch {
-            val useCase =
-                get<SendCallTasksListUseCase>(SendCallTasksListUseCase::class.java, named(Qualifiers.Remoteness.REMOTE))
+            val createCallTaskListUseCase =
+                get<CreateCallTaskList>(CreateCallTaskList::class.java)
+            val sendUseCase =
+                get<SendCallTasksListUseCase>(SendCallTasksListUseCase::class.java)
             val serverConnection = get<ServerConnection>(ServerConnection::class.java)
 
             serverConnection.serverConnectionSettings?.let {
-                when (val result = useCase.execute(
+
+                val creationListResult =
+                    createCallTaskListUseCase.execute(contactTable.contactListFiltered, messageTemplateData)
+
+                if (creationListResult is Result.Error) {
+                    println("Creating list result error - ${creationListResult.error}")
+                    this.cancel()
+                }
+
+                val callTaskList = creationListResult as Result.Success
+
+                when (val result = sendUseCase.execute(
                     CallTasksParameterSendRemote(
                         it.token,
-                        contactTable.contactListFiltered.toList(),
-                        ))
+                        callTaskList.data,
+                    )
+                )
                 ) {
                     is Result.Success -> {
                         println("Contact list has been successfully transmitted")

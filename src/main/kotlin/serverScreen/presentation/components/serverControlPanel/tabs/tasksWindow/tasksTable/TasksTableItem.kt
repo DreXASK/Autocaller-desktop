@@ -28,7 +28,7 @@ fun TasksTableItem(itemData: CallTaskData) {
         VerticalDivider()
         Text(itemData.phoneNumber.applyPhoneVisualTransformation(), Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Text(itemData.messageTemplate, Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text(itemData.messageText, Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
         OutlinedButtonWithIconAndTooltip(
             onClick = { },

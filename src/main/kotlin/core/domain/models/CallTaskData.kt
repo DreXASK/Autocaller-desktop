@@ -9,7 +9,7 @@ data class CallTaskData(
     val name: String?,
     val patronymic: String?,
     val phoneNumber: String,
-    val messageTemplate: String,
+    val messageText: String,
     val callAttempts: Int,
     val nextCallDateAndTimeUTC: String
 )

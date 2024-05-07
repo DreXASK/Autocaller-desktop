@@ -19,7 +19,7 @@ class GetFilteredTaskListUseCase {
                         && isFieldContainsFilterText(task.name, filterStore.nameFilterText.value)
                         && isFieldContainsFilterText(task.patronymic, filterStore.patronymicFilterText.value)
                         && isFieldContainsFilterText(task.phoneNumber, filterStore.phoneNumberFilterText.value)
-                        && isFieldContainsFilterText(task.messageTemplate, filterStore.messageTemplateFilterText.value)
+                        && isFieldContainsFilterText(task.messageText, filterStore.messageTemplateFilterText.value)
             }
         )
 

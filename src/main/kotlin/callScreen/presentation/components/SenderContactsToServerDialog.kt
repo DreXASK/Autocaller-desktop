@@ -19,7 +19,7 @@ import core.domain.models.MessageTemplatePlaceholders
 @Composable
 fun SenderContactsToServerDialog(
     onDismissRequest: () -> Unit,
-    buttonCallback: () -> Unit
+    buttonCallback: (MessageTemplateData) -> Unit
 ) {
     val messageTemplateList = mutableStateListOf(
         MessageTemplateData("Первый шаблон", "Здрасте {surname}, который {name}", MessageTemplatePlaceholders()),
@@ -94,8 +94,11 @@ fun SenderContactsToServerDialog(
 
                 Button(
                     onClick = {
-                        buttonCallback()
-                        onDismissRequest()
+                        dropdownMenuSelected?.let {
+                            buttonCallback(it)
+                            onDismissRequest()
+                        }
+
                     },
                     modifier = Modifier.padding(top = 5.dp)
                 ) {
