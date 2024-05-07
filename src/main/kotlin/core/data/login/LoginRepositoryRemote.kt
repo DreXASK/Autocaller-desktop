@@ -1,31 +1,28 @@
-package core.data
+package core.data.login
 
-import core.data.dto.TokenResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
-import core.data.dto.TokenStatusRequest
-import core.data.dto.TokenStatusResponse
 import core.domain.ApiError
 import core.domain.Result
-import core.domain.repository.TokenStatusRepository
+import core.domain.repository.LoginRepository
 import io.ktor.http.*
 import kotlinx.serialization.json.Json
 import serverScreen.data.remote.ServerScreenHttpRoutes
 import java.net.ConnectException
 
-class TokenStatusRepositoryRemote(private val httpClient: HttpClient): TokenStatusRepository {
+class LoginRepositoryRemote(private val httpClient: HttpClient): LoginRepository {
 
-    override suspend fun getTokenStatus(tokenStatusRequest: TokenStatusRequest): Result<TokenStatusResponse, ApiError> {
+    override suspend fun getTokenStatus(loginReceiveRemote: LoginReceiveRemote): Result<LoginResponseRemote, ApiError> {
         return try {
             val tokenStatusResponse = httpClient.get {
                 url(ServerScreenHttpRoutes.GET_TOKEN_STATUS)
-                setBody(tokenStatusRequest)
+                setBody(loginReceiveRemote)
                 contentType(ContentType.Application.Json)
             }
             when (tokenStatusResponse.status) {
-                HttpStatusCode.OK  -> Result.Success(tokenStatusResponse.body<TokenStatusResponse>())
+                HttpStatusCode.OK  -> Result.Success(tokenStatusResponse.body<LoginResponseRemote>())
                 HttpStatusCode.BadRequest -> {
                     val error = Json.decodeFromString<ApiError.TokenStatusError>(tokenStatusResponse.body<String>())
                     when(error) {

@@ -1,14 +1,14 @@
-package core.data.dto
+package core.data.login
 
 import core.domain.TokenStatus
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TokenStatusRequest(
+data class LoginReceiveRemote(
 	val token: String
 )
 
 @Serializable
-data class TokenStatusResponse(
+data class LoginResponseRemote(
 	val tokenStatus: TokenStatus
 )

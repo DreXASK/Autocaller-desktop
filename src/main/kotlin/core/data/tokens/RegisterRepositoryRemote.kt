@@ -1,33 +1,29 @@
-package core.data
+package core.data.tokens
 
-import core.data.dto.TokenRequest
-import core.domain.repository.TokenRepository
+import core.domain.repository.RegisterRepository
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import serverScreen.data.remote.ServerScreenHttpRoutes
-import core.data.dto.TokenResponse
 import core.domain.ApiError
-import core.domain.Error
 import core.domain.Result
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.serialization.json.Json
 import java.net.ConnectException
 
 
-class TokenRepositoryRemote(private val httpClient: HttpClient) : TokenRepository {
+class RegisterRepositoryRemote(private val httpClient: HttpClient) : RegisterRepository {
 
-    override suspend fun getToken(tokenRequest: TokenRequest): Result<TokenResponse, ApiError> {
+    override suspend fun getToken(registerReceiveRemote: RegisterReceiveRemote): Result<RegisterResponseRemote, ApiError> {
         return try {
             val tokenResponse = httpClient.post {
                 url(ServerScreenHttpRoutes.GET_TOKEN)
                 contentType(ContentType.Application.Json)
-                setBody(tokenRequest)
+                setBody(registerReceiveRemote)
             }
             when (tokenResponse.status) {
-                HttpStatusCode.OK  -> Result.Success(tokenResponse.body<TokenResponse>())
+                HttpStatusCode.OK  -> Result.Success(tokenResponse.body<RegisterResponseRemote>())
                 HttpStatusCode.BadRequest -> {
                     val error = Json.decodeFromString<ApiError.TokenError>(tokenResponse.body<String>())
                     when(error) {

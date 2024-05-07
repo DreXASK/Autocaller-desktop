@@ -1,13 +1,13 @@
-package core.data.dto
+package core.data.tokens
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TokenRequest(
+data class RegisterReceiveRemote(
 	val connectionSecretKey: String
 )
 
 @Serializable
-data class TokenResponse(
+data class RegisterResponseRemote(
 	val token: String
 )

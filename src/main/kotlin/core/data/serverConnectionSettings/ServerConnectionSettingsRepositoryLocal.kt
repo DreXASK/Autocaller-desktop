@@ -1,6 +1,5 @@
-package core.data
+package core.data.serverConnectionSettings
 
-import core.data.dto.ServerConnectionSettingsDto
 import core.data.utils.SETTINGS_FILE_NAME
 import core.domain.ApiError
 import core.domain.Result
@@ -12,7 +11,6 @@ import java.io.File
 import java.io.FileNotFoundException
 
 class ServerConnectionSettingsRepositoryLocal: ServerConnectionSettingsRepository {
-
 
     override suspend fun readSettings(): Result<ServerConnectionSettingsDto, ApiError.ServerConnectionSettingsError>  {
         val base64CipherText: String

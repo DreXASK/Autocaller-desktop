@@ -1,6 +1,6 @@
 package core.domain.repository
 
-import core.data.dto.ServerConnectionSettingsDto
+import core.data.serverConnectionSettings.ServerConnectionSettingsDto
 import core.domain.ApiError
 import core.domain.Result
 

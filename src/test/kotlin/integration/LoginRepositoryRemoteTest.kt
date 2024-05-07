@@ -1,8 +1,8 @@
 package integration
 
-import core.data.TokenStatusRepositoryRemote
-import core.data.dto.TokenStatusRequest
-import core.data.dto.TokenStatusResponse
+import core.data.login.LoginRepositoryRemote
+import core.data.login.LoginReceiveRemote
+import core.data.login.LoginResponseRemote
 import core.domain.TokenStatus
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -13,22 +13,22 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class TokenStatusRepositoryRemoteTest {
+class LoginRepositoryRemoteTest {
 
     private val httpClient = spyk(HttpClient(CIO) {
         install(ContentNegotiation) {
             json()
         }
     })
-    private val connectionRepositoryRemote = TokenStatusRepositoryRemote(httpClient)
+    private val connectionRepositoryRemote = LoginRepositoryRemote(httpClient)
 
     @Test
     fun `return unregistered when trying to connect to the server`() = runTest {
 
-        val expected = TokenStatusResponse(TokenStatus.UNREGISTERED)
+        val expected = LoginResponseRemote(TokenStatus.UNREGISTERED)
 
-        val tokenStatusRequest = TokenStatusRequest("[E2E] Token")
-        val actual = connectionRepositoryRemote.getTokenStatus(tokenStatusRequest)
+        val loginReceiveRemote = LoginReceiveRemote("[E2E] Token")
+        val actual = connectionRepositoryRemote.getTokenStatus(loginReceiveRemote)
 
         assertEquals(expected = expected, actual = actual)
     }

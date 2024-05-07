@@ -1,16 +1,15 @@
 package core.di
 
-import core.data.ServerConnectionSettingsRepositoryLocal
-import core.data.TokenRepositoryRemote
-import core.data.TokenStatusRepositoryRemote
+import core.data.serverConnectionSettings.ServerConnectionSettingsRepositoryLocal
+import core.data.tokens.RegisterRepositoryRemote
+import core.data.login.LoginRepositoryRemote
 import core.domain.ServerConnection
 import core.domain.repository.ServerConnectionSettingsRepository
-import core.domain.repository.TokenRepository
-import core.domain.repository.TokenStatusRepository
+import core.domain.repository.RegisterRepository
+import core.domain.repository.LoginRepository
 import core.domain.usecase.*
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import org.koin.dsl.module
@@ -27,17 +26,17 @@ val coreModule = module {
             }
         }
     }
-    single<TokenRepository> {
-        TokenRepositoryRemote(httpClient = get())
+    single<RegisterRepository> {
+        RegisterRepositoryRemote(httpClient = get())
     }
-    single<TokenStatusRepository> {
-        TokenStatusRepositoryRemote(httpClient = get())
-    }
-    single {
-        GetTokenUseCase(repository = get())
+    single<LoginRepository> {
+        LoginRepositoryRemote(httpClient = get())
     }
     single {
-        GetTokenStatusUseCase(repository = get())
+        RegisterOnServerUseCase(repository = get())
+    }
+    single {
+        LoginOnServerUseCase(repository = get())
     }
     single {
         GetServerConnectionSettingsUseCase(repository = get())

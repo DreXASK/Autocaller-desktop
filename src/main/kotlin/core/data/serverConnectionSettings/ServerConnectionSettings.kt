@@ -1,4 +1,4 @@
-package core.data.dto
+package core.data.serverConnectionSettings
 
 import kotlinx.serialization.Serializable
 
