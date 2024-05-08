@@ -2,7 +2,7 @@ package callScreen.data.repository.contacts
 
 import callScreen.domain.models.ContactData
 import callScreen.domain.repository.contacts.ContactRepository
-import callScreen.domain.repository.contacts.ContactsDto
+import callScreen.domain.repository.contacts.ContactsTypes
 import callScreen.presentation.utils.component6
 import core.domain.utils.ApiError
 import core.domain.utils.Result
@@ -12,7 +12,7 @@ import java.io.File
 
 class ContactRepositoryLocalCSV : ContactRepository {
 
-    override suspend fun getContactList(parameter: ContactsDto.Parameter.Get): Result<List<ContactData>, ApiError.ContactsError> {
+    override suspend fun getContactList(parameter: ContactsTypes.Parameter.Get): Result<List<ContactData>, ApiError.ContactsError> {
         return try {
             val url = (parameter as ContactsParameterGetLocal).url
             val reader = File(url).bufferedReader()
@@ -44,7 +44,7 @@ class ContactRepositoryLocalCSV : ContactRepository {
         }
     }
 
-    override suspend fun sendContactList(parameter: ContactsDto.Parameter.Send): Result<Unit, ApiError.ContactsError> {
+    override suspend fun sendContactList(parameter: ContactsTypes.Parameter.Send): Result<Unit, ApiError.ContactsError> {
         TODO("Not yet implemented")
     }
 

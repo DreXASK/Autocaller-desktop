@@ -14,11 +14,11 @@ import androidx.compose.ui.unit.dp
 @Preview
 @Composable
 fun OutlinedButtonWithTextIcon(
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     icon: ImageVector,
     contentDescription: String? = null,
-    text: String,
-    onClick: () -> Unit
+    text: String
 ) {
     OutlinedButton(
         onClick = onClick,

@@ -8,7 +8,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -18,7 +20,11 @@ import core.presentation.TimePicker
 import core.presentation.components.OutlinedButtonWithIconText
 import core.presentation.components.OutlinedButtonWithTextIcon
 import core.presentation.components.VerticalDivider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
+import serverScreen.data.repository.callProcessSettings.CallProcessSettingsParameterSendRemote
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
 import java.time.LocalTime
@@ -28,8 +34,9 @@ import java.time.LocalTime
 fun CallProcessSettingsWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
-    val timeFrom = mutableStateOf<LocalTime?>(null)
-    val timeTo = mutableStateOf<LocalTime?>(null)
+    LaunchedEffect(Unit) {
+        loadDataFromServer(viewModel)
+    }
 
     Column(Modifier.fillMaxSize()) {
         Box(
@@ -57,15 +64,18 @@ fun CallProcessSettingsWindow() {
             )
 
             OutlinedButtonWithTextIcon(
+                onClick = {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        viewModel.sendCallProcessSettingsToServer()
+                    }
+                },
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(10.dp)
                     .align(Alignment.CenterEnd),
                 icon = Icons.Rounded.Done,
                 text = "Применить настройки"
-            ) {
-                println("TODO()")
-            }
+            )
         }
         Divider()
         Card {
@@ -85,12 +95,12 @@ fun CallProcessSettingsWindow() {
                 VerticalDivider()
 
                 OutlinedTextField(
-                    value = timeFrom.value?.toString() ?: "",
+                    value = viewModel.callProcessSettingsService.timeFrom.value?.toString() ?: "",
                     onValueChange = { },
                     modifier = Modifier
                         .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
                         .clickable {
-                            TimePicker.setTimeToState(timeFrom)
+                            TimePicker.setTimeToState(viewModel.callProcessSettingsService.timeFrom)
                         },
                     enabled = false,
                     label = { Text("Время от") },
@@ -100,12 +110,12 @@ fun CallProcessSettingsWindow() {
                     )
                 )
                 OutlinedTextField(
-                    value = timeTo.value?.toString() ?: "",
+                    value = viewModel.callProcessSettingsService.timeTo.value?.toString() ?: "",
                     onValueChange = { },
                     modifier = Modifier
                         .padding(end = 10.dp, bottom = 10.dp)
                         .clickable {
-                            TimePicker.setTimeToState(timeTo)
+                            TimePicker.setTimeToState(viewModel.callProcessSettingsService.timeTo)
                         },
                     enabled = false,
                     label = { Text("Время до") },
@@ -118,5 +128,10 @@ fun CallProcessSettingsWindow() {
         }
         Divider()
     }
+}
 
+private suspend fun loadDataFromServer(viewModel: ServerScreenViewModel) {
+    viewModel.getCallProcessSettingsFromServer()?.let {
+        viewModel.callProcessSettingsService.setupSettings(it)
+    }
 }

@@ -67,7 +67,12 @@ fun TasksWindow() {
             tasksListFiltered = viewModel.callTasksTable.callTasksListFiltered,
             filterStore = viewModel.callTasksTable.filterStore,
             contentPadding = PaddingValues(start = 30.dp, top = 10.dp, end = 30.dp, bottom = 30.dp),
-            onButtonClicked = viewModel::removeCallTaskFromServer,
+            onButtonClicked = { id ->
+                if (viewModel.removeCallTaskFromServer(id)) {
+                    viewModel.callTasksTable.removeTask(id)
+                    true
+                } else false
+            },
             onFilterValueChanged = viewModel.callTasksTable::updateTasksListFiltered
         )
     }

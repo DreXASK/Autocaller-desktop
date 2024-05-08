@@ -30,6 +30,11 @@ sealed interface ApiError: Error {
             data class UnknownError(val exception: Exception?): Remote
         }
     }
+    sealed interface CallProcessSettings: ApiError {
+        sealed interface Remote: CallProcessSettings {
+            data class UnknownError(val text: String): Remote
+        }
+    }
     enum class Network: ApiError {
         CONNECTION_REFUSED,
         REQUEST_TIMEOUT

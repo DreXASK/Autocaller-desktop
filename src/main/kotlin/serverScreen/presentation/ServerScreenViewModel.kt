@@ -18,14 +18,20 @@ import core.domain.utils.ApiError
 import kotlinx.coroutines.*
 import org.koin.java.KoinJavaComponent.get
 import org.koin.java.KoinJavaComponent.inject
+import serverScreen.data.repository.callProcessSettings.CallProcessSettingsParameterGetRemote
+import serverScreen.data.repository.callProcessSettings.CallProcessSettingsParameterSendRemote
 import serverScreen.data.repository.completedCallTasks.CompletedCallTaskParameterGetRemote
+import serverScreen.domain.CallProcessSettingsService
 import serverScreen.domain.CompletedTasksTable
 import serverScreen.domain.CallTasksTable
 import serverScreen.domain.MessageTemplateService
+import serverScreen.domain.models.CallProcessSettingsData
 import serverScreen.domain.models.CompletedTaskData
+import serverScreen.domain.repository.callProcessSettings.CallProcessSettingsDto
 import serverScreen.domain.usecase.GetCompletedTaskDataListUseCase
 import serverScreen.domain.usecase.RemoveCallTaskUseCase
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanel
+import serverScreen.presentation.utils.transformToCallProcessSettingsDto
 
 class ServerScreenViewModel {
     val serverControlPanel by inject<ServerControlPanel>(ServerControlPanel::class.java)
@@ -33,6 +39,7 @@ class ServerScreenViewModel {
     val callTasksTable by inject<CallTasksTable>(CallTasksTable::class.java)
     val completedTasksTable by inject<CompletedTasksTable>(CompletedTasksTable::class.java)
     val messageTemplateService by inject<MessageTemplateService>(MessageTemplateService::class.java)
+    val callProcessSettingsService by inject<CallProcessSettingsService>(CallProcessSettingsService::class.java)
 
     private var connectionJob: Job? = null
 
@@ -75,7 +82,7 @@ class ServerScreenViewModel {
             serverConnection.serverConnectionSettings?.let { CallTaskParameterGetRemote(it.token) }
 
         if (callTaskDtoParameter == null) {
-            println("getTaskListFromServer error - serverConnectionSettings is null")
+            println("getCallTaskListFromServer error - serverConnectionSettings is null")
             return null
         }
 
@@ -87,9 +94,8 @@ class ServerScreenViewModel {
             is Result.Error -> {
                 when (result.error) {
                     is ApiError.CallTasksError.Remote.UnknownError -> {
-                        println("GetCallTasksListUseCase error - ${result.error}")
+                        println("getCallTaskListFromServer error - ${result.error}")
                         return null
-                        //TODO()
                     }
                 }
             }
@@ -108,14 +114,13 @@ class ServerScreenViewModel {
 
         return when (val result = useCase.execute(callTaskDtoParameter)) {
             is Result.Success -> {
-                callTasksTable.removeTask(id) //TODO()----------------------------------------------------------------------------------------
                 println("CallTask with id = $id was successfully removed from the server")
                 true
             }
             is Result.Error -> {
                 when (result.error) {
                     is ApiError.CallTasksError.Remote.UnknownError -> {
-                        println("RemoveCallTaskUseCase error - ${result.error}")
+                        println("removeCallTaskFromServer error - ${result.error}")
                         false
                     }
                 }
@@ -138,13 +143,12 @@ class ServerScreenViewModel {
         return when (val result = getCompletedTaskDataListUseCase.execute(completedTaskDtoParameter)) {
             is Result.Success -> {
                 result.data
-                //completedTasksTable.addTaskListToTable(result.data) TODO()---------------------------------------------
             }
 
             is Result.Error -> {
                 when (result.error) {
                     is ApiError.CompletedTasksError.Remote.UnknownError -> {
-                        println("GetCompletedTaskDataListUseCase error - ${result.error}")
+                        println("getCompletedTaskListFromServer error - ${result.error}")
                         null
                     }
                 }
@@ -163,13 +167,12 @@ class ServerScreenViewModel {
 
         return when (val result = messageTemplateService.getMessageTemplatesFromServer(messageTemplateDtoParameter)) {
             is Result.Success -> {
-                //messageTemplateService.addMessageTemplates(result.data) TODO()-------------------------------====---------
                 result.data
             }
             is Result.Error -> {
                 when (result.error) {
                     is ApiError.MessageTemplatesError.Remote.UnknownError -> {
-                        println("loadMessageTemplatesFromServer error - ${result.error}")
+                        println("getMessageTemplatesFromServer error - ${result.error}")
                         null
                     }
                 }
@@ -193,7 +196,6 @@ class ServerScreenViewModel {
 
         return when (val result = messageTemplateService.sendMessageTemplateToServer(messageTemplateDtoParameter)) {
             is Result.Success -> {
-                //messageTemplateService.addMessageTemplates(messageTemplate) TODO()--------------------------------------
                 println("MessageTemplate was successfully sent to the server")
                 true
             }
@@ -213,7 +215,7 @@ class ServerScreenViewModel {
             serverConnection.serverConnectionSettings?.let { MessageTemplateParameterRemoveRemote(it.token, id) }
 
         if (messageTemplateDtoParameter == null) {
-            println("removeMessageTemplateToServer error - serverConnectionSettings is null")
+            println("removeMessageTemplateFromServer error - serverConnectionSettings is null")
             return false
         }
 
@@ -227,7 +229,64 @@ class ServerScreenViewModel {
             is Result.Error -> {
                 when (result.error) {
                     is ApiError.MessageTemplatesError.Remote.UnknownError -> {
-                        println("removeMessageTemplateToServer error - ${result.error}")
+                        println("removeMessageTemplateFromServer error - ${result.error}")
+                        false
+                    }
+                }
+            }
+        }
+    }
+
+    suspend fun getCallProcessSettingsFromServer(): CallProcessSettingsData? {
+        val callProcessSettingsParameter =
+            serverConnection.serverConnectionSettings?.let { CallProcessSettingsParameterGetRemote(it.token) }
+
+        if (callProcessSettingsParameter == null) {
+            println("getCallProcessSettingsFromServer error - serverConnectionSettings is null")
+            return null
+        }
+
+        return when (val result = callProcessSettingsService.getSettingsFromServer(callProcessSettingsParameter)) {
+            is Result.Success -> {
+                result.data
+            }
+            is Result.Error -> {
+                when (result.error) {
+                    is ApiError.CallProcessSettings.Remote.UnknownError -> {
+                        println("getCallProcessSettingsFromServer error - ${result.error}")
+                        null
+                    }
+                }
+            }
+        }
+    }
+
+    suspend fun sendCallProcessSettingsToServer(): Boolean {
+
+        val settingsData = callProcessSettingsService.getSettingsData()
+            if(settingsData == null) {
+                println("sendCallProcessSettingsToServer  error - CallProcessSettingsData is null")
+                return false
+            }
+
+        val settingsDto = settingsData.transformToCallProcessSettingsDto()
+
+        val callProcessSettingsParameter =
+            serverConnection.serverConnectionSettings?.let { CallProcessSettingsParameterSendRemote(it.token, settingsDto) }
+
+        if (callProcessSettingsParameter == null) {
+            println("${javaClass.enclosingMethod.name}  error - serverConnectionSettings is null")
+            return false
+        }
+
+        return when (val result = callProcessSettingsService.sendSettingsToServer(callProcessSettingsParameter)) {
+            is Result.Success -> {
+                true
+            }
+            is Result.Error -> {
+                when (result.error) {
+                    is ApiError.CallProcessSettings.Remote.UnknownError -> {
+                        println("sendCallProcessSettingsToServer error - ${result.error}")
                         false
                     }
                 }
