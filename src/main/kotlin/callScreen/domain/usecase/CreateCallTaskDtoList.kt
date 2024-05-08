@@ -1,6 +1,7 @@
 package callScreen.domain.usecase
 
 import callScreen.domain.models.ContactData
+import core.data.repository.callTasks.CallTaskDto
 import core.domain.models.CallTaskData
 import core.domain.models.MessageTemplateData
 import core.domain.models.MessageTemplatePlaceholders
@@ -8,17 +9,16 @@ import core.domain.utils.DataError
 import core.domain.utils.Result
 import core.domain.utils.Sex
 import serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow.*
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.time.ZoneOffset
-import java.time.ZonedDateTime
 
-class CreateCallTaskList {
+class CreateCallTaskDtoList {
 
     fun execute(
         contactList: List<ContactData>,
         messageTemplateData: MessageTemplateData
-    ): Result<List<CallTaskData>, DataError.PlaceholdersError> {
-        val resultList = mutableListOf<CallTaskData>()
+    ): Result<List<CallTaskDto>, DataError.PlaceholdersError> {
+        val resultList = mutableListOf<CallTaskDto>()
 
         val checkResult = checkIfPlaceholdersCanBeFilled(contactList, messageTemplateData.placeholders)
         if(checkResult is Result.Error)
@@ -26,14 +26,15 @@ class CreateCallTaskList {
 
         contactList.map {
             resultList.add(
-                CallTaskData(
+                CallTaskDto(
+                    id = null,
                     surname = it.surname,
                     name = it.name,
                     patronymic = it.patronymic,
                     phoneNumber = it.phoneNumber,
                     messageText = getTextWithFilledPlaceholders(it, messageTemplateData),
                     callAttempts = 0,
-                    nextCallDateAndTimeUTC = ZonedDateTime.now(ZoneOffset.UTC).toString()
+                    nextCallDateAndTimeUTC = OffsetDateTime.now(ZoneOffset.UTC)
                 )
             )
         }

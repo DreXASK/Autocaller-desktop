@@ -10,7 +10,7 @@ import serverScreen.presentation.components.serverControlPanel.tabs.callProcessS
 import serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.CompletedTasksWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow.MessageTemplateWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.statisticsWindow.StatisticsWindow
-import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.TasksWindow
+import serverScreen.presentation.components.serverControlPanel.tabs.callTasksWindow.TasksWindow
 
 @Preview
 @Composable

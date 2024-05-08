@@ -1,4 +1,4 @@
-package serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable
+package serverScreen.presentation.components.serverControlPanel.tabs.callTasksWindow.callTasksTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -13,26 +13,27 @@ import core.domain.models.CallTaskData
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
-fun CompletedTasksTableUI(
+fun CallTasksTableUI(
     tasksListFiltered: SnapshotStateList<CallTaskData>,
-    filterStore: TasksTableFilterStore,
+    filterStore: CallTasksTableFilterStore,
     contentPadding: PaddingValues,
+    onButtonClicked: (id: Long) -> Unit,
     onFilterValueChanged: () -> Unit
 ) {
     LazyColumn(
         contentPadding = contentPadding
     ) {
         stickyHeader {
-            TasksTableHeader()
+            CallTasksTableHeader()
         }
         item {
-            TasksTableFilterRow(
+            CallTasksTableFilterRow(
                 filterStore,
                 onFilterValueChanged
             )
         }
         items(tasksListFiltered) {
-            TasksTableItem(it)
+            CallTasksTableItem(it, onButtonClicked)
         }
     }
 }

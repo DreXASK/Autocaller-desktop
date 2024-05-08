@@ -1,10 +1,13 @@
 package callScreen.presentation.components.contactTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import callScreen.domain.models.ContactData
 import core.domain.utils.Sex
 import core.presentation.components.VerticalDivider
@@ -14,7 +17,11 @@ import core.presentation.utils.applyPhoneVisualTransformation
 @Preview
 @Composable
 fun ContactTableItem(itemData: ContactData) {
-    TableItem {
+    TableItem(
+        rowModifier = Modifier
+            .fillMaxWidth()
+            .height(30.dp)
+    ) {
         Text(itemData.surname ?: "", Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
         Text(itemData.name ?: "", Modifier.weight(1f), textAlign = TextAlign.Center)

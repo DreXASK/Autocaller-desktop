@@ -11,13 +11,14 @@ import androidx.compose.ui.unit.dp
 @Preview
 @Composable
 fun TableItem(
+    rowModifier: Modifier,
     content: @Composable RowScope.() -> Unit
 ) {
     TableCard(
         shape = RoundedCornerShape(2.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().height(30.dp),
+            modifier = rowModifier,         //modifier = Modifier.fillMaxWidth().height(30.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
             content = content

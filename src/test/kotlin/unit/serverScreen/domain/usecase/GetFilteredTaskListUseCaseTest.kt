@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 import core.domain.models.CallTaskData
 import serverScreen.domain.usecase.GetFilteredTaskListUseCase
-import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
+import serverScreen.presentation.components.serverControlPanel.tabs.callTasksWindow.callTasksTable.CallTasksTableFilterStore
 import kotlin.test.assertContentEquals
 
 class GetFilteredTaskListUseCaseTest {
@@ -33,7 +33,7 @@ class GetFilteredTaskListUseCaseTest {
     )
 
     @get:Rule
-    val filterStore = TasksTableFilterStore(
+    val filterStore = CallTasksTableFilterStore(
         surnameFilterText = mutableStateOf(""),
         nameFilterText = mutableStateOf(""),
         patronymicFilterText = mutableStateOf(""),

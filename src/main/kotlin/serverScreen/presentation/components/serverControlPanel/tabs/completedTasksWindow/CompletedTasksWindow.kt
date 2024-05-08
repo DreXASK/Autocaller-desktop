@@ -16,7 +16,6 @@ import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
 import serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.completedTasksTable.CompletedTasksTableUI
-import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.CompletedTasksTableUI
 
 @Preview
 @Composable

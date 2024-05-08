@@ -48,6 +48,9 @@ val coreModule = module {
         CallTaskRepositoryRemote(httpClient = get())
     }
     single {
-        SendCallTasksListUseCase(callTaskRepository = get())
+        SendCallTaskDtoListUseCase(callTaskRepository = get())
+    }
+    single {
+        GetCallTaskDataListUseCase(callTaskRepository = get())
     }
 }

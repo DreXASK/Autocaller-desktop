@@ -1,12 +1,21 @@
 package core.data.repository.callTasks
 
-import callScreen.domain.models.ContactData
-import core.domain.models.CallTaskData
-import core.domain.repository.callTasks.CallTasksDto
+import core.domain.repository.callTasks.CallTasksTypes
 import kotlinx.serialization.Serializable
+
+@Serializable
+data class CallTasksParameterGetRemote(
+    val token: String,
+): CallTasksTypes.Parameter.Get
+
+@Serializable
+data class CallTasksParameterRemoveRemote(
+    val token: String,
+    val id: Long
+): CallTasksTypes.Parameter.Remove
 
 @Serializable
 data class CallTasksParameterSendRemote(
     val token: String,
-    val list: List<CallTaskData>
-): CallTasksDto.Parameter.Send
+    val list: List<CallTaskDto>
+): CallTasksTypes.Parameter.Send

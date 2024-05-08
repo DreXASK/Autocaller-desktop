@@ -8,9 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import callScreen.data.repository.contacts.ContactsParameterGetLocal
 import callScreen.di.Qualifiers
 import callScreen.domain.*
-import callScreen.domain.usecase.CreateCallTaskList
+import callScreen.domain.usecase.CreateCallTaskDtoList
 import callScreen.domain.usecase.GetContactListUseCase
-import core.domain.usecase.SendCallTasksListUseCase
+import core.domain.usecase.SendCallTaskDtoListUseCase
 import core.data.repository.callTasks.CallTasksParameterSendRemote
 import core.domain.models.MessageTemplateData
 import core.domain.utils.Result
@@ -29,6 +29,7 @@ import org.koin.java.KoinJavaComponent.get
 
 class CallScreenViewModel {
     val contactTable by inject<ContactTable>(ContactTable::class.java)
+    private val serverConnection by inject<ServerConnection>(ServerConnection::class.java)
 
     var isContactAdderDialogOpen = mutableStateOf(false)
     var isSenderContactsToServerDialogOpen = mutableStateOf(false)
@@ -74,16 +75,15 @@ class CallScreenViewModel {
         messageTemplateData: MessageTemplateData
     ) {
         CoroutineScope(Dispatchers.IO).launch {
-            val createCallTaskListUseCase =
-                get<CreateCallTaskList>(CreateCallTaskList::class.java)
+            val createCallTaskDtoListUseCase =
+                get<CreateCallTaskDtoList>(CreateCallTaskDtoList::class.java)
             val sendUseCase =
-                get<SendCallTasksListUseCase>(SendCallTasksListUseCase::class.java)
-            val serverConnection = get<ServerConnection>(ServerConnection::class.java)
+                get<SendCallTaskDtoListUseCase>(SendCallTaskDtoListUseCase::class.java)
 
             serverConnection.serverConnectionSettings?.let {
 
                 val creationListResult =
-                    createCallTaskListUseCase.execute(contactTable.contactListFiltered, messageTemplateData)
+                    createCallTaskDtoListUseCase.execute(contactTable.contactListFiltered, messageTemplateData)
 
                 if (creationListResult is Result.Error) {
                     println("Creating list result error - ${creationListResult.error}")
@@ -104,8 +104,8 @@ class CallScreenViewModel {
                     }
 
                     is Result.Error -> {
-                        println("Error = ${result.error}")
-                        TODO()
+                        println("SendCallTasksListUseCase error - ${result.error}")
+                        //TODO()
                     }
                 }
             }

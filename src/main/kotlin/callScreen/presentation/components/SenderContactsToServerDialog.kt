@@ -22,7 +22,10 @@ fun SenderContactsToServerDialog(
     buttonCallback: (MessageTemplateData) -> Unit
 ) {
     val messageTemplateList = mutableStateListOf(
-        MessageTemplateData("Первый шаблон", "Здрасте {surname}, который {name}", MessageTemplatePlaceholders()),
+        MessageTemplateData("Первый шаблон", "Здрасте {Фамилия}, который {Имя}", MessageTemplatePlaceholders(
+            isSurnamePlaceholderUsed = true,
+            isNamePlaceholderUsed = true
+        )),
         MessageTemplateData("Второй шаблон", "А тут пусто.", MessageTemplatePlaceholders())
     )
 

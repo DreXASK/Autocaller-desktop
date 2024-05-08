@@ -2,13 +2,13 @@ package serverScreen.domain.usecase
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import core.domain.models.CallTaskData
-import serverScreen.presentation.components.serverControlPanel.tabs.tasksWindow.tasksTable.TasksTableFilterStore
+import serverScreen.presentation.components.serverControlPanel.tabs.callTasksWindow.callTasksTable.CallTasksTableFilterStore
 
 class GetFilteredTaskListUseCase {
 
     fun execute(
         tasksList: SnapshotStateList<CallTaskData>,
-        filterStore: TasksTableFilterStore
+        filterStore: CallTasksTableFilterStore
     ): List<CallTaskData> {
 
         val tasksListFiltered = mutableListOf<CallTaskData>()
@@ -20,6 +20,7 @@ class GetFilteredTaskListUseCase {
                         && isFieldContainsFilterText(task.patronymic, filterStore.patronymicFilterText.value)
                         && isFieldContainsFilterText(task.phoneNumber, filterStore.phoneNumberFilterText.value)
                         && isFieldContainsFilterText(task.messageText, filterStore.messageTemplateFilterText.value)
+                        && isFieldContainsFilterText(task.callAttempts.toString(), filterStore.callAttemptsFilterText.value)
             }
         )
 

@@ -1,15 +1,16 @@
 package core.domain.models
 
-import kotlinx.serialization.Serializable
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 
-@Serializable
 data class CallTaskData(
+    val id: Long?,
     val surname: String?,
     val name: String?,
     val patronymic: String?,
     val phoneNumber: String,
     val messageText: String,
     val callAttempts: Int,
-    val nextCallDateAndTimeUTC: String
+    val nextCallDateAndTime: LocalDateTime
 )

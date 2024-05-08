@@ -1,11 +1,13 @@
 package core.domain.repository.callTasks
 
+import core.data.repository.callTasks.CallTaskDto
 import core.domain.utils.ApiError
 import core.domain.utils.Result
-import core.domain.models.CallTaskData
 
 interface CallTaskRepository {
-    suspend fun getContactList(parameter: CallTasksDto.Parameter.Get): Result<List<CallTaskData>, ApiError.ContactsError>
+    suspend fun getCallTaskList(parameter: CallTasksTypes.Parameter.Get): Result<List<CallTaskDto>, ApiError.CallTasksError>
 
-    suspend fun sendContactList(parameter: CallTasksDto.Parameter.Send): Result<Unit, ApiError.ContactsError>
+    suspend fun removeCallTask(parameter: CallTasksTypes.Parameter.Remove): Result<Unit, ApiError.CallTasksError>
+
+    suspend fun sendCallTaskList(parameter: CallTasksTypes.Parameter.Send): Result<Unit, ApiError.CallTasksError>
 }
