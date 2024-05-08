@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import core.presentation.components.OutlinedButtonWithIconText
 import org.koin.java.KoinJavaComponent.inject
 import core.domain.models.MessageTemplateData
+import core.domain.models.MessageTemplatePlaceholders
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -141,14 +142,14 @@ fun MessageTemplateWindow() {
                         dropdownMenuSelected?.let { selectedMessageTemplate ->
                             selectedMessageTemplate.id?.let {
                                 if (viewModel.removeMessageTemplateFromServer(selectedMessageTemplate.id)) {
-                                    viewModel.sendMessageTemplateToServer(
-                                        MessageTemplateData(
-                                            id = null,
-                                            name = selectedMessageTemplate.name,
-                                            text = templateText,
-                                            placeholders = templatePlaceholders
-                                        )
+                                    val message = MessageTemplateData(
+                                        id = null,
+                                        name = selectedMessageTemplate.name,
+                                        text = templateText,
+                                        placeholders = templatePlaceholders
                                     )
+                                    if (viewModel.sendMessageTemplateToServer(message))
+                                        loadDataFromServer(viewModel)
                                 }
                             }
                         }
@@ -164,7 +165,12 @@ fun MessageTemplateWindow() {
             OutlinedButton(
                 onClick = {
                     CoroutineScope(Dispatchers.IO).launch {
-                        dropdownMenuSelected?.id?.let { viewModel.removeMessageTemplateFromServer(it) }
+                        dropdownMenuSelected?.id?.let {
+                            if(viewModel.removeMessageTemplateFromServer(it)) {
+                                loadDataFromServer(viewModel)
+                                clearFields(stateFields)
+                            }
+                        }
                     }
                 },
                 modifier = Modifier
@@ -181,7 +187,13 @@ fun MessageTemplateWindow() {
     if (isAdderDialogOpen) {
         MessageTemplateAdderDialog(
             onDismissRequest = { isAdderDialogOpen = false },
-            addButtonCallback = viewModel::sendMessageTemplateToServer,
+            viewModel = viewModel,
+            addButtonCallback = { itemData, viewModel ->
+                if(viewModel.sendMessageTemplateToServer(itemData)) {
+                    loadDataFromServer(viewModel)
+                    true
+                } else false
+            },
         )
     }
 }
@@ -193,3 +205,10 @@ private suspend fun loadDataFromServer(viewModel: ServerScreenViewModel) {
     }
 }
 
+private fun clearFields(stateFields: MessageTemplateStateFields) {
+    stateFields.apply {
+        templateText.value = ""
+        stateFields.templateName.value = ""
+        stateFields.templatePlaceholders.value = MessageTemplatePlaceholders()
+    }
+}

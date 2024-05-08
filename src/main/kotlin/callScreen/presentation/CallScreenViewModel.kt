@@ -111,7 +111,7 @@ class CallScreenViewModel {
                 )
                 ) {
                     is Result.Success -> {
-                        println("Contact list has been successfully transmitted")
+                        println("Contact list has been successfully transmitted to server")
                     }
 
                     is Result.Error -> {

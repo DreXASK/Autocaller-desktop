@@ -1,8 +1,5 @@
 package serverScreen.domain.usecase
 
-import core.domain.models.CallTaskData
-import core.domain.repository.callTasks.CallTaskDto
-import core.domain.repository.callTasks.CallTaskTypes
 import core.domain.utils.ApiError
 import core.domain.utils.Result
 import serverScreen.domain.models.CompletedTaskData
@@ -14,7 +11,7 @@ import java.time.ZoneId
 
 class GetCompletedTaskDataListUseCase(private val completedTaskRepository: CompletedTaskRepository) {
 
-    suspend fun execute(callTaskDto: CompletedCallTaskTypes.Parameter.Get): Result<List<CompletedTaskData>, ApiError.CompletedCallTasksError> {
+    suspend fun execute(callTaskDto: CompletedCallTaskTypes.Parameter.Get): Result<List<CompletedTaskData>, ApiError.CompletedTasksError> {
         return when (val result = completedTaskRepository.getCompletedCallTaskList(callTaskDto)) {
             is Result.Success -> Result.Success(result.data.transformToCompletedCallTaskData())
             is Result.Error -> Result.Error(result.error)

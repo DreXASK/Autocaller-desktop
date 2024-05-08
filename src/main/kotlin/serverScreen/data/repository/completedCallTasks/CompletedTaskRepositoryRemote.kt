@@ -13,7 +13,7 @@ import serverScreen.domain.repository.completedTasks.CompletedTaskRepository
 
 class CompletedTaskRepositoryRemote(private val httpClient: HttpClient): CompletedTaskRepository {
 
-    override suspend fun getCompletedCallTaskList(parameter: CompletedCallTaskTypes.Parameter.Get): Result<List<CompletedTaskDto>, ApiError.CompletedCallTasksError> {
+    override suspend fun getCompletedCallTaskList(parameter: CompletedCallTaskTypes.Parameter.Get): Result<List<CompletedTaskDto>, ApiError.CompletedTasksError> {
         return try {
             val response = httpClient.get {
                 url(ServerScreenHttpRoutes.GET_COMPLETED_CALL_TASKS)
@@ -22,11 +22,11 @@ class CompletedTaskRepositoryRemote(private val httpClient: HttpClient): Complet
             }
             when (response.status) {
                 HttpStatusCode.OK -> Result.Success(response.body())
-                else -> Result.Error(ApiError.CompletedCallTasksError.Remote.UnknownError(null))
+                else -> Result.Error(ApiError.CompletedTasksError.Remote.UnknownError(null))
             }
 
         } catch (e: Exception) {
-            Result.Error(ApiError.CompletedCallTasksError.Remote.UnknownError(e))
+            Result.Error(ApiError.CompletedTasksError.Remote.UnknownError(e))
         }
     }
 }

@@ -16,12 +16,14 @@ import core.domain.models.MessageTemplateData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import serverScreen.presentation.ServerScreenViewModel
 
 @Preview
 @Composable
 fun MessageTemplateAdderDialog(
     onDismissRequest: () -> Unit,
-    addButtonCallback: suspend (itemData: MessageTemplateData) -> Boolean,
+    viewModel: ServerScreenViewModel,
+    addButtonCallback: suspend (itemData: MessageTemplateData, viewModel: ServerScreenViewModel) -> Boolean,
 ) {
     val stateFields by remember { inject<MessageTemplateStateFields>(MessageTemplateStateFields::class.java) }
     var templateName by remember { stateFields.templateName }
@@ -77,7 +79,7 @@ fun MessageTemplateAdderDialog(
                                 text = templateText,
                                 placeholders = templatePlaceholders
                             )
-                            addButtonCallback(itemData)
+                            addButtonCallback(itemData, viewModel)
                             onDismissRequest()
                         }
                     },

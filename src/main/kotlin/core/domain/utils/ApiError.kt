@@ -25,8 +25,8 @@ sealed interface ApiError: Error {
             data class UnknownError(val exception: Exception?): Remote
         }
     }
-    sealed interface CompletedCallTasksError: ApiError {
-        sealed interface Remote: CompletedCallTasksError {
+    sealed interface CompletedTasksError: ApiError {
+        sealed interface Remote: CompletedTasksError {
             data class UnknownError(val exception: Exception?): Remote
         }
     }

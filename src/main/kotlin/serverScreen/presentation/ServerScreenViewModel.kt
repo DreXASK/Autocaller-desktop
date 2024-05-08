@@ -143,7 +143,7 @@ class ServerScreenViewModel {
 
             is Result.Error -> {
                 when (result.error) {
-                    is ApiError.CompletedCallTasksError.Remote.UnknownError -> {
+                    is ApiError.CompletedTasksError.Remote.UnknownError -> {
                         println("GetCompletedTaskDataListUseCase error - ${result.error}")
                         null
                     }
