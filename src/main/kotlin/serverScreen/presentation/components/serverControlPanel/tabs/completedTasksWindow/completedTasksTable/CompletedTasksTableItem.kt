@@ -16,12 +16,12 @@ import core.presentation.components.VerticalDivider
 import core.presentation.components.table.OutlinedButtonWithIconAndTooltip
 import core.presentation.components.table.TableItem
 import core.presentation.utils.applyPhoneVisualTransformation
-import serverScreen.domain.models.CompletedTasksTableItemData
+import serverScreen.domain.models.CompletedTaskData
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
-fun CompletedTasksTableItem(itemData: CompletedTasksTableItemData) {
+fun CompletedTasksTableItem(itemData: CompletedTaskData) {
     TableItem(
         rowModifier = Modifier
             .fillMaxWidth()
@@ -35,7 +35,7 @@ fun CompletedTasksTableItem(itemData: CompletedTasksTableItemData) {
         VerticalDivider()
         Text(itemData.phoneNumber.applyPhoneVisualTransformation(), Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Text(itemData.messageTemplate, Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text(itemData.messageText, Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
         OutlinedButtonWithIconAndTooltip(
             onClick = { },

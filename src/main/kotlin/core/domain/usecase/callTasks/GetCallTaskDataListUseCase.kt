@@ -1,9 +1,9 @@
-package core.domain.usecase
+package core.domain.usecase.callTasks
 
-import core.data.repository.callTasks.CallTaskDto
+import core.domain.repository.callTasks.CallTaskDto
 import core.domain.models.CallTaskData
 import core.domain.repository.callTasks.CallTaskRepository
-import core.domain.repository.callTasks.CallTasksTypes
+import core.domain.repository.callTasks.CallTaskTypes
 import core.domain.utils.ApiError
 import core.domain.utils.Result
 import java.time.Instant
@@ -11,7 +11,7 @@ import java.time.ZoneId
 
 class GetCallTaskDataListUseCase(private val callTaskRepository: CallTaskRepository) {
 
-    suspend fun execute(callTaskDto: CallTasksTypes.Parameter.Get): Result<List<CallTaskData>, ApiError.CallTasksError> {
+    suspend fun execute(callTaskDto: CallTaskTypes.Parameter.Get): Result<List<CallTaskData>, ApiError.CallTasksError> {
         return when(val result = callTaskRepository.getCallTaskList(callTaskDto)) {
             is Result.Success -> Result.Success(result.data.transformToCallTaskData())
             is Result.Error -> Result.Error(result.error)

@@ -8,7 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -75,7 +74,7 @@ fun TasksWindow() {
 }
 
 private suspend fun loadDataFromServer(viewModel: ServerScreenViewModel) {
-    viewModel.getTaskListFromServer()?.let {
+    viewModel.getCallTaskListFromServer()?.let {
         viewModel.callTasksTable.clearCallTaskList()
         viewModel.callTasksTable.addTaskListToTable(it)
     }

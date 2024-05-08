@@ -8,7 +8,7 @@ import io.ktor.client.request.*
 import core.domain.utils.ApiError
 import core.domain.utils.Result
 import core.domain.utils.TokenStatus
-import core.domain.repository.login.LoginDto
+import core.domain.repository.login.LoginTypes
 import core.domain.repository.login.LoginRepository
 import io.ktor.http.*
 import kotlinx.serialization.json.Json
@@ -16,17 +16,17 @@ import java.net.ConnectException
 
 class LoginRepositoryRemote(private val httpClient: HttpClient): LoginRepository {
 
-    override suspend fun getTokenStatus(parameter: LoginDto.Parameter): Result<TokenStatus, ApiError> {
+    override suspend fun getTokenStatus(parameter: LoginTypes.Parameter): Result<TokenStatus, ApiError> {
         return try {
-            val tokenStatusResponse = httpClient.get {
+            val response = httpClient.get {
                 url(CoreHttpRoutes.GET_TOKEN_STATUS)
                 setBody(parameter as ParameterRemote)
                 contentType(ContentType.Application.Json)
             }
-            when (tokenStatusResponse.status) {
-                HttpStatusCode.OK  -> Result.Success(tokenStatusResponse.body<ResponseRemote>().tokenStatus)
+            when (response.status) {
+                HttpStatusCode.OK  -> Result.Success(response.body<ResponseRemote>().tokenStatus)
                 HttpStatusCode.BadRequest -> {
-                    val error = Json.decodeFromString<ApiError.TokenStatusError>(tokenStatusResponse.body<String>())
+                    val error = Json.decodeFromString<ApiError.TokenStatusError>(response.body<String>())
                     when(error) {
                         ApiError.TokenStatusError.INVALID_TOKEN -> Result.Error(ApiError.TokenStatusError.INVALID_TOKEN)
                     }

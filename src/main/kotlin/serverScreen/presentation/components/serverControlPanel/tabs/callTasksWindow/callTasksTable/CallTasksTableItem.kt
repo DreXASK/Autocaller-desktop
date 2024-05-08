@@ -16,11 +16,17 @@ import core.presentation.components.table.OutlinedButtonWithIconAndTooltip
 import core.presentation.components.table.TableItem
 import core.presentation.utils.applyPhoneVisualTransformation
 import core.domain.models.CallTaskData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 
 @Preview
 @Composable
-fun CallTasksTableItem(itemData: CallTaskData, buttonCallBack: (id: Long) -> Unit) {
+fun CallTasksTableItem(
+    itemData: CallTaskData,
+    buttonCallBack: suspend (id: Long) -> Boolean)
+{
     TableItem(
         rowModifier = Modifier
             .fillMaxWidth()
@@ -44,7 +50,10 @@ fun CallTasksTableItem(itemData: CallTaskData, buttonCallBack: (id: Long) -> Uni
         VerticalDivider()
         OutlinedButtonWithIconAndTooltip(
             onClick = {
-                itemData.id?.let { buttonCallBack(it) } ?: println("Can't remove callTask - id is null").also { println(itemData) }
+                CoroutineScope(Dispatchers.IO).launch {
+                    itemData.id?.let { buttonCallBack(it) }
+                        ?: println("Can't remove callTask - id is null").also { println(itemData) }
+                }
             },
             tooltip = { Text("Удалить задание") },
             icon = { Icon(Icons.Rounded.Close, "Remove the task") },

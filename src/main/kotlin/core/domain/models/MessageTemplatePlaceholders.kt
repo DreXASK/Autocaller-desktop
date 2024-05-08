@@ -1,5 +1,8 @@
 package core.domain.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class MessageTemplatePlaceholders(
     val isSurnamePlaceholderUsed: Boolean = false,
     val isNamePlaceholderUsed: Boolean = false,

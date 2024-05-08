@@ -5,14 +5,17 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.Send
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import callScreen.data.repository.contacts.ContactsParameterGetLocal
 import callScreen.di.Qualifiers
 import callScreen.domain.*
 import callScreen.domain.usecase.CreateCallTaskDtoList
 import callScreen.domain.usecase.GetContactListUseCase
-import core.domain.usecase.SendCallTaskDtoListUseCase
-import core.data.repository.callTasks.CallTasksParameterSendRemote
+import core.domain.usecase.callTasks.SendCallTaskDtoListUseCase
+import core.data.repository.callTasks.CallTaskParameterSendRemote
+import core.data.repository.messageTemplates.MessageTemplateParameterGetRemote
 import core.domain.models.MessageTemplateData
+import core.domain.utils.ApiError
 import core.domain.utils.Result
 import core.domain.utils.ServerConnection
 import core.presentation.CustomFileDialog
@@ -25,11 +28,14 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.koin.core.qualifier.named
 import org.koin.java.KoinJavaComponent.get
+import serverScreen.domain.MessageTemplateService
 
 
 class CallScreenViewModel {
     val contactTable by inject<ContactTable>(ContactTable::class.java)
     private val serverConnection by inject<ServerConnection>(ServerConnection::class.java)
+    val messageTemplateService by inject<MessageTemplateService>(MessageTemplateService::class.java)
+
 
     var isContactAdderDialogOpen = mutableStateOf(false)
     var isSenderContactsToServerDialogOpen = mutableStateOf(false)
@@ -80,6 +86,11 @@ class CallScreenViewModel {
             val sendUseCase =
                 get<SendCallTaskDtoListUseCase>(SendCallTaskDtoListUseCase::class.java)
 
+            if(contactTable.contactListFiltered.size == 0) {
+                println("SendContactsToServer error - ContactListFiltered is empty")
+                return@launch
+            }
+
             serverConnection.serverConnectionSettings?.let {
 
                 val creationListResult =
@@ -93,7 +104,7 @@ class CallScreenViewModel {
                 val callTaskList = creationListResult as Result.Success
 
                 when (val result = sendUseCase.execute(
-                    CallTasksParameterSendRemote(
+                    CallTaskParameterSendRemote(
                         it.token,
                         callTaskList.data,
                     )
@@ -106,6 +117,33 @@ class CallScreenViewModel {
                     is Result.Error -> {
                         println("SendCallTasksListUseCase error - ${result.error}")
                         //TODO()
+                    }
+                }
+            }
+        }
+    }
+
+    fun getMessageTemplatesFromServer() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val messageTemplateDtoParameter =
+                serverConnection.serverConnectionSettings?.let { MessageTemplateParameterGetRemote(it.token) }
+
+            if (messageTemplateDtoParameter == null) {
+                println("getMessageTemplatesFromServer error - serverConnectionSettings is null")
+                return@launch
+            }
+
+            when (val result = messageTemplateService.getMessageTemplatesFromServer(messageTemplateDtoParameter)) {
+                is Result.Success -> {
+                    messageTemplateService.addMessageTemplates(result.data)
+                    //TODO()
+                }
+                is Result.Error -> {
+                    when (result.error) {
+                        is ApiError.MessageTemplatesError.Remote.UnknownError -> {
+                            println("loadMessageTemplatesFromServer error - ${result.error}")
+                            //TODO()
+                        }
                     }
                 }
             }

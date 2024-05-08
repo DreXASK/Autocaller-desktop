@@ -1,4 +1,4 @@
-package core.data.repository.callTasks
+package core.domain.repository.callTasks
 
 import core.domain.utils.OffsetDateTimeSerializer
 import kotlinx.serialization.Serializable

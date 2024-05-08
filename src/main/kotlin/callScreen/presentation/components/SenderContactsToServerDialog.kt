@@ -11,26 +11,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import callScreen.presentation.CallScreenViewModel
 import core.domain.models.MessageTemplateData
 import core.domain.models.MessageTemplatePlaceholders
+import org.koin.java.KoinJavaComponent.inject
+import serverScreen.domain.MessageTemplateService
 
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
 fun SenderContactsToServerDialog(
     onDismissRequest: () -> Unit,
+    viewModel: CallScreenViewModel,
     buttonCallback: (MessageTemplateData) -> Unit
 ) {
-    val messageTemplateList = mutableStateListOf(
-        MessageTemplateData("Первый шаблон", "Здрасте {Фамилия}, который {Имя}", MessageTemplatePlaceholders(
-            isSurnamePlaceholderUsed = true,
-            isNamePlaceholderUsed = true
-        )),
-        MessageTemplateData("Второй шаблон", "А тут пусто.", MessageTemplatePlaceholders())
-    )
 
     var dropdownMenuSelected: MessageTemplateData? by remember { mutableStateOf(null) }
     var dropdownMenuExpanded by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        viewModel.messageTemplateService.clearMessageTemplates()
+        viewModel.getMessageTemplatesFromServer()
+    }
 
     Dialog(
         onDismissRequest = onDismissRequest
@@ -62,7 +64,7 @@ fun SenderContactsToServerDialog(
                             expanded = dropdownMenuExpanded,
                             onDismissRequest = { dropdownMenuExpanded = false }
                         ) {
-                            messageTemplateList.forEach { messageTemplate ->
+                            viewModel.messageTemplateService.messageTemplateList.forEach { messageTemplate ->
                                 DropdownMenuItem(
                                     onClick = {
                                         dropdownMenuExpanded = !dropdownMenuExpanded

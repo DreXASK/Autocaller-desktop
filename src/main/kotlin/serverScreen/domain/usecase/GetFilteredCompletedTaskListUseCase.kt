@@ -1,17 +1,17 @@
 package serverScreen.domain.usecase
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import serverScreen.domain.models.CompletedTasksTableItemData
+import serverScreen.domain.models.CompletedTaskData
 import serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.completedTasksTable.CompletedTasksTableFilterStore
 
 class GetFilteredCompletedTaskListUseCase {
 
     fun execute(
-        tasksList: SnapshotStateList<CompletedTasksTableItemData>,
+        tasksList: SnapshotStateList<CompletedTaskData>,
         filterStore: CompletedTasksTableFilterStore
-    ): List<CompletedTasksTableItemData> {
+    ): List<CompletedTaskData> {
 
-        val completedTasksListFiltered = mutableListOf<CompletedTasksTableItemData>()
+        val completedTasksListFiltered = mutableListOf<CompletedTaskData>()
 
         completedTasksListFiltered.addAll(
             tasksList.filter { task ->
@@ -19,7 +19,7 @@ class GetFilteredCompletedTaskListUseCase {
                         && isFieldContainsFilterText(task.name, filterStore.nameFilterText.value)
                         && isFieldContainsFilterText(task.patronymic, filterStore.patronymicFilterText.value)
                         && isFieldContainsFilterText(task.phoneNumber, filterStore.phoneNumberFilterText.value)
-                        && isFieldContainsFilterText(task.messageTemplate, filterStore.messageTemplateFilterText.value)
+                        && isFieldContainsFilterText(task.messageText, filterStore.messageTemplateFilterText.value)
             }
         )
 

@@ -5,5 +5,5 @@ import core.domain.utils.Result
 import core.domain.utils.TokenStatus
 
 interface LoginRepository {
-    suspend fun getTokenStatus(parameter: LoginDto.Parameter): Result<TokenStatus, ApiError>
+    suspend fun getTokenStatus(parameter: LoginTypes.Parameter): Result<TokenStatus, ApiError>
 }

@@ -1,6 +1,6 @@
 package core.domain.repository.login
 
-sealed interface LoginDto {
+sealed interface LoginTypes {
     interface Parameter
     interface Response
 }

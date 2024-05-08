@@ -1,8 +1,7 @@
 package callScreen.domain.usecase
 
 import callScreen.domain.models.ContactData
-import core.data.repository.callTasks.CallTaskDto
-import core.domain.models.CallTaskData
+import core.domain.repository.callTasks.CallTaskDto
 import core.domain.models.MessageTemplateData
 import core.domain.models.MessageTemplatePlaceholders
 import core.domain.utils.DataError

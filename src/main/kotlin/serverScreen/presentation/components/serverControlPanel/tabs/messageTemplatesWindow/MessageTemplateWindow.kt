@@ -13,7 +13,9 @@ import androidx.compose.ui.unit.dp
 import core.presentation.components.OutlinedButtonWithIconText
 import org.koin.java.KoinJavaComponent.inject
 import core.domain.models.MessageTemplateData
-import core.domain.models.MessageTemplatePlaceholders
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
 
@@ -23,18 +25,10 @@ import serverScreen.presentation.components.serverControlPanel.ServerControlPane
 fun MessageTemplateWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
-    val messageTemplateList = mutableStateListOf(
-        MessageTemplateData(
-            "Первый шаблон",
-            "Здрасте {Имя}, который {Фамилия}",
-            placeholders = MessageTemplatePlaceholders(isSurnamePlaceholderUsed = true, isNamePlaceholderUsed = true)
-        ),
-        MessageTemplateData(
-            name = "Второй шаблон",
-            text = "А тут пусто.",
-            placeholders = MessageTemplatePlaceholders()
-        )
-    )
+    LaunchedEffect(Unit) {
+        loadDataFromServer(viewModel)
+    }
+
     var dropdownMenuSelected: MessageTemplateData? by remember { mutableStateOf(null) }
     var dropdownMenuExpanded by remember { mutableStateOf(false) }
 
@@ -84,7 +78,7 @@ fun MessageTemplateWindow() {
                     expanded = dropdownMenuExpanded,
                     onDismissRequest = { dropdownMenuExpanded = false }
                 ) {
-                    messageTemplateList.forEach { messageTemplate ->
+                    viewModel.messageTemplateService.messageTemplateList.forEach { messageTemplate ->
                         DropdownMenuItem(
                             onClick = {
                                 dropdownMenuExpanded = !dropdownMenuExpanded
@@ -100,7 +94,11 @@ fun MessageTemplateWindow() {
             }
 
             OutlinedButton(
-                onClick = { },
+                onClick = {
+                    CoroutineScope(Dispatchers.Default).launch {
+                        loadDataFromServer(viewModel)
+                    }
+                },
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(start = 5.dp),
@@ -136,20 +134,62 @@ fun MessageTemplateWindow() {
                 .padding(top = 10.dp)
         )
 
-        OutlinedButton(
-            onClick = { println("TODO()") },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Изменить шаблон")
+        Row(Modifier.fillMaxWidth()) {
+            OutlinedButton(
+                onClick = {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        dropdownMenuSelected?.let { selectedMessageTemplate ->
+                            selectedMessageTemplate.id?.let {
+                                if (viewModel.removeMessageTemplateFromServer(selectedMessageTemplate.id)) {
+                                    viewModel.sendMessageTemplateToServer(
+                                        MessageTemplateData(
+                                            id = null,
+                                            name = selectedMessageTemplate.name,
+                                            text = templateText,
+                                            placeholders = templatePlaceholders
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                Text("Изменить шаблон")
+            }
+            Spacer(Modifier.width(10.dp))
+            OutlinedButton(
+                onClick = {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        dropdownMenuSelected?.id?.let { viewModel.removeMessageTemplateFromServer(it) }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                Text("Удалить шаблон")
+            }
         }
+
+
     }
 
     if (isAdderDialogOpen) {
         MessageTemplateAdderDialog(
             onDismissRequest = { isAdderDialogOpen = false },
-            addButtonCallback = { },
+            addButtonCallback = viewModel::sendMessageTemplateToServer,
         )
     }
 }
 
+private suspend fun loadDataFromServer(viewModel: ServerScreenViewModel) {
+    viewModel.getMessageTemplatesFromServer()?.let {
+        viewModel.messageTemplateService.clearMessageTemplates()
+        viewModel.messageTemplateService.addMessageTemplates(it)
+    }
+}
 

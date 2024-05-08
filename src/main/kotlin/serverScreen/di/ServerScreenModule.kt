@@ -1,9 +1,12 @@
 package serverScreen.di
 
 import org.koin.dsl.module
+import serverScreen.data.repository.completedCallTasks.CompletedTaskRepositoryRemote
 import serverScreen.domain.CompletedTasksTable
 import serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow.MessageTemplateStateFields
 import serverScreen.domain.CallTasksTable
+import serverScreen.domain.repository.completedTasks.CompletedTaskRepository
+import serverScreen.domain.usecase.GetCompletedTaskDataListUseCase
 import serverScreen.domain.usecase.GetFilteredCompletedTaskListUseCase
 import serverScreen.domain.usecase.GetFilteredTaskListUseCase
 import serverScreen.domain.usecase.RemoveCallTaskUseCase
@@ -29,6 +32,9 @@ val serverScreenModule = module {
 		CallTasksTableFilterStore()
 	}
 	single {
+		RemoveCallTaskUseCase(callTaskRepository = get())
+	}
+	single {
 		CompletedTasksTable(getFilteredTaskListUseCase = get(), filterStore = get())
 	}
 	single {
@@ -37,8 +43,11 @@ val serverScreenModule = module {
 	single {
 		CompletedTasksTableFilterStore()
 	}
+	single<CompletedTaskRepository> {
+		CompletedTaskRepositoryRemote(httpClient = get())
+	}
 	single {
-		RemoveCallTaskUseCase(callTaskRepository = get())
+		GetCompletedTaskDataListUseCase(completedTaskRepository = get())
 	}
 	factory {
 		MessageTemplateStateFields()

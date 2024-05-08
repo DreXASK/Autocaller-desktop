@@ -1,8 +1,8 @@
-package core.domain.models
+package serverScreen.domain.models
 
 import java.time.LocalDateTime
 
-data class CallTaskData(
+data class CompletedTaskData(
     val id: Long?,
     val surname: String?,
     val name: String?,
@@ -10,5 +10,6 @@ data class CallTaskData(
     val phoneNumber: String,
     val messageText: String,
     val callAttempts: Int,
-    val nextCallDateAndTime: LocalDateTime
+    val isSmsUsed: Boolean,
+    val informTime: LocalDateTime
 )

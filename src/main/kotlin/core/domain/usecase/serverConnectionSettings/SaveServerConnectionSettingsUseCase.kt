@@ -1,4 +1,4 @@
-package core.domain.usecase
+package core.domain.usecase.serverConnectionSettings
 
 import core.data.repository.serverConnectionSettings.ServerConnectionSettingsDto
 import core.domain.utils.ApiError

@@ -20,7 +20,7 @@ import callScreen.presentation.CallScreen
 import core.di.coreModule
 import core.domain.utils.Result
 import core.domain.utils.ServerConnection
-import core.domain.usecase.GetServerConnectionSettingsUseCase
+import core.domain.usecase.serverConnectionSettings.GetServerConnectionSettingsUseCase
 import core.presentation.MainScreenModes
 import core.presentation.components.NavigationRail
 import core.presentation.theme.AutocallerClientTheme

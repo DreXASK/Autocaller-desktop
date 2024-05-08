@@ -13,12 +13,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import org.koin.java.KoinJavaComponent.inject
 import core.domain.models.MessageTemplateData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Preview
 @Composable
 fun MessageTemplateAdderDialog(
     onDismissRequest: () -> Unit,
-    addButtonCallback: (itemData: MessageTemplateData) -> Unit,
+    addButtonCallback: suspend (itemData: MessageTemplateData) -> Boolean,
 ) {
     val stateFields by remember { inject<MessageTemplateStateFields>(MessageTemplateStateFields::class.java) }
     var templateName by remember { stateFields.templateName }
@@ -66,14 +69,17 @@ fun MessageTemplateAdderDialog(
 
                 Button(
                     onClick = {
-                        if (templateName.isBlank() || templateText.isBlank()) return@Button
-                        val itemData = MessageTemplateData(
-                            templateName,
-                            templateText,
-                            templatePlaceholders
-                        )
-                        addButtonCallback(itemData)
-                        onDismissRequest()
+                        CoroutineScope(Dispatchers.IO).launch {
+                            if (templateName.isBlank() || templateText.isBlank()) return@launch
+                            val itemData = MessageTemplateData(
+                                id = null,
+                                name = templateName,
+                                text = templateText,
+                                placeholders = templatePlaceholders
+                            )
+                            addButtonCallback(itemData)
+                            onDismissRequest()
+                        }
                     },
                     modifier = Modifier.fillMaxWidth().padding(top = 5.dp)
                 ) {

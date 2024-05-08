@@ -17,7 +17,7 @@ fun CallTasksTableUI(
     tasksListFiltered: SnapshotStateList<CallTaskData>,
     filterStore: CallTasksTableFilterStore,
     contentPadding: PaddingValues,
-    onButtonClicked: (id: Long) -> Unit,
+    onButtonClicked: suspend (id: Long) -> Boolean,
     onFilterValueChanged: () -> Unit
 ) {
     LazyColumn(

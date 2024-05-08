@@ -49,6 +49,7 @@ fun CallScreen() {
     if(isSenderContactsToServerDialogOpen) {
         SenderContactsToServerDialog(
             onDismissRequest = { isSenderContactsToServerDialogOpen = false },
+            viewModel = viewModel,
             buttonCallback = (viewModel::sendContactsToServer)
         )
     }

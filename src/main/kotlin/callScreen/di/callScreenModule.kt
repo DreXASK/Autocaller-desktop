@@ -8,7 +8,7 @@ import callScreen.presentation.components.contactTable.ContactTableFilterStore
 import callScreen.domain.repository.contacts.ContactRepository
 import callScreen.domain.usecase.CreateCallTaskDtoList
 import callScreen.domain.usecase.GetFilteredContactListUseCase
-import core.domain.usecase.SendCallTaskDtoListUseCase
+import core.domain.usecase.callTasks.SendCallTaskDtoListUseCase
 import org.koin.dsl.module
 import callScreen.presentation.CallScreenViewModel
 import org.koin.core.qualifier.named

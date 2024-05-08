@@ -2,16 +2,21 @@ package serverScreen.presentation.components.serverControlPanel.tabs.completedTa
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import core.presentation.components.OutlinedButtonWithIconText
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
@@ -22,6 +27,9 @@ import serverScreen.presentation.components.serverControlPanel.tabs.completedTas
 fun CompletedTasksWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
+    LaunchedEffect(Unit) {
+        loadDataFromServer(viewModel)
+    }
 
     Column(modifier = Modifier.fillMaxSize()) {
         Box(
@@ -43,7 +51,11 @@ fun CompletedTasksWindow() {
             }
 
             OutlinedButton(
-                onClick = { },
+                onClick = {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        loadDataFromServer(viewModel)
+                    }
+                },
                 modifier = Modifier.align(Alignment.TopEnd).fillMaxHeight()
             ) {
                 Icon(Icons.Rounded.Refresh, "Refresh the table")
@@ -58,5 +70,12 @@ fun CompletedTasksWindow() {
             contentPadding = PaddingValues(start = 30.dp, top = 10.dp, end = 30.dp, bottom = 30.dp),
             viewModel.completedTasksTable::updateTasksListFiltered
         )
+    }
+}
+
+private suspend fun loadDataFromServer(viewModel: ServerScreenViewModel) {
+    viewModel.getCompletedTaskListFromServer()?.let {
+        viewModel.completedTasksTable.clearCallTaskList()
+        viewModel.completedTasksTable.addTaskListToTable(it)
     }
 }

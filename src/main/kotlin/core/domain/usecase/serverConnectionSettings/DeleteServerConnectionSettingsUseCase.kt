@@ -1,4 +1,4 @@
-package core.domain.usecase
+package core.domain.usecase.serverConnectionSettings
 
 import core.domain.utils.ApiError
 import core.domain.utils.Result
