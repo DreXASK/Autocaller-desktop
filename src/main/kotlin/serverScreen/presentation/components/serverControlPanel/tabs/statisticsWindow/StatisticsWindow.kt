@@ -3,6 +3,7 @@ package serverScreen.presentation.components.serverControlPanel.tabs.statisticsW
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -16,16 +17,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aay.compose.barChart.BarChart
 import com.aay.compose.barChart.model.BarParameters
+import com.aay.compose.donutChart.DonutChart
+import com.aay.compose.donutChart.PieChart
+import com.aay.compose.donutChart.model.PieChartData
 import core.presentation.DatePicker
 import core.presentation.components.OutlinedButtonWithIconText
 import core.presentation.components.VerticalDivider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
+import serverScreen.domain.models.CompletedTaskData
 import serverScreen.domain.models.StatisticsData
 import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanelWindows
 import java.time.LocalDate
 
-@OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
 fun StatisticsWindow() {
@@ -33,23 +40,19 @@ fun StatisticsWindow() {
 
     val dateFrom = mutableStateOf<LocalDate?>(null)
     val dateTo = mutableStateOf<LocalDate?>(null)
+    var statisticsData by remember { mutableStateOf<StatisticsData?>(null) }
 
-    val dropdownMenuItemList = mutableStateListOf(
-        StatisticsData("WhatsApp", 247, 56.7f),
-        StatisticsData("Viber", 42, 8.3f)
-    )
-    var dropdownMenuSelected: StatisticsData? by remember { mutableStateOf(null) }
-    var dropdownMenuExpanded by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        val list = viewModel.getCompletedTaskListFromServer()
+        statisticsData = list?.let { getStatisticsData(it, dateFrom.value, dateTo.value) }
+    }
 
-    Row(Modifier.fillMaxSize()) {
-
-        // Left column------------------------------------------------------------------------------------------
-
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(10.dp)
-        ) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(10.dp)
+    ) {
+        item {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -67,38 +70,61 @@ fun StatisticsWindow() {
                         ServerControlPanelWindows.TABS
                 }
 
-                ExposedDropdownMenuBox(
-                    expanded = dropdownMenuExpanded,
-                    onExpandedChange = { dropdownMenuExpanded = !dropdownMenuExpanded },
-                    modifier = Modifier.weight(1f)
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
                 ) {
-
-                    OutlinedTextField(
-                        value = dropdownMenuSelected?.name.orEmpty(),
-                        onValueChange = { },
-                        modifier = Modifier.fillMaxWidth(),
-                        readOnly = true,
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownMenuExpanded) }
-                    )
-
-                    ExposedDropdownMenu(
-                        expanded = dropdownMenuExpanded,
-                        onDismissRequest = { dropdownMenuExpanded = false }
-                    ) {
-                        dropdownMenuItemList.forEach { item ->
-                            DropdownMenuItem(
-                                onClick = {
-                                    dropdownMenuExpanded = !dropdownMenuExpanded
-                                    dropdownMenuSelected = item
-                                }
-                            ) {
-                                Text(item.name)
-                            }
+                    Column {
+                        Text(
+                            "Фильтр",
+                            Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center
+                        )
+                        Row(Modifier.height(IntrinsicSize.Max)) {
+                            OutlinedTextField(
+                                value = dateFrom.value?.toString() ?: "",
+                                onValueChange = { },
+                                enabled = false,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
+                                    .clickable {
+                                        DatePicker.setDataToState(dateFrom)
+                                    },
+                                colors = TextFieldDefaults.textFieldColors(
+                                    disabledTextColor = LocalContentColor.current.copy(LocalContentAlpha.current),
+                                    disabledLabelColor = MaterialTheme.colors.onSurface.copy(ContentAlpha.medium)
+                                ),
+                                label = { Text("Дата от") },
+                            )
+                            OutlinedTextField(
+                                value = dateTo.value?.toString() ?: "",
+                                onValueChange = { },
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(end = 10.dp, bottom = 10.dp)
+                                    .clickable {
+                                        DatePicker.setDataToState(dateTo)
+                                    },
+                                enabled = false,
+                                label = { Text("Дата до") },
+                                colors = TextFieldDefaults.textFieldColors(
+                                    disabledTextColor = LocalContentColor.current.copy(LocalContentAlpha.current),
+                                    disabledLabelColor = MaterialTheme.colors.onSurface.copy(ContentAlpha.medium)
+                                )
+                            )
                         }
                     }
                 }
+
                 OutlinedButton(
-                    onClick = { },
+                    onClick = {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val list = viewModel.getCompletedTaskListFromServer()
+                            statisticsData = list?.let { getStatisticsData(it, dateFrom.value, dateTo.value) }
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxHeight()
                         .padding(start = 5.dp)
@@ -106,7 +132,9 @@ fun StatisticsWindow() {
                     Icon(Icons.Rounded.Refresh, "")
                 }
             }
+        }
 
+        item {
             Card(
                 modifier = Modifier
                     .fillMaxSize()
@@ -114,164 +142,143 @@ fun StatisticsWindow() {
                 elevation = 20.dp
             ) {
                 Column(modifier = Modifier.padding(5.dp)) {
-                    TableStringRow("Отправлено сообщений", dropdownMenuSelected?.sentMessages.toString())
+                    TableStringRow("Всего звонков совершено", statisticsData?.totalCalls?.toString() ?: "")
+                    Divider()
+                    TableStringRow("Всего успешных звонков", statisticsData?.totalSuccessCalls?.toString() ?: "")
+                    Divider()
+                    TableStringRow("Всего отправлено смс", statisticsData?.totalSms?.toString() ?: "")
                     Divider()
                     TableStringRow(
-                        "Процент прочитанных сообщений",
-                        dropdownMenuSelected?.percentOfReadMessages.toString()
+                        "Среднее количество вызовов до дозвона",
+                        statisticsData?.averageCallsToSuccess?.let {
+                            "%.2f".format(it)
+                        } ?: ""
                     )
                 }
             }
         }
 
-        // Right column------------------------------------------------------------------------------------------
-
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(10.dp)
-        ) {
+        item {
             Card(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 10.dp)
+                    .height(500.dp),
                 elevation = 20.dp
             ) {
-                Column {
-                    Text(
-                        "Фильтр",
-                        Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
+                statisticsData?.let { statisticsData ->
+                    val testBarParameters = mutableStateListOf(
+                        BarParameters(
+                            dataName = "Звонки",
+                            data = statisticsData.callsByDate.values.toList(),
+                            barColor = MaterialTheme.colors.primary
+                        ),
+                        BarParameters(
+                            dataName = "SMS",
+                            data = statisticsData.smsByDate.values.toList(),
+                            barColor = MaterialTheme.colors.surface,
+                        ),
                     )
-                    Row(Modifier.height(IntrinsicSize.Max)) {
-                        OutlinedTextField(
-                            value = dateFrom.value?.toString() ?: "",
-                            onValueChange = { },
-                            enabled = false,
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
-                                .clickable {
-                                    DatePicker.setDataToState(dateFrom)
-                                },
-                            colors = TextFieldDefaults.textFieldColors(
-                                disabledTextColor = LocalContentColor.current.copy(LocalContentAlpha.current),
-                                disabledLabelColor = MaterialTheme.colors.onSurface.copy(ContentAlpha.medium)
+                    Box(Modifier.padding(10.dp)) {
+                        BarChart(
+                            chartParameters = testBarParameters,
+                            gridColor = MaterialTheme.colors.background,
+                            xAxisData = statisticsData.commonDatesString,
+                            isShowGrid = true,
+                            animateChart = true,
+                            showGridWithSpacer = true,
+                            yAxisStyle = TextStyle(
+                                fontSize = 14.sp,
+                                color = MaterialTheme.colors.primary,
                             ),
-                            label = { Text("Дата от") },
-                        )
-                        OutlinedTextField(
-                            value = dateTo.value?.toString() ?: "",
-                            onValueChange = { },
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(end = 10.dp, bottom = 10.dp)
-                                .clickable {
-                                    DatePicker.setDataToState(dateTo)
-                                },
-                            enabled = false,
-                            label = { Text("Дата до") },
-                            colors = TextFieldDefaults.textFieldColors(
-                                disabledTextColor = LocalContentColor.current.copy(LocalContentAlpha.current),
-                                disabledLabelColor = MaterialTheme.colors.onSurface.copy(ContentAlpha.medium)
-                            )
+                            xAxisStyle = TextStyle(
+                                fontSize = 14.sp,
+                                color = MaterialTheme.colors.primary,
+                                fontWeight = FontWeight.W400
+                            ),
+                            barCornerRadius = 5.dp,
+                            yAxisRange = 10,
+                            barWidth = 30.dp
                         )
                     }
                 }
-            }
-            Card(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(top = 10.dp),
-                elevation = 20.dp
-            ) {
-//                    val testLineParameters = mutableStateListOf(
-//                        LineParameters(
-//                            label = "revenue",
-//                            data = listOf(70.0, 00.0, 50.33, 40.0, 100.500, 50.0, 1.0, 2.0, 3.0, 4.0, 5.0),
-//                            lineColor = Color.Gray,
-//                            lineType = LineType.CURVED_LINE,
-//                            lineShadow = true,
-//                        ),
-//                        LineParameters(
-//                            label = "Earnings",
-//                            data = listOf(60.0, 80.6, 40.33, 86.232, 88.0, 90.0, 1.0, 2.0, 3.0, 4.0, 5.0),
-//                            lineColor = Color(0xFFFF7F50),
-//                            lineType = LineType.DEFAULT_LINE,
-//                            lineShadow = true
-//                        ),
-//                        LineParameters(
-//                            label = "Earnings",
-//                            data = listOf(1.0, 40.0, 11.33, 55.23, 1.0, 100.0, 1.0, 2.0, 3.0, 4.0, 5.0),
-//                            lineColor = Color(0xFF81BE88),
-//                            lineType = LineType.CURVED_LINE,
-//                            lineShadow = false,
-//                        )
-//                    )
-//
-//                    LineChart(
-//                        modifier = Modifier.fillMaxSize(),
-//                        linesParameters = testLineParameters,
-//                        isGrid = true,
-//                        gridColor = Color.Blue,
-//                        xAxisData = listOf("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"),
-//                        animateChart = true,
-//                        showGridWithSpacer = true,
-//                        yAxisStyle = TextStyle(
-//                            fontSize = 14.sp,
-//                            color = Color.Gray,
-//                        ),
-//                        xAxisStyle = TextStyle(
-//                            fontSize = 14.sp,
-//                            color = Color.Gray,
-//                            fontWeight = FontWeight.W400
-//                        ),
-//                        yAxisRange = 14,
-//                        oneLineChart = false,
-//                        gridOrientation = GridOrientation.VERTICAL
-//                    )
-
-                val testBarParameters = mutableStateListOf(
-                    BarParameters(
-                        dataName = "Completed",
-                        data = listOf(0.6, 10.6, 80.0, 50.6, 44.0, 100.6, 10.0),
-                        barColor = MaterialTheme.colors.primary
-                    ),
-                    BarParameters(
-                        dataName = "Completed",
-                        data = listOf(50.0, 30.6, 77.0, 69.6, 50.0, 30.6, 80.0),
-                        barColor = MaterialTheme.colors.surface,
-                    ),
-//                        BarParameters(
-//                            dataName = "Completed",
-//                            data = listOf(100.0, 99.6, 60.0, 80.6, 10.0, 100.6, 55.99),
-//                            barColor = Color(0xFFDFA878),
-//                        ),
-                )
-
-                Box(modifier = Modifier.padding(10.dp)) {
-                    BarChart(
-                        chartParameters = testBarParameters,
-                        gridColor = MaterialTheme.colors.background,
-                        xAxisData = listOf("2016", "2017", "2018", "2019", "2020", "2021", "2022"),
-                        isShowGrid = true,
-                        animateChart = true,
-                        showGridWithSpacer = true,
-                        yAxisStyle = TextStyle(
-                            fontSize = 14.sp,
-                            color = MaterialTheme.colors.primary,
-                        ),
-                        xAxisStyle = TextStyle(
-                            fontSize = 14.sp,
-                            color = MaterialTheme.colors.primary,
-                            fontWeight = FontWeight.W400
-                        ),
-                        barCornerRadius = 5.dp,
-                        yAxisRange = 15,
-                        barWidth = 30.dp
-                    )
-                }
 
             }
         }
+
+        item {
+
+            Row(modifier = Modifier.height(500.dp)) {
+                Card(
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .weight(1f),
+                    elevation = 20.dp
+                ) {
+
+                    statisticsData?.let { statisticsData ->
+
+                        val testPieChartData: List<PieChartData> = listOf(
+                            PieChartData(
+                                partName = "Звонки",
+                                data = statisticsData.totalCalls.toDouble(),
+                                color = MaterialTheme.colors.primary,
+                            ),
+                            PieChartData(
+                                partName = "SMS",
+                                data = statisticsData.totalSms.toDouble(),
+                                color = MaterialTheme.colors.surface,
+                            )
+                        )
+
+                        DonutChart(
+                            modifier = Modifier.fillMaxSize(),
+                            pieChartData = testPieChartData,
+                            centerTitle = "Метод",
+                            centerTitleStyle = TextStyle(color = MaterialTheme.colors.primary),
+                            outerCircularColor = MaterialTheme.colors.surface,
+                            innerCircularColor = MaterialTheme.colors.primary,
+                            ratioLineColor = MaterialTheme.colors.background,
+                        )
+                    }
+
+                }
+
+                Spacer(Modifier.width(10.dp))
+
+                Card(
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .weight(1f),
+                    elevation = 20.dp
+                ) {
+
+                    statisticsData?.let { statisticsData ->
+
+                        val testPieChartData: List<PieChartData> = listOf(
+                            PieChartData(
+                                partName = "Звонки",
+                                data = statisticsData.totalCalls.toDouble(),
+                                color = MaterialTheme.colors.primary,
+                            ),
+                            PieChartData(
+                                partName = "Успешные звонки",
+                                data = statisticsData.totalSuccessCalls.toDouble(),
+                                color = MaterialTheme.colors.surface,
+                            )
+                        )
+
+                        PieChart(
+                            modifier = Modifier.fillMaxSize(),
+                            pieChartData = testPieChartData,
+                            outerCircularColor = MaterialTheme.colors.surface,
+                            ratioLineColor = MaterialTheme.colors.background,
+                        )
+                    }
+
+                }
+            }
+        }
+
     }
 }
 
@@ -294,5 +301,62 @@ private fun TableStringRow(
     }
 }
 
+private fun getStatisticsData(
+    completedTaskDataList: List<CompletedTaskData>,
+    dataFrom: LocalDate?,
+    dateTo: LocalDate?
+): StatisticsData {
+    val callsByDate = mutableMapOf<LocalDate, Double>()
+    val smsByDate = mutableMapOf<LocalDate, Double>()
 
+    var totalCalls = 0
+    var totalSuccessCalls = 0
+    var totalSms = 0
 
+    completedTaskDataList.map {
+        val date = it.informDateTime.toLocalDate()
+
+        if (dataFrom != null && date < dataFrom)
+            return@map
+        if (dateTo != null && date > dateTo)
+            return@map
+
+        when (it.isSmsUsed) {
+            true -> {
+                smsByDate[date] = smsByDate[date]?.plus(1) ?: 1.0
+                callsByDate[date] = smsByDate[date] ?: 0.0
+            }
+
+            false -> {
+                callsByDate[date] = callsByDate[date]?.plus(1) ?: 1.0
+                smsByDate[date] = smsByDate[date] ?: 0.0
+            }
+        }
+
+        totalCalls += it.callAttempts
+
+        if (it.isSmsUsed) {
+            totalSms += 1
+        } else {
+            totalSuccessCalls += 1
+        }
+    }
+
+    val averageCallsToSuccess = if (totalCalls != 0) totalCalls.toFloat() / totalSuccessCalls else 0.0f
+    val percentOfSms = if (totalCalls != 0) totalSms.toFloat() / totalCalls else 0.0f
+
+    val sortedCallsByDate = callsByDate.toSortedMap()
+    val sortedSmsByDate = smsByDate.toSortedMap()
+    val commonDatesString = sortedSmsByDate.keys.map { it.toString() }.toList()
+
+    return StatisticsData(
+        totalCalls = totalCalls,
+        totalSuccessCalls = totalSuccessCalls,
+        totalSms = totalSms,
+        averageCallsToSuccess = averageCallsToSuccess,
+        percentOfSms = percentOfSms,
+        callsByDate = sortedCallsByDate,
+        smsByDate = sortedSmsByDate,
+        commonDatesString = commonDatesString
+    )
+}
