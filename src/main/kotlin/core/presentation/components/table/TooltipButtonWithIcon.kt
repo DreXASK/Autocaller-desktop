@@ -3,7 +3,9 @@ package core.presentation.components.table
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipArea
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Card
 import androidx.compose.material.OutlinedButton
 import androidx.compose.runtime.Composable
@@ -29,7 +31,9 @@ fun RowScope.OutlinedButtonWithIconAndTooltip(
     ) {
         OutlinedButton(
             onClick = onClick,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .height(30.dp),
             shape = RectangleShape
         ) {
             icon()

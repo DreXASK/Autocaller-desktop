@@ -77,5 +77,6 @@ private suspend fun loadDataFromServer(viewModel: ServerScreenViewModel) {
     viewModel.getCompletedTaskListFromServer()?.let {
         viewModel.completedTasksTable.clearCallTaskList()
         viewModel.completedTasksTable.addTaskListToTable(it)
+        viewModel.completedTasksTable.updateTasksListFiltered()
     }
 }

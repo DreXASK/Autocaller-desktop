@@ -2,6 +2,7 @@ package callScreen.presentation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.Send
 import androidx.compose.runtime.mutableStateOf
@@ -53,11 +54,21 @@ class CallScreenViewModel {
             text = "Загрузить список контактов".useNonBreakingSpace(),
         ),
         ButtonTabData(
+            onClick = { clearContactList() },
+            icon = Icons.Rounded.Delete,
+            text = "Очистить список контактов".useNonBreakingSpace(),
+        ),
+        ButtonTabData(
             onClick = { isSenderContactsToServerDialogOpen.value = true },
             icon = Icons.Rounded.Send,
             text = "Обзвонить список".useNonBreakingSpace(),
         )
     )
+
+    fun clearContactList() {
+        contactTable.clearContactList()
+        contactTable.updateContactListFiltered()
+    }
 
     fun loadFile(qualifier: Qualifiers.FileTypes) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -98,7 +109,7 @@ class CallScreenViewModel {
 
                 if (creationListResult is Result.Error) {
                     println("Creating list result error - ${creationListResult.error}")
-                    this.cancel()
+                    cancel()
                 }
 
                 val callTaskList = creationListResult as Result.Success

@@ -31,7 +31,7 @@ class LoginRepositoryRemote(private val httpClient: HttpClient): LoginRepository
                         ApiError.TokenStatusError.INVALID_TOKEN -> Result.Error(ApiError.TokenStatusError.INVALID_TOKEN)
                     }
                 }
-                else -> Result.Error(ApiError.UnknownError)
+                else -> Result.Error(ApiError.UnknownError(response.body()))
             }
         } catch (e: HttpRequestTimeoutException) {
             Result.Error(ApiError.Network.REQUEST_TIMEOUT)

@@ -14,6 +14,7 @@ import androidx.compose.ui.window.Dialog
 import callScreen.presentation.CallScreenViewModel
 import core.domain.models.MessageTemplateData
 import core.domain.models.MessageTemplatePlaceholders
+import core.presentation.components.MessageTemplatePlaceholdersUi
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.domain.MessageTemplateService
 
@@ -37,7 +38,7 @@ fun SenderContactsToServerDialog(
     Dialog(
         onDismissRequest = onDismissRequest
     ) {
-        Card() {
+        Card {
             Column(
                 modifier = Modifier
                     .padding(20.dp)
@@ -96,6 +97,17 @@ fun SenderContactsToServerDialog(
                         .fillMaxWidth()
                         .padding(top = 10.dp)
                 )
+
+                dropdownMenuSelected?.placeholders?.let {
+                    MessageTemplatePlaceholdersUi(
+                        templateFieldText = mutableStateOf(""),
+                        templatePlaceholders = mutableStateOf(it),
+                        cardModifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp),
+                        readMode = true
+                    )
+                }
 
                 Button(
                     onClick = {

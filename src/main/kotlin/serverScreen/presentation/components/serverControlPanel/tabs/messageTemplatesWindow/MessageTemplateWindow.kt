@@ -14,6 +14,7 @@ import core.presentation.components.OutlinedButtonWithIconText
 import org.koin.java.KoinJavaComponent.inject
 import core.domain.models.MessageTemplateData
 import core.domain.models.MessageTemplatePlaceholders
+import core.presentation.components.MessageTemplatePlaceholdersUi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -132,7 +133,8 @@ fun MessageTemplateWindow() {
             templatePlaceholders = stateFields.templatePlaceholders,
             cardModifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 10.dp)
+                .padding(top = 10.dp),
+            readMode = false
         )
 
         Row(Modifier.fillMaxWidth()) {

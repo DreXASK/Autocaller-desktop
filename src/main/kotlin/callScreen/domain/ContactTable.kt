@@ -28,12 +28,14 @@ class ContactTable {
 
     fun addContactToTable(contact: ContactData) {
         contactList.add(contact)
-        updateContactListFiltered()
     }
 
     fun addContactListToTable(contacts: List<ContactData>) {
         contactList.addAll(contacts)
-        updateContactListFiltered()
+    }
+
+    fun clearContactList() {
+        contactList.clear()
     }
 
 }

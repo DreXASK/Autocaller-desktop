@@ -33,7 +33,7 @@ class ServerConnectionSettingsRepositoryLocal: ServerConnectionSettingsRepositor
         try {
             File(SETTINGS_FILE_NAME).writeText(EncryptionDecryptionUtil.encrypt("secret", dataJson))
         } catch (e: Exception) {
-            return Result.Error(ApiError.UnknownError)
+            return Result.Error(ApiError.UnknownError(e.message.toString()))
         }
 
         return Result.Success(Unit)
@@ -43,7 +43,7 @@ class ServerConnectionSettingsRepositoryLocal: ServerConnectionSettingsRepositor
         try {
             File(SETTINGS_FILE_NAME).delete()
         } catch (e: Exception) {
-            return Result.Error(ApiError.UnknownError)
+            return Result.Error(ApiError.UnknownError(e.message.toString()))
         }
         return Result.Success(Unit)
     }

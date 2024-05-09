@@ -8,5 +8,7 @@ class CompletedTasksTableFilterStore(
     val nameFilterText: MutableState<String> = mutableStateOf(""),
     val patronymicFilterText: MutableState<String> = mutableStateOf(""),
     val phoneNumberFilterText: MutableState<String> = mutableStateOf(""),
-    val messageTemplateFilterText: MutableState<String> = mutableStateOf("")
+    val messageTemplateFilterText: MutableState<String> = mutableStateOf(""),
+    val callAttempts: MutableState<String> = mutableStateOf(""),
+    val isSmsUsed: MutableState<Boolean> = mutableStateOf(false)
 )

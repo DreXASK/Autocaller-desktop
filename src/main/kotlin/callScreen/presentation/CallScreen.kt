@@ -43,7 +43,10 @@ fun CallScreen() {
     if(isContactAdderDialogOpen) {
         ContactAdderDialog(
             onDismissRequest = { isContactAdderDialogOpen = false },
-            addButtonCallback = viewModel.contactTable::addContactToTable
+            addButtonCallback = {
+                viewModel.contactTable.addContactToTable(contact = it)
+                viewModel.contactTable.updateContactListFiltered()
+            }
         )
     }
     if(isSenderContactsToServerDialogOpen) {

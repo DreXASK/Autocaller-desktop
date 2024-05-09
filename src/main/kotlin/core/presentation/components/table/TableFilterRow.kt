@@ -12,7 +12,9 @@ fun TableFilterRow(
     content: @Composable RowScope.() -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Max),
         horizontalArrangement = Arrangement.SpaceEvenly,
         content = content
     )

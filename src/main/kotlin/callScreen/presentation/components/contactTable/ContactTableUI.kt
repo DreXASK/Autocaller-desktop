@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import callScreen.domain.models.ContactData
@@ -29,6 +30,7 @@ fun ContactTableUI(
                 filterStore,
                 onFilterValueChanged
 			)
+			Divider()
 		}
 		items(contactList) {
 			ContactTableItem(it)

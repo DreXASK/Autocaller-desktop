@@ -20,6 +20,8 @@ class GetFilteredCompletedTaskListUseCase {
                         && isFieldContainsFilterText(task.patronymic, filterStore.patronymicFilterText.value)
                         && isFieldContainsFilterText(task.phoneNumber, filterStore.phoneNumberFilterText.value)
                         && isFieldContainsFilterText(task.messageText, filterStore.messageTemplateFilterText.value)
+                        && isFieldContainsFilterText(task.callAttempts.toString(), filterStore.callAttempts.value)
+                        && if(filterStore.isSmsUsed.value) filterStore.isSmsUsed.value == task.isSmsUsed else true
             }
         )
 

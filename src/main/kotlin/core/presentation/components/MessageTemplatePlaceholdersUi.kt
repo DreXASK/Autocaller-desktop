@@ -1,4 +1,4 @@
-package serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow
+package core.presentation.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
@@ -10,13 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import core.domain.models.MessageTemplatePlaceholders
+import serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow.*
 
 
 @Composable
 fun MessageTemplatePlaceholdersUi(
     templateFieldText: MutableState<String>,
     templatePlaceholders: MutableState<MessageTemplatePlaceholders>,
-    cardModifier: Modifier = Modifier
+    cardModifier: Modifier = Modifier,
+    readMode: Boolean = false
 ) {
     Card(modifier = cardModifier) {
         Column {
@@ -30,6 +32,10 @@ fun MessageTemplatePlaceholdersUi(
 
             Divider()
 
+            val toggleButtonModifier = Modifier
+                .padding(5.dp)
+                .width(IntrinsicSize.Max)
+
             LazyVerticalStaggeredGrid(
                 columns = StaggeredGridCells.Fixed(4),
                 modifier = Modifier
@@ -38,8 +44,10 @@ fun MessageTemplatePlaceholdersUi(
             ) {
                 item {
                     ToggleButton(
-                        isToggled = templatePlaceholders.value.isSurnamePlaceholderUsed,
                         onClick = {
+                            if (readMode)
+                                return@ToggleButton
+
                             templatePlaceholders.value = templatePlaceholders.value.copy(
                                 isSurnamePlaceholderUsed = !templatePlaceholders.value.isSurnamePlaceholderUsed
                             )
@@ -48,15 +56,18 @@ fun MessageTemplatePlaceholdersUi(
                                     templateFieldText.value.plus(SURNAME_PLACE_HOLDER)
                                 else
                                     templateFieldText.value.replace(SURNAME_PLACE_HOLDER, "")
-
                         },
+                        modifier = toggleButtonModifier,
+                        isToggled = templatePlaceholders.value.isSurnamePlaceholderUsed,
                         text = "Фамилия"
                     )
                 }
                 item {
                     ToggleButton(
-                        isToggled = templatePlaceholders.value.isNamePlaceholderUsed,
                         onClick = {
+                            if (readMode)
+                                return@ToggleButton
+
                             templatePlaceholders.value = templatePlaceholders.value.copy(
                                 isNamePlaceholderUsed = !templatePlaceholders.value.isNamePlaceholderUsed
                             )
@@ -66,6 +77,8 @@ fun MessageTemplatePlaceholdersUi(
                                 else
                                     templateFieldText.value.replace(NAME_PLACE_HOLDER, "")
                         },
+                        isToggled = templatePlaceholders.value.isNamePlaceholderUsed,
+                        modifier = toggleButtonModifier,
                         text = "Имя"
                     )
                 }
@@ -73,6 +86,9 @@ fun MessageTemplatePlaceholdersUi(
                     ToggleButton(
                         isToggled = templatePlaceholders.value.isPatronymicPlaceholderUsed,
                         onClick = {
+                            if (readMode)
+                                return@ToggleButton
+
                             templatePlaceholders.value = templatePlaceholders.value.copy(
                                 isPatronymicPlaceholderUsed = !templatePlaceholders.value.isPatronymicPlaceholderUsed
                             )
@@ -82,6 +98,7 @@ fun MessageTemplatePlaceholdersUi(
                                 else
                                     templateFieldText.value.replace(PATRONYMIC_PLACE_HOLDER, "")
                         },
+                        modifier = toggleButtonModifier,
                         text = "Отчество"
                     )
                 }
@@ -89,6 +106,9 @@ fun MessageTemplatePlaceholdersUi(
                     ToggleButton(
                         isToggled = templatePlaceholders.value.isPhoneNumberPlaceholderUsed,
                         onClick = {
+                            if (readMode)
+                                return@ToggleButton
+
                             templatePlaceholders.value = templatePlaceholders.value.copy(
                                 isPhoneNumberPlaceholderUsed = !templatePlaceholders.value.isPhoneNumberPlaceholderUsed
                             )
@@ -98,6 +118,7 @@ fun MessageTemplatePlaceholdersUi(
                                 else
                                     templateFieldText.value.replace(PHONE_NUMBER_PLACE_HOLDER, "")
                         },
+                        modifier = toggleButtonModifier,
                         text = "Номер телефона"
                     )
                 }
@@ -105,6 +126,9 @@ fun MessageTemplatePlaceholdersUi(
                     ToggleButton(
                         isToggled = templatePlaceholders.value.isSexPlaceholderUsed,
                         onClick = {
+                            if (readMode)
+                                return@ToggleButton
+
                             templatePlaceholders.value = templatePlaceholders.value.copy(
                                 isSexPlaceholderUsed = !templatePlaceholders.value.isSexPlaceholderUsed
                             )
@@ -114,6 +138,7 @@ fun MessageTemplatePlaceholdersUi(
                                 else
                                     templateFieldText.value.replace(SEX_PLACE_HOLDER, "")
                         },
+                        modifier = toggleButtonModifier,
                         text = "Пол"
                     )
                 }
@@ -121,6 +146,9 @@ fun MessageTemplatePlaceholdersUi(
                     ToggleButton(
                         isToggled = templatePlaceholders.value.isAgePlaceholderUsed,
                         onClick = {
+                            if (readMode)
+                                return@ToggleButton
+
                             templatePlaceholders.value = templatePlaceholders.value.copy(
                                 isAgePlaceholderUsed = !templatePlaceholders.value.isAgePlaceholderUsed
                             )
@@ -130,30 +158,11 @@ fun MessageTemplatePlaceholdersUi(
                                 else
                                     templateFieldText.value.replace(AGE_PLACE_HOLDER, "")
                         },
+                        modifier = toggleButtonModifier,
                         text = "Возраст"
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun ToggleButton(isToggled: Boolean, onClick: () -> Unit, text: String) {
-    OutlinedButton(
-        onClick = onClick,
-        modifier = Modifier
-            .padding(5.dp)
-            .width(IntrinsicSize.Max),
-        colors = ButtonDefaults.outlinedButtonColors(
-            contentColor = ButtonDefaults.outlinedButtonColors().contentColor(isToggled).value,
-            backgroundColor = ButtonDefaults.outlinedButtonColors()
-                .backgroundColor(isToggled).value
-        )
-    ) {
-        Text(
-            text = text,
-            textAlign = TextAlign.Center
-        )
     }
 }

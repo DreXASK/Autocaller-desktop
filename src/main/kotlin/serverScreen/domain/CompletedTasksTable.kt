@@ -7,7 +7,7 @@ import serverScreen.domain.usecase.GetFilteredCompletedTaskListUseCase
 import serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.completedTasksTable.CompletedTasksTableFilterStore
 
 class CompletedTasksTable(
-    private val getFilteredTaskListUseCase: GetFilteredCompletedTaskListUseCase,
+    private val getFilteredCompletedTaskListUseCase: GetFilteredCompletedTaskListUseCase,
     val filterStore: CompletedTasksTableFilterStore
 ) {
 
@@ -16,13 +16,12 @@ class CompletedTasksTable(
 
     fun addTaskListToTable(taskList: List<CompletedTaskData>) {
         completedTasksList.addAll(taskList)
-        updateTasksListFiltered()
     }
 
     fun updateTasksListFiltered() {
         completedTasksListFiltered.clear()
         completedTasksListFiltered.addAll(
-            getFilteredTaskListUseCase.execute(
+            getFilteredCompletedTaskListUseCase.execute(
                 completedTasksList,
                 filterStore
             )

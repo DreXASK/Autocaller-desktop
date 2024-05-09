@@ -11,5 +11,5 @@ data class CompletedTaskData(
     val messageText: String,
     val callAttempts: Int,
     val isSmsUsed: Boolean,
-    val informTime: LocalDateTime
+    val informDateTime: LocalDateTime
 )

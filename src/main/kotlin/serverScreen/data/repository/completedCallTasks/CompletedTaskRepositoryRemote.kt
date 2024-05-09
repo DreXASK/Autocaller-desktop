@@ -22,11 +22,11 @@ class CompletedTaskRepositoryRemote(private val httpClient: HttpClient): Complet
             }
             when (response.status) {
                 HttpStatusCode.OK -> Result.Success(response.body())
-                else -> Result.Error(ApiError.CompletedTasksError.Remote.UnknownError(null))
+                else -> Result.Error(ApiError.CompletedTasksError.Remote.UnknownError(response.body()))
             }
 
         } catch (e: Exception) {
-            Result.Error(ApiError.CompletedTasksError.Remote.UnknownError(e))
+            Result.Error(ApiError.CompletedTasksError.Remote.UnknownError(e.message.toString()))
         }
     }
 }

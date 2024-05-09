@@ -21,8 +21,12 @@ fun CompletedTasksTableHeader() {
         VerticalDivider()
         Text("Номер телефона", Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Text("Шаблон", Modifier.weight(1f), textAlign = TextAlign.Center)
+        Text("Сообщение", Modifier.weight(2f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Spacer(Modifier.weight(0.3f))
+        Text("Попыток", Modifier.weight(0.5f), textAlign = TextAlign.Center)
+        VerticalDivider()
+        Text("SMS", Modifier.weight(0.8f), textAlign = TextAlign.Center)
+        VerticalDivider()
+        Text("Завершено", Modifier.weight(1.5f), textAlign = TextAlign.Center)
     }
 }

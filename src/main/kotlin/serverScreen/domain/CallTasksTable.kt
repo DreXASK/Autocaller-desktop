@@ -16,7 +16,6 @@ class CallTasksTable(
 
     fun addTaskListToTable(taskList: List<CallTaskData>) {
         callTasksList.addAll(taskList)
-        updateTasksListFiltered()
     }
 
     fun updateTasksListFiltered() {

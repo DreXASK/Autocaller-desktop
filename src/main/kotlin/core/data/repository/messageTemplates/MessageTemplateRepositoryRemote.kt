@@ -1,6 +1,5 @@
 package core.data.repository.messageTemplates
 
-import core.data.repository.callTasks.CallTaskParameterSendRemote
 import core.data.utils.CoreHttpRoutes
 import core.domain.models.MessageTemplateData
 import core.domain.repository.messageTemplates.MessageTemplateRepository
@@ -23,45 +22,45 @@ class MessageTemplateRepositoryRemote(private val httpClient: HttpClient): Messa
             }
             when (response.status) {
                 HttpStatusCode.OK -> Result.Success(response.body())
-                else -> Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(null))
+                else -> Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(response.body()))
             }
 
         } catch (e: Exception) {
-            Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(e))
+            Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(e.message.toString()))
         }
     }
 
     override suspend fun removeMessageTemplate(parameter: MessageTemplateTypes.Parameter.Remove): Result<Unit, ApiError.MessageTemplatesError> {
         return try {
-            val contactsResponse = httpClient.post {
+            val response = httpClient.post {
                 url(CoreHttpRoutes.REMOVE_MESSAGE_TEMPLATE)
                 setBody(parameter as MessageTemplateParameterRemoveRemote)
                 contentType(ContentType.Application.Json)
             }
-            when (contactsResponse.status) {
+            when (response.status) {
                 HttpStatusCode.OK -> Result.Success(Unit)
-                else -> Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(null))
+                else -> Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(response.body()))
             }
 
         } catch (e: Exception) {
-            Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(e))
+            Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(e.message.toString()))
         }
     }
 
     override suspend fun sendMessageTemplate(parameter: MessageTemplateTypes.Parameter.Send): Result<Unit, ApiError.MessageTemplatesError> {
         return try {
-            val contactsResponse = httpClient.post {
+            val response = httpClient.post {
                 url(CoreHttpRoutes.SEND_MESSAGE_TEMPLATE)
                 setBody(parameter as MessageTemplateParameterSendRemote)
                 contentType(ContentType.Application.Json)
             }
-            when (contactsResponse.status) {
+            when (response.status) {
                 HttpStatusCode.OK -> Result.Success(Unit)
-                else -> Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(null))
+                else -> Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(response.body()))
             }
 
         } catch (e: Exception) {
-            Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(e))
+            Result.Error(ApiError.MessageTemplatesError.Remote.UnknownError(e.message.toString()))
         }
     }
 

@@ -19,7 +19,6 @@ import serverScreen.presentation.ServerScreenViewModel
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanel
 import serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.completedTasksTable.CompletedTasksTableFilterStore
 import serverScreen.presentation.components.serverControlPanel.tabs.callTasksWindow.callTasksTable.CallTasksTableFilterStore
-import kotlin.math.sin
 
 val serverScreenModule = module {
 	single {
@@ -41,7 +40,7 @@ val serverScreenModule = module {
 		RemoveCallTaskUseCase(callTaskRepository = get())
 	}
 	single {
-		CompletedTasksTable(getFilteredTaskListUseCase = get(), filterStore = get())
+		CompletedTasksTable(getFilteredCompletedTaskListUseCase = get(), filterStore = get())
 	}
 	single {
 		GetFilteredCompletedTaskListUseCase()

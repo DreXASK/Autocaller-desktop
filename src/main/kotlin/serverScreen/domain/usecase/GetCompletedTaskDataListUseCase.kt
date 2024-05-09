@@ -31,7 +31,7 @@ class GetCompletedTaskDataListUseCase(private val completedTaskRepository: Compl
                     messageText = it.messageText,
                     callAttempts = it.callAttempts,
                     isSmsUsed = it.isSmsUsed,
-                    informTime = it.informTime.atZoneSameInstant(
+                    informDateTime = it.informDateTime.atZoneSameInstant(
                         ZoneId.systemDefault().rules.getOffset(Instant.now())
                     ).toLocalDateTime()
                 )

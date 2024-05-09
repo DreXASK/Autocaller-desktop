@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import org.koin.java.KoinJavaComponent.inject
 import core.domain.models.MessageTemplateData
+import core.presentation.components.MessageTemplatePlaceholdersUi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

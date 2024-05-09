@@ -22,45 +22,45 @@ class CallTaskRepositoryRemote(private val httpClient: HttpClient): CallTaskRepo
             }
             when (response.status) {
                 HttpStatusCode.OK -> Result.Success(response.body())
-                else -> Result.Error(ApiError.CallTasksError.Remote.UnknownError(null))
+                else -> Result.Error(ApiError.CallTasksError.Remote.UnknownError(response.body()))
             }
 
         } catch (e: Exception) {
-            Result.Error(ApiError.CallTasksError.Remote.UnknownError(e))
+            Result.Error(ApiError.CallTasksError.Remote.UnknownError(e.message.toString()))
         }
     }
 
     override suspend fun removeCallTask(parameter: CallTaskTypes.Parameter.Remove): Result<Unit, ApiError.CallTasksError> {
         return try {
-            val contactsResponse = httpClient.post {
+            val response = httpClient.post {
                 url(CoreHttpRoutes.REMOVE_CALL_TASK)
                 setBody(parameter as CallTaskParameterRemoveRemote)
                 contentType(ContentType.Application.Json)
             }
-            when (contactsResponse.status) {
+            when (response.status) {
                 HttpStatusCode.OK -> Result.Success(Unit)
-                else -> Result.Error(ApiError.CallTasksError.Remote.UnknownError(null))
+                else -> Result.Error(ApiError.CallTasksError.Remote.UnknownError(response.body()))
             }
 
         } catch (e: Exception) {
-            Result.Error(ApiError.CallTasksError.Remote.UnknownError(e))
+            Result.Error(ApiError.CallTasksError.Remote.UnknownError(e.message.toString()))
         }
     }
 
     override suspend fun sendCallTaskList(parameter: CallTaskTypes.Parameter.Send): Result<Unit, ApiError.CallTasksError> {
         return try {
-            val contactsResponse = httpClient.post {
+            val response = httpClient.post {
                 url(CoreHttpRoutes.SEND_CALL_TASKS)
                 setBody(parameter as CallTaskParameterSendRemote)
                 contentType(ContentType.Application.Json)
             }
-            when (contactsResponse.status) {
+            when (response.status) {
                 HttpStatusCode.OK -> Result.Success(Unit)
-                else -> Result.Error(ApiError.CallTasksError.Remote.UnknownError(null))
+                else -> Result.Error(ApiError.CallTasksError.Remote.UnknownError(response.body()))
             }
 
         } catch (e: Exception) {
-            Result.Error(ApiError.CallTasksError.Remote.UnknownError(e))
+            Result.Error(ApiError.CallTasksError.Remote.UnknownError(e.message.toString()))
         }
     }
 

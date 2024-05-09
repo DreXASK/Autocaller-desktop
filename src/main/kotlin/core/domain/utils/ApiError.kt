@@ -12,22 +12,22 @@ sealed interface ApiError: Error {
             data class UnknownError(val exception: Exception): Local
         }
         sealed interface Remote: ContactsError {
-            data class UnknownError(val exception: Exception?): Remote
+            data class UnknownError(val text: String): Remote
         }
     }
     sealed interface CallTasksError: ApiError {
         sealed interface Remote: CallTasksError {
-            data class UnknownError(val exception: Exception?): Remote
+            data class UnknownError(val text: String): Remote
         }
     }
     sealed interface MessageTemplatesError: ApiError {
         sealed interface Remote: MessageTemplatesError {
-            data class UnknownError(val exception: Exception?): Remote
+            data class UnknownError(val text: String): Remote
         }
     }
     sealed interface CompletedTasksError: ApiError {
         sealed interface Remote: CompletedTasksError {
-            data class UnknownError(val exception: Exception?): Remote
+            data class UnknownError(val text: String): Remote
         }
     }
     sealed interface CallProcessSettings: ApiError {
@@ -39,5 +39,6 @@ sealed interface ApiError: Error {
         CONNECTION_REFUSED,
         REQUEST_TIMEOUT
     }
-    data object UnknownError : ApiError
+
+    data class UnknownError(val text: String) : ApiError
 }
