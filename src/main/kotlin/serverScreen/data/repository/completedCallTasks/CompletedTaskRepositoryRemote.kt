@@ -16,7 +16,7 @@ class CompletedTaskRepositoryRemote(private val httpClient: HttpClient): Complet
     override suspend fun getCompletedCallTaskList(parameter: CompletedCallTaskTypes.Parameter.Get): Result<List<CompletedTaskDto>, ApiError.CompletedTasksError> {
         return try {
             val response = httpClient.get {
-                url(ServerScreenHttpRoutes.GET_COMPLETED_CALL_TASKS)
+                url(ServerScreenHttpRoutes.getCompletedCallTasks)
                 setBody(parameter as CompletedCallTaskParameterGetRemote)
                 contentType(ContentType.Application.Json)
             }

@@ -1,8 +1,8 @@
 package integration
 
 import core.data.repository.login.LoginRepositoryRemote
-import core.data.repository.login.ParameterRemote
-import core.data.repository.login.ResponseRemote
+import core.data.repository.login.LoginParameterRemote
+import core.data.repository.login.LoginResponseRemote
 import core.domain.utils.TokenStatus
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -25,9 +25,9 @@ class LoginRepositoryRemoteTest {
     @Test
     fun `return unregistered when trying to connect to the server`() = runTest {
 
-        val expected = ResponseRemote(TokenStatus.UNREGISTERED)
+        val expected = LoginResponseRemote(TokenStatus.UNREGISTERED)
 
-        val loginReceiveRemote = ParameterRemote("[E2E] Token")
+        val loginReceiveRemote = LoginParameterRemote("[E2E] Token")
         val actual = connectionRepositoryRemote.getTokenStatus(loginReceiveRemote)
 
         assertEquals(expected = expected, actual = actual)

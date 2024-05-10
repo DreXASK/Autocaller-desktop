@@ -1,4 +1,4 @@
-package core.data.repository.serverConnectionSettings
+package core.domain.models
 
 import kotlinx.serialization.Serializable
 

@@ -16,7 +16,7 @@ class CallTaskRepositoryRemote(private val httpClient: HttpClient): CallTaskRepo
     override suspend fun getCallTaskList(parameter: CallTaskTypes.Parameter.Get): Result<List<CallTaskDto>, ApiError.CallTasksError> {
         return try {
             val response = httpClient.get {
-                url(CoreHttpRoutes.GET_CALL_TASKS)
+                url(CoreHttpRoutes.getCallTasks)
                 setBody(parameter as CallTaskParameterGetRemote)
                 contentType(ContentType.Application.Json)
             }
@@ -33,7 +33,7 @@ class CallTaskRepositoryRemote(private val httpClient: HttpClient): CallTaskRepo
     override suspend fun removeCallTask(parameter: CallTaskTypes.Parameter.Remove): Result<Unit, ApiError.CallTasksError> {
         return try {
             val response = httpClient.post {
-                url(CoreHttpRoutes.REMOVE_CALL_TASK)
+                url(CoreHttpRoutes.removeCallTasks)
                 setBody(parameter as CallTaskParameterRemoveRemote)
                 contentType(ContentType.Application.Json)
             }
@@ -50,7 +50,7 @@ class CallTaskRepositoryRemote(private val httpClient: HttpClient): CallTaskRepo
     override suspend fun sendCallTaskList(parameter: CallTaskTypes.Parameter.Send): Result<Unit, ApiError.CallTasksError> {
         return try {
             val response = httpClient.post {
-                url(CoreHttpRoutes.SEND_CALL_TASKS)
+                url(CoreHttpRoutes.sendCallTasks)
                 setBody(parameter as CallTaskParameterSendRemote)
                 contentType(ContentType.Application.Json)
             }

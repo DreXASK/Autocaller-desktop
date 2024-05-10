@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun OutLinedButtonWithProgress(
+fun OutlinedButtonWithProgress(
 	onClick: () -> Unit,
 	buttonText: @Composable () -> Unit,
 ) {

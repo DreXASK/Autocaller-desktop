@@ -16,7 +16,7 @@ class MessageTemplateRepositoryRemote(private val httpClient: HttpClient): Messa
     override suspend fun getMessageTemplateList(parameter: MessageTemplateTypes.Parameter.Get): Result<List<MessageTemplateData>, ApiError.MessageTemplatesError> {
         return try {
             val response = httpClient.get {
-                url(CoreHttpRoutes.GET_MESSAGE_TEMPLATES)
+                url(CoreHttpRoutes.getMessageTemplates)
                 setBody(parameter as MessageTemplateParameterGetRemote)
                 contentType(ContentType.Application.Json)
             }
@@ -33,7 +33,7 @@ class MessageTemplateRepositoryRemote(private val httpClient: HttpClient): Messa
     override suspend fun removeMessageTemplate(parameter: MessageTemplateTypes.Parameter.Remove): Result<Unit, ApiError.MessageTemplatesError> {
         return try {
             val response = httpClient.post {
-                url(CoreHttpRoutes.REMOVE_MESSAGE_TEMPLATE)
+                url(CoreHttpRoutes.removeMessageTemplate)
                 setBody(parameter as MessageTemplateParameterRemoveRemote)
                 contentType(ContentType.Application.Json)
             }
@@ -50,7 +50,7 @@ class MessageTemplateRepositoryRemote(private val httpClient: HttpClient): Messa
     override suspend fun sendMessageTemplate(parameter: MessageTemplateTypes.Parameter.Send): Result<Unit, ApiError.MessageTemplatesError> {
         return try {
             val response = httpClient.post {
-                url(CoreHttpRoutes.SEND_MESSAGE_TEMPLATE)
+                url(CoreHttpRoutes.sendMessageTemplate)
                 setBody(parameter as MessageTemplateParameterSendRemote)
                 contentType(ContentType.Application.Json)
             }

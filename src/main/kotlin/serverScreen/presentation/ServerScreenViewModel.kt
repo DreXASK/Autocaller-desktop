@@ -9,7 +9,7 @@ import core.data.repository.messageTemplates.MessageTemplateParameterSendRemote
 import core.domain.models.CallTaskData
 import core.domain.models.MessageTemplateData
 import core.domain.utils.Result
-import core.domain.utils.ServerConnection
+import core.domain.ServerConnection
 import core.domain.utils.ServerConnectionStatus
 import core.domain.usecase.serverConnectionSettings.DeleteServerConnectionSettingsUseCase
 import core.domain.usecase.callTasks.GetCallTaskDataListUseCase
@@ -27,7 +27,6 @@ import serverScreen.domain.CallTasksTable
 import serverScreen.domain.MessageTemplateService
 import serverScreen.domain.models.CallProcessSettingsData
 import serverScreen.domain.models.CompletedTaskData
-import serverScreen.domain.repository.callProcessSettings.CallProcessSettingsDto
 import serverScreen.domain.usecase.GetCompletedTaskDataListUseCase
 import serverScreen.domain.usecase.RemoveCallTaskUseCase
 import serverScreen.presentation.components.serverControlPanel.ServerControlPanel

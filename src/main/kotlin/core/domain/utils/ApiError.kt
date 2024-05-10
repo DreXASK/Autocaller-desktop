@@ -1,8 +1,10 @@
 package core.domain.utils
 
 sealed interface ApiError: Error {
-    enum class TokenStatusError: ApiError {
-        INVALID_TOKEN
+    sealed interface TokenStatusError: ApiError {
+        sealed interface Remote: TokenStatusError {
+            data class UnknownError(val text: String): Remote
+        }
     }
     enum class ServerConnectionSettingsError: ApiError {
         FILE_DOES_NOT_EXIST

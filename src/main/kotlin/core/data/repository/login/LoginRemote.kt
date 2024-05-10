@@ -5,11 +5,11 @@ import core.domain.repository.login.LoginTypes
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ParameterRemote(
+data class LoginParameterRemote(
 	val token: String
 ): LoginTypes.Parameter
 
 @Serializable
-data class ResponseRemote(
+data class LoginResponseRemote(
 	val tokenStatus: TokenStatus
 ): LoginTypes.Response

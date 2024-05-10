@@ -1,10 +1,10 @@
 package core.di
 
 import core.data.repository.callTasks.CallTaskRepositoryRemote
-import core.data.repository.serverConnectionSettings.ServerConnectionSettingsRepositoryLocal
+import core.data.repository.ServerConnectionSettingsRepositoryLocal
 import core.data.repository.login.LoginRepositoryRemote
 import core.data.repository.messageTemplates.MessageTemplateRepositoryRemote
-import core.domain.utils.ServerConnection
+import core.domain.ServerConnection
 import core.domain.repository.ServerConnectionSettingsRepository
 import core.domain.repository.callTasks.CallTaskRepository
 import core.domain.repository.login.LoginRepository

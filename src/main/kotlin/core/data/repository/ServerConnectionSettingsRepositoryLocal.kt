@@ -1,4 +1,4 @@
-package core.data.repository.serverConnectionSettings
+package core.data.repository
 
 import core.data.utils.SETTINGS_FILE_NAME
 import core.domain.utils.ApiError
@@ -7,6 +7,7 @@ import core.domain.repository.ServerConnectionSettingsRepository
 import core.domain.utils.EncryptionDecryptionUtil
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import core.domain.models.ServerConnectionSettingsDto
 import java.io.File
 import java.io.FileNotFoundException
 

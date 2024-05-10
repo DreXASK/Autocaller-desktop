@@ -1,10 +1,14 @@
-package core.domain.utils
+package core.domain
 
 import androidx.compose.runtime.mutableStateOf
-import core.data.repository.serverConnectionSettings.ServerConnectionSettingsDto
-import core.data.repository.login.ParameterRemote
+import core.domain.models.ServerConnectionSettingsDto
+import core.data.repository.login.LoginParameterRemote
 import org.koin.java.KoinJavaComponent.inject
 import core.domain.usecase.LoginOnServerUseCase
+import core.domain.utils.ApiError
+import core.domain.utils.Result
+import core.domain.utils.ServerConnectionStatus
+import core.domain.utils.TokenStatus
 
 class ServerConnection {
     private val loginOnServerUseCase by inject<LoginOnServerUseCase>(
@@ -26,7 +30,7 @@ class ServerConnection {
         )
         println("Variable ServerConnectionSettings has been set")
 
-        val tokenStatusResult = loginOnServerUseCase.execute(ParameterRemote(token))
+        val tokenStatusResult = loginOnServerUseCase.execute(LoginParameterRemote(token))
         println("TokenStatus requested")
 
         when (tokenStatusResult) {

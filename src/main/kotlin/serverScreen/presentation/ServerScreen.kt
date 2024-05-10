@@ -2,7 +2,7 @@ package serverScreen.presentation
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
-import core.domain.utils.ServerConnection
+import core.domain.ServerConnection
 import core.domain.utils.ServerConnectionStatus
 import org.koin.java.KoinJavaComponent.inject
 import serverScreen.presentation.components.connectionAdjuster.ConnectionAdjusterScreen

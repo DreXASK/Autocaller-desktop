@@ -19,17 +19,14 @@ class LoginRepositoryRemote(private val httpClient: HttpClient): LoginRepository
     override suspend fun getTokenStatus(parameter: LoginTypes.Parameter): Result<TokenStatus, ApiError> {
         return try {
             val response = httpClient.get {
-                url(CoreHttpRoutes.GET_TOKEN_STATUS)
-                setBody(parameter as ParameterRemote)
+                url(CoreHttpRoutes.getTokenStatus)
+                setBody(parameter as LoginParameterRemote)
                 contentType(ContentType.Application.Json)
             }
             when (response.status) {
-                HttpStatusCode.OK  -> Result.Success(response.body<ResponseRemote>().tokenStatus)
+                HttpStatusCode.OK  -> Result.Success(response.body<LoginResponseRemote>().tokenStatus)
                 HttpStatusCode.BadRequest -> {
-                    val error = Json.decodeFromString<ApiError.TokenStatusError>(response.body<String>())
-                    when(error) {
-                        ApiError.TokenStatusError.INVALID_TOKEN -> Result.Error(ApiError.TokenStatusError.INVALID_TOKEN)
-                    }
+                    Result.Error(ApiError.TokenStatusError.Remote.UnknownError(response.body()))
                 }
                 else -> Result.Error(ApiError.UnknownError(response.body()))
             }

@@ -6,7 +6,6 @@ import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.Send
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import callScreen.data.repository.contacts.ContactsParameterGetLocal
 import callScreen.di.Qualifiers
 import callScreen.domain.*
@@ -18,7 +17,7 @@ import core.data.repository.messageTemplates.MessageTemplateParameterGetRemote
 import core.domain.models.MessageTemplateData
 import core.domain.utils.ApiError
 import core.domain.utils.Result
-import core.domain.utils.ServerConnection
+import core.domain.ServerConnection
 import core.presentation.CustomFileDialog
 import org.koin.java.KoinJavaComponent.inject
 import core.presentation.components.buttonTab.ButtonTabData

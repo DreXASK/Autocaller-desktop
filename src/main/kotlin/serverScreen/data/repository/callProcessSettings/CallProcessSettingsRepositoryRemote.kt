@@ -16,7 +16,7 @@ class CallProcessSettingsRepositoryRemote(private val httpClient: HttpClient): C
     override suspend fun getCallProcessSettings(parameter: CallProcessSettingsTypes.Parameter.Get): Result<CallProcessSettingsDto, ApiError.CallProcessSettings> {
         return try {
             val response = httpClient.get {
-                url(ServerScreenHttpRoutes.GET_CALL_PROCESS_SETTINGS)
+                url(ServerScreenHttpRoutes.getCallProcessSettings)
                 setBody(parameter as CallProcessSettingsParameterGetRemote)
                 contentType(ContentType.Application.Json)
             }
@@ -33,7 +33,7 @@ class CallProcessSettingsRepositoryRemote(private val httpClient: HttpClient): C
     override suspend fun sendCallProcessSettings(parameter: CallProcessSettingsTypes.Parameter.Send): Result<Unit, ApiError.CallProcessSettings> {
         return try {
             val response = httpClient.post {
-                url(ServerScreenHttpRoutes.SEND_CALL_PROCESS_SETTINGS)
+                url(ServerScreenHttpRoutes.sendCallProcessSettings)
                 setBody(parameter as CallProcessSettingsParameterSendRemote)
                 contentType(ContentType.Application.Json)
             }
