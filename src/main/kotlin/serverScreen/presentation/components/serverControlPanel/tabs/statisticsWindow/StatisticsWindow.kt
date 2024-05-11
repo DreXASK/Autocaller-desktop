@@ -23,6 +23,8 @@ import com.aay.compose.donutChart.model.PieChartData
 import core.presentation.DatePicker
 import core.presentation.components.OutlinedButtonWithIconText
 import core.presentation.components.VerticalDivider
+import core.presentation.utils.useNonBreakingHyphen
+import core.presentation.utils.useNonBreakingSpace
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -324,7 +326,7 @@ private fun getStatisticsData(
         when (it.isSmsUsed) {
             true -> {
                 smsByDate[date] = smsByDate[date]?.plus(1) ?: 1.0
-                callsByDate[date] = smsByDate[date] ?: 0.0
+                callsByDate[date] = callsByDate[date] ?: 0.0
             }
 
             false -> {
