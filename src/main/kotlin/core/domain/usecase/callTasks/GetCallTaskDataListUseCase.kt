@@ -29,7 +29,7 @@ class GetCallTaskDataListUseCase(private val callTaskRepository: CallTaskReposit
                 phoneNumber = it.phoneNumber,
                 messageText = it.messageText,
                 callAttempts = it.callAttempts,
-                nextCallDateAndTime = it.nextCallDateAndTimeUTC.atZoneSameInstant(
+                nextCallDateAndTime = it.nextCallDateTimeUTC.atZoneSameInstant(
                     ZoneId.systemDefault().rules.getOffset(Instant.now())).toLocalDateTime(),
             ))
         }

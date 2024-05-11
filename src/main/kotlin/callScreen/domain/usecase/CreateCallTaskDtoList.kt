@@ -33,7 +33,7 @@ class CreateCallTaskDtoList {
                     phoneNumber = it.phoneNumber,
                     messageText = getTextWithFilledPlaceholders(it, messageTemplateData),
                     callAttempts = 0,
-                    nextCallDateAndTimeUTC = OffsetDateTime.now(ZoneOffset.UTC)
+                    nextCallDateTimeUTC = OffsetDateTime.now(ZoneOffset.UTC)
                 )
             )
         }
