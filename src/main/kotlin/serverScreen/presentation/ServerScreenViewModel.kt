@@ -24,7 +24,7 @@ import serverScreen.data.repository.completedCallTasks.CompletedCallTaskParamete
 import serverScreen.domain.CallProcessSettingsService
 import serverScreen.domain.CompletedTasksTable
 import serverScreen.domain.CallTasksTable
-import serverScreen.domain.MessageTemplateService
+import core.domain.MessageTemplateService
 import serverScreen.domain.models.CallProcessSettingsData
 import serverScreen.domain.models.CompletedTaskData
 import serverScreen.domain.usecase.GetCompletedTaskDataListUseCase
@@ -41,7 +41,6 @@ class ServerScreenViewModel {
     val callProcessSettingsService by inject<CallProcessSettingsService>(CallProcessSettingsService::class.java)
 
     private var connectionJob: Job? = null
-
 
     fun connectToServer(ip: String, port: String, token: String) {
         connectionJob = CoroutineScope(Dispatchers.Default).launch {

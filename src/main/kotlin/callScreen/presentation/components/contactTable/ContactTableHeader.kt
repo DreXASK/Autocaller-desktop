@@ -1,6 +1,7 @@
 package callScreen.presentation.components.contactTable
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,5 +24,7 @@ fun ContactTableHeader() {
         Text("Пол", Modifier.weight(1f), textAlign = TextAlign.Center)
         VerticalDivider()
         Text("Возраст", Modifier.weight(1f), textAlign = TextAlign.Center)
+        VerticalDivider()
+        Spacer(Modifier.weight(0.3f))
     }
 }

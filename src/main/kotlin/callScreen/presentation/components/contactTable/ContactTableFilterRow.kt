@@ -90,6 +90,9 @@ fun ContactTableFilterRow(
                 Text("< X <", fontSize = 16.sp)
                 TableFilterOutlinedTextField(ageMaxFilterText, modifier, onFilterValueChange)
             }
+            VerticalDivider()
+            Spacer(Modifier.weight(0.3f))
+            VerticalDivider()
         }
     }
 }

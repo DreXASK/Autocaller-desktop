@@ -18,7 +18,7 @@ fun TableItem(
         shape = RoundedCornerShape(2.dp)
     ) {
         Row(
-            modifier = rowModifier,         //modifier = Modifier.fillMaxWidth().height(30.dp),
+            modifier = rowModifier,
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
             content = content

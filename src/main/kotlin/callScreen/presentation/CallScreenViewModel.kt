@@ -9,7 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import callScreen.data.repository.contacts.ContactsParameterGetLocal
 import callScreen.di.Qualifiers
 import callScreen.domain.*
-import callScreen.domain.usecase.CreateCallTaskDtoList
+import callScreen.domain.usecase.CreateCallTaskDtoListUseCase
 import callScreen.domain.usecase.GetContactListUseCase
 import core.domain.usecase.callTasks.SendCallTaskDtoListUseCase
 import core.data.repository.callTasks.CallTaskParameterSendRemote
@@ -24,11 +24,10 @@ import core.presentation.components.buttonTab.ButtonTabData
 import core.presentation.utils.useNonBreakingSpace
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.koin.core.qualifier.named
 import org.koin.java.KoinJavaComponent.get
-import serverScreen.domain.MessageTemplateService
+import core.domain.MessageTemplateService
 
 
 class CallScreenViewModel {
@@ -80,8 +79,10 @@ class CallScreenViewModel {
                         contactTable.addContactListToTable(result.data)
                         contactTable.updateContactListFiltered()
                     }
-
-                    is Result.Error -> TODO()
+                    is Result.Error -> {
+                        println("loadFile error - ${result.error}")
+                        //TODO("")
+                    }
                 }
             }
         }
@@ -92,7 +93,7 @@ class CallScreenViewModel {
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             val createCallTaskDtoListUseCase =
-                get<CreateCallTaskDtoList>(CreateCallTaskDtoList::class.java)
+                get<CreateCallTaskDtoListUseCase>(CreateCallTaskDtoListUseCase::class.java)
             val sendUseCase =
                 get<SendCallTaskDtoListUseCase>(SendCallTaskDtoListUseCase::class.java)
 
@@ -102,13 +103,12 @@ class CallScreenViewModel {
             }
 
             serverConnection.serverConnectionSettings?.let {
-
                 val creationListResult =
                     createCallTaskDtoListUseCase.execute(contactTable.contactListFiltered, messageTemplateData)
 
                 if (creationListResult is Result.Error) {
-                    println("Creating list result error - ${creationListResult.error}")
-                    cancel()
+                    println("creationListResult error - ${creationListResult.error}")
+                    return@launch
                 }
 
                 val callTaskList = creationListResult as Result.Success
@@ -122,6 +122,7 @@ class CallScreenViewModel {
                 ) {
                     is Result.Success -> {
                         println("Contact list has been successfully transmitted to server")
+                        //TODO()
                     }
 
                     is Result.Error -> {

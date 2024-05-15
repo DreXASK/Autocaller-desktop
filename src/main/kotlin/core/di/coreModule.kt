@@ -23,7 +23,7 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import org.koin.dsl.module
-import serverScreen.domain.MessageTemplateService
+import core.domain.MessageTemplateService
 
 val coreModule = module {
     single {

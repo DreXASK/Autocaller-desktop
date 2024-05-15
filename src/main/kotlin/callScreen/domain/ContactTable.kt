@@ -34,6 +34,12 @@ class ContactTable {
         contactList.addAll(contacts)
     }
 
+    fun removeContact(indexAtList: Int) {
+        val itemToRemove = contactListFiltered[indexAtList]
+        contactList.remove(itemToRemove)
+        updateContactListFiltered()
+    }
+
     fun clearContactList() {
         contactList.clear()
     }

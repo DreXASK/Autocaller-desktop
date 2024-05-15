@@ -11,7 +11,7 @@ import serverScreen.presentation.components.serverControlPanel.tabs.messageTempl
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
-class CreateCallTaskDtoList {
+class CreateCallTaskDtoListUseCase {
 
     fun execute(
         contactList: List<ContactData>,

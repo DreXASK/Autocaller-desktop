@@ -6,6 +6,4 @@ import core.domain.utils.Result
 
 interface ContactRepository {
     suspend fun getContactList(parameter: ContactsTypes.Parameter.Get): Result<List<ContactData>, ApiError.ContactsError>
-
-    suspend fun sendContactList(parameter: ContactsTypes.Parameter.Send): Result<Unit, ApiError.ContactsError>
 }

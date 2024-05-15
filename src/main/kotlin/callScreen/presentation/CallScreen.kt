@@ -33,6 +33,7 @@ fun CallScreen() {
                 viewModel.contactTable.contactListFiltered,
                 viewModel.contactTable.filterStore,
                 contentPadding = PaddingValues(30.dp),
+                viewModel.contactTable::removeContact,
                 viewModel.contactTable::updateContactListFiltered
             )
         }

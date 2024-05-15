@@ -44,8 +44,4 @@ class ContactRepositoryLocalCSV : ContactRepository {
         }
     }
 
-    override suspend fun sendContactList(parameter: ContactsTypes.Parameter.Send): Result<Unit, ApiError.ContactsError> {
-        TODO("Not yet implemented")
-    }
-
 }

@@ -23,8 +23,8 @@ class GetFilteredContactListUseCase {
                         && isSexIsTheSame(contact.sex, filterStore.sexFilterSelector.value)
                         && (isAgeFieldsAreEmpty(filterStore)
                         || isAgeBiggerThanMinAgeAndSmallerThanMaxAge(contact.age, filterStore)
-                        || (isOnlyMinAgeIsExists(filterStore) && isAgeBiggerThanMinAge(contact.age, filterStore))
-                        || (isOnlyMaxAgeIsExists(filterStore) && isAgeSmallerThanMaxAge(contact.age, filterStore)))
+                        || (isOnlyMinAgeExists(filterStore) && isAgeBiggerThanMinAge(contact.age, filterStore))
+                        || (isOnlyMaxAgeExists(filterStore) && isAgeSmallerThanMaxAge(contact.age, filterStore)))
             }
         )
 
@@ -84,9 +84,9 @@ private fun isAgeSmallerThanMaxAge(
     return age < (filterStore.ageMaxFilterText.value.toIntOrNull() ?: Int.MAX_VALUE)
 }
 
-private fun isOnlyMaxAgeIsExists(filterStore: ContactTableFilterStore): Boolean =
+private fun isOnlyMaxAgeExists(filterStore: ContactTableFilterStore): Boolean =
     filterStore.ageMinFilterText.value.isEmpty() && filterStore.ageMaxFilterText.value.isNotEmpty()
 
 
-private fun isOnlyMinAgeIsExists(filterStore: ContactTableFilterStore): Boolean =
+private fun isOnlyMinAgeExists(filterStore: ContactTableFilterStore): Boolean =
     filterStore.ageMinFilterText.value.isNotEmpty() && filterStore.ageMaxFilterText.value.isEmpty()

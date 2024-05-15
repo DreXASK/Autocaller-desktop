@@ -1,4 +1,4 @@
-package serverScreen.domain
+package core.domain
 
 import androidx.compose.runtime.mutableStateListOf
 import core.data.repository.messageTemplates.MessageTemplateParameterGetRemote

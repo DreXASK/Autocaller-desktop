@@ -6,7 +6,7 @@ import callScreen.domain.ContactTable
 import callScreen.domain.usecase.GetContactListUseCase
 import callScreen.presentation.components.contactTable.ContactTableFilterStore
 import callScreen.domain.repository.contacts.ContactRepository
-import callScreen.domain.usecase.CreateCallTaskDtoList
+import callScreen.domain.usecase.CreateCallTaskDtoListUseCase
 import callScreen.domain.usecase.GetFilteredContactListUseCase
 import core.domain.usecase.callTasks.SendCallTaskDtoListUseCase
 import org.koin.dsl.module
@@ -24,7 +24,7 @@ val callScreenModule = module {
         GetContactListUseCase(contactRepository = get(named(Qualifiers.FileTypes.CSV)))
     }
     single {
-        CreateCallTaskDtoList()
+        CreateCallTaskDtoListUseCase()
     }
     single {
         GetFilteredContactListUseCase()

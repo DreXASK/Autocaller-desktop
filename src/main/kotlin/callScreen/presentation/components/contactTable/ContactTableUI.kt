@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -17,6 +18,7 @@ fun ContactTableUI(
     contactList: SnapshotStateList<ContactData>,
     filterStore: ContactTableFilterStore,
     contentPadding: PaddingValues,
+	onButtonClicked: (index: Int) -> Unit,
     onFilterValueChanged: () -> Unit
 ) {
 	LazyColumn(
@@ -32,8 +34,8 @@ fun ContactTableUI(
 			)
 			Divider()
 		}
-		items(contactList) {
-			ContactTableItem(it)
+		itemsIndexed(contactList) { index, item ->
+			ContactTableItem(index = index, itemData = item, buttonCallBack = onButtonClicked)
 		}
 	}
 }

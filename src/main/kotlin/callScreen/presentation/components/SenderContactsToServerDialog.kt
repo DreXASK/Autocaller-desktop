@@ -13,10 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import callScreen.presentation.CallScreenViewModel
 import core.domain.models.MessageTemplateData
-import core.domain.models.MessageTemplatePlaceholders
 import core.presentation.components.MessageTemplatePlaceholdersUi
-import org.koin.java.KoinJavaComponent.inject
-import serverScreen.domain.MessageTemplateService
 
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
@@ -115,7 +112,6 @@ fun SenderContactsToServerDialog(
                             buttonCallback(it)
                             onDismissRequest()
                         }
-
                     },
                     modifier = Modifier.padding(top = 5.dp)
                 ) {
