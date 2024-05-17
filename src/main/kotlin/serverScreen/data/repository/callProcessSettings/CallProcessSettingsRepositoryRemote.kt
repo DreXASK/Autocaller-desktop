@@ -11,7 +11,7 @@ import serverScreen.domain.repository.callProcessSettings.CallProcessSettingsDto
 import serverScreen.domain.repository.callProcessSettings.CallProcessSettingsRepository
 import serverScreen.domain.repository.callProcessSettings.CallProcessSettingsTypes
 
-class CallProcessSettingsRepositoryRemote(private val httpClient: HttpClient): CallProcessSettingsRepository {
+    class CallProcessSettingsRepositoryRemote(private val httpClient: HttpClient): CallProcessSettingsRepository {
 
     override suspend fun getCallProcessSettings(parameter: CallProcessSettingsTypes.Parameter.Get): Result<CallProcessSettingsDto, ApiError.CallProcessSettings> {
         return try {

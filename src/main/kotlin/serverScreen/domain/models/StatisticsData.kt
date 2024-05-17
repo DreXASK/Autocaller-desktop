@@ -4,9 +4,9 @@ import java.time.LocalDate
 import java.util.*
 
 data class StatisticsData(
-    var totalCalls: Int,
-    var totalSuccessCalls: Int,
-    var totalSms: Int,
+    val totalCalls: Int,
+    val totalSuccessCalls: Int,
+    val totalSms: Int,
     val averageCallsToSuccess: Float,
     val percentOfSms: Float,
     val callsByDate: SortedMap<LocalDate, Double>,
