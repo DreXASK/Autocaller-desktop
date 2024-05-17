@@ -260,7 +260,6 @@ class ServerScreenViewModel {
     }
 
     suspend fun sendCallProcessSettingsToServer(): Boolean {
-
         val settingsData = callProcessSettingsService.getSettingsData()
             if(settingsData == null) {
                 println("sendCallProcessSettingsToServer  error - CallProcessSettingsData is null")
@@ -293,4 +292,3 @@ class ServerScreenViewModel {
     }
 
 }
-

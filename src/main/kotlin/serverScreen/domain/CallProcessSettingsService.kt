@@ -36,7 +36,6 @@ class CallProcessSettingsService {
     }
 
     fun getSettingsData(): CallProcessSettingsData? {
-
         val timeFrom = timeFrom.value
         val timeTo = timeTo.value
 
@@ -48,6 +47,5 @@ class CallProcessSettingsService {
             timeTo = timeTo
         )
     }
-
 
 }
