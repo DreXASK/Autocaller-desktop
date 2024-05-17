@@ -32,7 +32,7 @@ fun MessageTemplateWindow() {
     }
 
     var dropdownMenuSelected: MessageTemplateData? by remember { mutableStateOf(null) }
-    var dropdownMenuExpanded by remember { mutableStateOf(false) }
+    var isDropdownMenuExpanded by remember { mutableStateOf(false) }
 
     val stateFields by remember { inject<MessageTemplateStateFields>(MessageTemplateStateFields::class.java) }
     var templateText by remember { stateFields.templateText }
@@ -60,8 +60,8 @@ fun MessageTemplateWindow() {
             }
 
             ExposedDropdownMenuBox(
-                expanded = dropdownMenuExpanded,
-                onExpandedChange = { dropdownMenuExpanded = !dropdownMenuExpanded },
+                expanded = isDropdownMenuExpanded,
+                onExpandedChange = { isDropdownMenuExpanded = !isDropdownMenuExpanded },
                 modifier = Modifier.weight(1f)
             ) {
 
@@ -73,17 +73,17 @@ fun MessageTemplateWindow() {
                     readOnly = true,
                     singleLine = true,
                     placeholder = { Text("Выберите шаблон") },
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownMenuExpanded) }
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isDropdownMenuExpanded) }
                 )
 
                 ExposedDropdownMenu(
-                    expanded = dropdownMenuExpanded,
-                    onDismissRequest = { dropdownMenuExpanded = false }
+                    expanded = isDropdownMenuExpanded,
+                    onDismissRequest = { isDropdownMenuExpanded = false }
                 ) {
                     viewModel.messageTemplateService.messageTemplateList.forEach { messageTemplate ->
                         DropdownMenuItem(
                             onClick = {
-                                dropdownMenuExpanded = !dropdownMenuExpanded
+                                isDropdownMenuExpanded = !isDropdownMenuExpanded
                                 dropdownMenuSelected = messageTemplate
                                 templateText = messageTemplate.text
                                 templatePlaceholders = messageTemplate.placeholders

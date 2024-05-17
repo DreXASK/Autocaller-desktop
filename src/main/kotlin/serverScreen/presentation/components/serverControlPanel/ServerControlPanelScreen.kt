@@ -10,7 +10,7 @@ import serverScreen.presentation.components.serverControlPanel.tabs.callProcessS
 import serverScreen.presentation.components.serverControlPanel.tabs.completedTasksWindow.CompletedTasksWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.messageTemplatesWindow.MessageTemplateWindow
 import serverScreen.presentation.components.serverControlPanel.tabs.statisticsWindow.StatisticsWindow
-import serverScreen.presentation.components.serverControlPanel.tabs.callTasksWindow.TasksWindow
+import serverScreen.presentation.components.serverControlPanel.tabs.callTasksWindow.CallTasksWindow
 
 @Preview
 @Composable
@@ -20,7 +20,7 @@ fun ServerControlPanelScreen() {
 	when(viewModel.serverControlPanel.windowToDisplay.value) {
 		ServerControlPanelWindows.TABS -> MainTabsWindow()
 		ServerControlPanelWindows.CONNECTION_INFO -> ConnectionInfoWindow()
-		ServerControlPanelWindows.TASKS -> TasksWindow()
+		ServerControlPanelWindows.TASKS -> CallTasksWindow()
 		ServerControlPanelWindows.DONE_TASKS -> CompletedTasksWindow()
 		ServerControlPanelWindows.MESSAGE_TEMPLATES -> MessageTemplateWindow()
 		ServerControlPanelWindows.STATISTICS -> StatisticsWindow()

@@ -23,7 +23,7 @@ import serverScreen.presentation.components.serverControlPanel.tabs.callTasksWin
 
 @Preview
 @Composable
-fun TasksWindow() {
+fun CallTasksWindow() {
     val viewModel by inject<ServerScreenViewModel>(ServerScreenViewModel::class.java)
 
     LaunchedEffect(Unit) {
