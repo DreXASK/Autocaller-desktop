@@ -27,6 +27,6 @@ fun CompletedTasksTableHeader() {
         VerticalDivider()
         Text("SMS", Modifier.weight(0.8f), textAlign = TextAlign.Center)
         VerticalDivider()
-        Text("Завершено", Modifier.weight(1.5f), textAlign = TextAlign.Center)
+        Text("Время завершения", Modifier.weight(1.5f), textAlign = TextAlign.Center)
     }
 }

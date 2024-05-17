@@ -72,7 +72,7 @@ fun MainTabsWindow() {
             Modifier.fillMaxWidth()
         ) {
             Text(
-                "Панель управления сервером",
+                "Панель управления",
                 modifier = Modifier.align(Alignment.Center),
                 fontSize = 25.sp
             )
