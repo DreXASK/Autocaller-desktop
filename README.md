@@ -10,7 +10,6 @@
 - Coroutines
 - Koin
 - Ktor (client)
-- Exposed
 - AAY-chart
 - LGoodDatePicker
 
