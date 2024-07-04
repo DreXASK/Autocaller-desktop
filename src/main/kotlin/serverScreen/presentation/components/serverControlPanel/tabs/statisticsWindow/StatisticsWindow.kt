@@ -219,6 +219,10 @@ fun StatisticsWindow() {
 
                     statisticsData?.let { statisticsData ->
 
+                        if(statisticsData.totalCalls <= 0 || statisticsData.totalSms <= 0) {
+                            return@let
+                        }
+
                         val testPieChartData: List<PieChartData> = listOf(
                             PieChartData(
                                 partName = "Звонки",
@@ -255,6 +259,10 @@ fun StatisticsWindow() {
                 ) {
 
                     statisticsData?.let { statisticsData ->
+
+                        if(statisticsData.totalCalls <= 0 || statisticsData.totalSuccessCalls <= 0) {
+                            return@let
+                        }
 
                         val testPieChartData: List<PieChartData> = listOf(
                             PieChartData(
