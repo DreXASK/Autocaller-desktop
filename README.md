@@ -15,6 +15,7 @@
 
 ## Pictures (All data is generated, no actual person was depicted)
 <p align="center">
+  <img src="https://i.ibb.co/HxZD4Rw/6.png"/>
   <img src="https://i.ibb.co/VYhJnsZ/1.png"/>
   <img src="https://i.ibb.co/6ZKH2KR/2.png"/>
   <img src="https://i.ibb.co/cFw1S8m/3.png"/>
