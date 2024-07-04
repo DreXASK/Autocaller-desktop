@@ -12,6 +12,7 @@
 - Ktor (client)
 - AAY-chart
 - LGoodDatePicker
+- KotlinX Serialization
 
 ## Pictures (All data is generated, no actual person was depicted)
 <p align="center">
